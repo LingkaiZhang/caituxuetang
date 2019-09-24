@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/edit_first"
+            style="@style/sms_message_ver" />
+
+        <EditText
+            android:id="@+id/edit_second"
+            style="@style/sms_message_ver" />
+
+        <EditText
+            android:id="@+id/edit_third"
+            style="@style/sms_message_ver" />
+
+        <EditText
+            android:id="@+id/edit_fourth"
+            style="@style/sms_message_ver"/>
+
+        <EditText
+            android:id="@+id/edit_five"
+            style="@style/sms_message_ver" />
+
+        <EditText
+            android:id="@+id/edit_six"
+            style="@style/sms_message_ver" />
+    </LinearLayout>
+</RelativeLayout>

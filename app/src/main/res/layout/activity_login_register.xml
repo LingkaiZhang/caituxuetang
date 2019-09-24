@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    tools:context=".loginRegister.LoginRegisterActivity">
+
+    <com.next.easytitlebar.view.EasyTitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/tvInputPhoneNo"
+        app:layout_constraintTop_toBottomOf="@id/titleBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="@dimen/login_left_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请输入您的手机号"
+        android:textSize="@dimen/login_big_text_20"
+        android:textStyle="bold"
+        android:textColor="@color/login_text_color_4a"/>
+
+    <TextView
+        android:id="@+id/tvDes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tvInputPhoneNo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="30dp"
+        android:text="为了方便进行联系，请输入您的常用手机号"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/login_text_color_9b"
+        android:textSize="@dimen/login_text_14"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_phone_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvDes"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="@dimen/login_left_margin"
+        >
+
+        <top.androidman.SuperButton
+            android:id="@+id/btn_area_mark"
+            android:layout_width="60dp"
+            android:layout_height="27dp"
+            app:color_normal="@color/color_accent"
+            app:corner="5dp"
+            app:text="+86"
+            app:textColor="@color/color_text_gray"
+            app:textSize="14sp"/>
+
+        <com.yuanin.fuliclub.view.ClearEditText
+            android:layout_toRightOf="@+id/btn_area_mark"
+            android:id="@+id/etPhone"
+            android:layout_width="220dp"
+            android:layout_height="27dp"
+            android:layout_marginLeft="20dp"
+            android:background="@null"
+            android:hint="@string/plase_input_phone"
+            style="@style/phoneEditText"
+            android:textColor="#1d1e1f"
+            android:textColorHint="@color/color_gray_cc"
+            android:textSize="18sp"/>
+        
+        <View
+            android:layout_below="@+id/btn_area_mark"
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/color_gray_cc"/>
+
+    </RelativeLayout>
+
+
+    <top.androidman.SuperButton
+        android:id="@+id/btn_next_step"
+        app:layout_constraintTop_toBottomOf="@id/rl_phone_input"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="205dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="66dp"
+        app:button_click_able="false"
+        app:color_normal="@color/btn_unable_click_gray"
+        app:corner="20dp"
+        app:text="@string/next_step"
+        app:textColor="@color/white"
+        app:textSize="17sp"/>
+
+    <LinearLayout
+        android:id="@+id/tvDes_2"
+        app:layout_constraintTop_toBottomOf="@id/btn_next_step"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <View
+            android:layout_width="60dp"
+            android:layout_height="1dp"
+            android:background="@color/color_gray_ccc"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="其他登录方式"
+            android:textSize="14sp"
+            android:textColor="@color/color_gray_ccc"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
+
+        <View
+            android:layout_width="60dp"
+            android:layout_height="1dp"
+            android:background="@color/color_gray_ccc"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/imBtnWeixin"
+        app:layout_constraintTop_toBottomOf="@id/tvDes_2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="微信"
+        android:textSize="16sp"
+        android:textColor="@color/text_color_64"
+        android:drawablePadding="5dp"
+        android:drawableTop="@drawable/weixin"/>
+
+
+</android.support.constraint.ConstraintLayout>

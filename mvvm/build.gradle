@@ -1,0 +1,39 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion Integer.valueOf(compile_sdk_version)
+    defaultConfig {
+        minSdkVersion Integer.valueOf(min_sdk_version)
+        targetSdkVersion Integer.valueOf(target_sdk_version)
+        versionCode Integer.valueOf(version_code)
+        versionName version_name
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation 'junit:junit:4.13-beta-3'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    api project(':basiccomponent:library')
+
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    //    okhttp,sniffer packet  抓包通知栏显示请求插件
+    debugApi 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseApi 'com.readystatesoftware.chuck:library-no-op:1.1.0'
+}
