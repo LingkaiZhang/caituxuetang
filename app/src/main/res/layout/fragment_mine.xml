@@ -4,28 +4,157 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/bg">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="登录"
-        android:textSize="14sp"
+    <RelativeLayout
+        android:id="@+id/rl_mine_header"
+        android:layout_width="match_parent"
+        android:layout_height="124dp"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/left_margin"
+        android:paddingRight="@dimen/left_margin"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_user_header"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:src="@mipmap/avatar" />
+
+        <ImageView
+            android:id="@+id/ivMessage"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="35dp"
+            android:src="@mipmap/combined_nation" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_toRightOf="@+id/iv_user_header"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="赚钱小牛牛"
+                android:textColor="#4a4a4a"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvUserNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="学号：99004786"
+                android:textColor="#9b9b9b"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvGoLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:layout_toRightOf="@+id/iv_user_header"
+            android:gravity="center_vertical"
+            android:text="登录/注册"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_mine_account"
+        style="@style/mine_item_style"
+        android:layout_marginTop="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/rl_mine_header">
 
+        <ImageView
+            style="@style/mine_item_right_arrow"
+            android:src="@mipmap/arrow_right" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="登录2"
-        android:textSize="14sp"
+        <TextView
+            style="@style/mine_item_name"
+            android:drawableLeft="@mipmap/mine_account"
+            android:text="我的账户" />
+
+        <View style="@style/mine_item_line" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_mine_order"
+        style="@style/mine_item_style"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button"
-        />
+        app:layout_constraintTop_toBottomOf="@id/rl_mine_account">
+
+        <ImageView
+            style="@style/mine_item_right_arrow"
+            android:src="@mipmap/arrow_right" />
+
+        <TextView
+            style="@style/mine_item_name"
+            android:drawableLeft="@mipmap/mine_order"
+            android:text="我的订单" />
+
+        <View style="@style/mine_item_line" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_mine_news"
+        style="@style/mine_item_style"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_mine_order">
+
+        <ImageView
+            style="@style/mine_item_right_arrow"
+            android:src="@mipmap/arrow_right" />
+
+        <TextView
+            style="@style/mine_item_name"
+            android:drawableLeft="@mipmap/mine_news"
+            android:text="意见反馈" />
+
+        <View style="@style/mine_item_line" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_mine_about"
+        style="@style/mine_item_style"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_mine_news">
+
+        <ImageView
+            style="@style/mine_item_right_arrow"
+            android:src="@mipmap/arrow_right" />
+
+        <TextView
+            style="@style/mine_item_name"
+            android:drawableLeft="@mipmap/mine_about"
+            android:text="关于我们" />
+
+    </RelativeLayout>
+
+
 </android.support.constraint.ConstraintLayout>

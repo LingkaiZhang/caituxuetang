@@ -23,10 +23,6 @@ import butterknife.Unbinder;
  */
 public class MineFragment extends BaseFragment {
 
-    @BindView(R.id.button)
-    Button button;
-    @BindView(R.id.button2)
-    Button button2;
     Unbinder unbinder;
 
     public static MineFragment newInstance() {
@@ -45,8 +41,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public void initView(Bundle state) {
-        button.setOnClickListener(v -> startActivity(new Intent(getActivity(), LoginRegisterActivity.class)));
-        button2.setOnClickListener(v -> startActivity(new Intent(getActivity(), LoginActivity.class)));
+
     }
 
     @Override

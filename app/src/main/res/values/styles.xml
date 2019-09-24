@@ -28,4 +28,35 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="mine_item_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:paddingLeft">@dimen/left_margin</item>
+        <item name="android:paddingRight">@dimen/left_margin</item>
+    </style>
+
+    <style name="mine_item_name">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/color_333333</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="mine_item_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginLeft">@dimen/left_margin</item>
+        <item name="android:layout_marginRight">@dimen/left_margin</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+
+    <style name="mine_item_right_arrow">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
 </resources>

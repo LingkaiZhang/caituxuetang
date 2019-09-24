@@ -33,6 +33,7 @@
     <color name="text_color_64">#646464</color>
     <color name="color_orang_f4">#f47903</color>
     <color name="color_gray_888">#888888</color>
+    <color name="bg">#f7f7f7</color>
 
 
 </resources>

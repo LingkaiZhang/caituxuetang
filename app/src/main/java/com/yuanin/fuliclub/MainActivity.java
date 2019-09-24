@@ -26,11 +26,11 @@ public class MainActivity extends BaseActivity {
 
     private long TIME_DIFF = 2 * 1000;
 
-    private String[] tabText = {"首页", "课程", "已购", "我的"};
+    private String[] tabText = {"首页", "学习", "我的"};
     //未选中icon
-    private int[] normalIcon = {R.mipmap.home_gray, R.mipmap.curriculum_gray, R.mipmap.consultation_gray, R.mipmap.mine_gray};
+    private int[] normalIcon = {R.mipmap.tab_home_gray, R.mipmap.tab_study_gray, R.mipmap.tab_my_gray};
     //选中时icon
-    private int[] selectIcon = {R.mipmap.home, R.mipmap.curriculum, R.mipmap.consultation, R.mipmap.mine};
+    private int[] selectIcon = {R.mipmap.tab_home,R.mipmap.tab_study, R.mipmap.tab_my};
 
     private List<android.support.v4.app.Fragment> fragments = new ArrayList<>();
 
@@ -54,7 +54,6 @@ public class MainActivity extends BaseActivity {
     private void initNavBar() {
         EasyNavigitionBar navigitionBar = findViewById(R.id.mNavigitionBar);
         fragments.add(HomeFragment.newInstance());
-        fragments.add(CourseFragment.newInstance());
         fragments.add(BuyedFragment.newInstance());
         fragments.add(MineFragment.newInstance());
 
