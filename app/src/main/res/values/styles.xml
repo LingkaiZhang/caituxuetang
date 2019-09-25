@@ -33,6 +33,7 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:paddingLeft">@dimen/left_margin</item>
         <item name="android:paddingRight">@dimen/left_margin</item>
+        <item name="android:background">@color/white</item>
     </style>
 
     <style name="mine_item_name">
@@ -47,9 +48,8 @@
     <style name="mine_item_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:layout_marginLeft">@dimen/left_margin</item>
-        <item name="android:layout_marginRight">@dimen/left_margin</item>
         <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">@color/bg</item>
     </style>
 
     <style name="mine_item_right_arrow">

@@ -5,4 +5,5 @@
     <dimen name="login_text_14">14sp</dimen>
     <dimen name="button_normal_height">44dp</dimen>
     <dimen name="left_margin">15dp</dimen>
+    <dimen name="mine_item_radius">16dp</dimen>
 </resources>

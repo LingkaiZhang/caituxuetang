@@ -10,7 +10,7 @@
         android:id="@+id/rl_mine_header"
         android:layout_width="match_parent"
         android:layout_height="124dp"
-        android:background="@color/white"
+        android:background="@drawable/shape_mine_item_bg_2"
         android:paddingLeft="@dimen/left_margin"
         android:paddingRight="@dimen/left_margin"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,7 +29,7 @@
             android:layout_height="24dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="35dp"
+            android:layout_marginBottom="32dp"
             android:src="@mipmap/combined_nation" />
 
         <LinearLayout
@@ -41,7 +41,8 @@
             android:layout_marginBottom="20dp"
             android:layout_toRightOf="@+id/iv_user_header"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tvUserName"
@@ -74,16 +75,18 @@
             android:text="登录/注册"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:visibility="gone" />
+            />
     </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@+id/rl_mine_account"
         style="@style/mine_item_style"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="14dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rl_mine_header">
+        app:layout_constraintTop_toBottomOf="@id/rl_mine_header"
+        android:background="@drawable/shape_mine_item_bg">
 
         <ImageView
             style="@style/mine_item_right_arrow"
@@ -143,7 +146,8 @@
         style="@style/mine_item_style"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rl_mine_news">
+        app:layout_constraintTop_toBottomOf="@id/rl_mine_news"
+        android:background="@drawable/shape_mine_item_bg_2">
 
         <ImageView
             style="@style/mine_item_right_arrow"

@@ -22,7 +22,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
 
             <!--
             <intent-filter>
@@ -41,10 +42,13 @@
             android:name=".loginRegister.LoginRegisterActivity"
             android:label="登录/注册"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".loginRegister.LoginActivity"
             android:label="登录/注册"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".minePart.MyAccountActivity"
+            android:label="我的账户"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".loginRegister.SmsMessageVerActivity"
@@ -55,6 +59,8 @@
             android:label=""
             android:screenOrientation="portrait" />
     </application>
+
+
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -68,15 +74,15 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission
         android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Optional for location -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+        tools:ignore="ProtectedPermissions" /> <!-- Optional for location -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> <!-- 调用安装包权限 -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 调用安装包权限 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
