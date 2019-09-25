@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.mvvm.base.BaseFragment;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
+import com.yuanin.fuliclub.minePart.FeedBackActivity;
 import com.yuanin.fuliclub.minePart.MyAccountActivity;
 
 import butterknife.BindView;
@@ -102,6 +103,7 @@ public class MineFragment extends BaseFragment {
             case R.id.rl_mine_order:
                 break;
             case R.id.rl_mine_news:
+                startActivity(new Intent(getActivity(), FeedBackActivity.class));
                 break;
             case R.id.rl_mine_about:
                 break;

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/bg"
+    tools:context=".minePart.FeedBackActivity">
+
+    <com.next.easytitlebar.view.EasyTitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/tvFeedBackContent"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        app:layout_constraintTop_toBottomOf="@id/titleBar"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/shape_mine_item_bg"
+        android:textColorHint="#BABABA"
+        android:gravity="top"
+        android:hint="请输入详细问题，且等老师解答,解答会有小伙伴偷看呦"/>
+
+    <TextView
+        android:id="@+id/tvWordNumber"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="0/200字"
+        app:layout_constraintTop_toBottomOf="@id/tvFeedBackContent"
+        android:background="@drawable/shape_mine_item_bg_2"
+        android:gravity="center_vertical|right"
+        android:paddingRight="50dp"
+        android:textColor="@color/login_text_color_9b"/>
+
+
+    <top.androidman.SuperButton
+        android:id="@+id/btnSubmitFeedback"
+        app:layout_constraintTop_toBottomOf="@id/tvWordNumber"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="310dp"
+        android:layout_height="@dimen/button_normal_height"
+        android:layout_marginTop="30dp"
+        app:button_click_able="false"
+        app:color_normal="@color/btn_unable_click_gray"
+        app:corner="20dp"
+        app:text="提交反馈"
+        app:textColor="@color/white"
+        app:textSize="17sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="您也可以通过关注微信公众号： 财兔学堂人工客服： 联系我们"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center"
+        android:textColor="@color/color_999999"
+        android:layout_marginBottom="50dp"/>
+
+</android.support.constraint.ConstraintLayout>
