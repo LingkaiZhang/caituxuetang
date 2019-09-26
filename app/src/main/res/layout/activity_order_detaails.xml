@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/bg"
+    tools:context=".minePart.OrderDetaailsActivity">
+
+    <com.next.easytitlebar.view.EasyTitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_order_heaer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/titleBar"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_radua_bg">
+
+        <ImageView
+            android:id="@+id/ivOrderIMG"
+            android:layout_width="68dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/order_details_def"/>
+
+        <TextView
+            android:id="@+id/tvOrderName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已购课程名称"
+            android:textSize="18sp"
+            android:textColor="@color/color_333333"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/ivOrderIMG"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tvOrderPrice"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:text="已支付： 6元"
+            android:textColor="@color/theme_color"
+            android:layout_toRightOf="@id/ivOrderIMG"
+            android:layout_marginTop="60dp"
+            android:gravity="center"
+            android:background="@drawable/shape_order_price_bg"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/rl_order_heaer"
+        android:background="@drawable/shape_radua_bg"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:layout_marginTop="15dp">
+
+        <RelativeLayout style="@style/order_details_item">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商品名称"
+                android:textColor="#555555"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已购商品名称"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/color_999999"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/order_details_item">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单编号"
+                android:textColor="#555555"/>
+
+            <TextView
+                android:id="@+id/tvOrderNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cd8903894ngVnjS93287490"
+                android:layout_toLeftOf="@id/line"
+                android:textColor="@color/color_999999"
+                android:layout_marginRight="8dp"/>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="1dp"
+                android:layout_height="14dp"
+                android:background="@color/color_999999"
+                android:layout_toLeftOf="@id/tvCopy"
+                android:layout_marginTop="3dp"/>
+
+            <TextView
+                android:id="@+id/tvCopy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="复制"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/theme_color"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/order_details_item">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单类型"
+                android:textColor="#555555"/>
+
+            <TextView
+                android:id="@+id/tvOrderType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单类型"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/color_999999"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/order_details_item">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下单时间"
+                android:textColor="#555555"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2019-08-09 55:09"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/color_999999"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/order_details_item">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支付方式"
+                android:textColor="#555555"/>
+
+            <TextView
+                android:id="@+id/tvPayType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支付方式"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/color_999999"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/order_details_item">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单状态"
+                android:textColor="#555555"/>
+
+            <TextView
+                android:id="@+id/tvOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已支付"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/color_999999"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

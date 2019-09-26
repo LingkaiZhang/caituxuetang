@@ -14,6 +14,7 @@ import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.minePart.FeedBackActivity;
 import com.yuanin.fuliclub.minePart.MyAccountActivity;
+import com.yuanin.fuliclub.minePart.OrderDetaailsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,6 +102,8 @@ public class MineFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), MyAccountActivity.class));
                 break;
             case R.id.rl_mine_order:
+                //订单详情
+                startActivity(new Intent(getActivity(), OrderDetaailsActivity.class));
                 break;
             case R.id.rl_mine_news:
                 startActivity(new Intent(getActivity(), FeedBackActivity.class));
