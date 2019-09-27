@@ -1,12 +1,15 @@
 package com.yuanin.fuliclub.minePart;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.adapter.adapter.DelegateAdapter;
 import com.adapter.adapter.ItemData;
+import com.adapter.listener.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.mvvm.base.AbsLifecycleActivity;
 import com.next.easytitlebar.view.EasyTitleBar;
@@ -23,7 +26,7 @@ import java.util.Collection;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> implements RefreshHelper.OnHelperRefreshListener, RefreshHelper.OnHelperLoadMoreListener {
+public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> implements RefreshHelper.OnHelperRefreshListener, RefreshHelper.OnHelperLoadMoreListener, OnItemClickListener {
 
     @BindView(R.id.titleBar)
     EasyTitleBar titleBar;
@@ -122,7 +125,7 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
     }
 
     private DelegateAdapter createAdapter() {
-        return AdapterPool.newInstance().getMyMessageAdapter(activity).build();
+        return AdapterPool.newInstance().getMyMessageAdapter(activity).setOnItemClickListener(this).build();
     }
 
     @Override
@@ -142,6 +145,7 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
 
     }
 
+
     private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -157,4 +161,15 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
             }
         }
     };
+
+    @Override
+    public void onItemClick(View view, int position, Object object) {
+        if (object != null) {
+            if (object instanceof MyMessageVo) {
+//                Intent intent = new Intent(activity, VideoDetailsActivity.class);
+//                intent.putExtra(Constants.COURSE_ID, ((CourseInfoVo) object).courseid);
+//                activity.startActivity(intent);
+            }
+        }
+    }
 }
