@@ -14,6 +14,7 @@ import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.minePart.FeedBackActivity;
 import com.yuanin.fuliclub.minePart.MyAccountActivity;
+import com.yuanin.fuliclub.minePart.MyMessageActivity;
 import com.yuanin.fuliclub.minePart.OrderDetaailsActivity;
 
 import butterknife.BindView;
@@ -94,6 +95,7 @@ public class MineFragment extends BaseFragment {
             case R.id.iv_user_header:
                 break;
             case R.id.ivMessage:
+                startActivity(new Intent(getActivity(), MyMessageActivity.class));
                 break;
             case R.id.tvGoLogin:
                 startActivity(new Intent(getActivity(), LoginActivity.class));

@@ -36,7 +36,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getScreenMode() {
-        return 1;
+        return 0;
     }
 
     @Override

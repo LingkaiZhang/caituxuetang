@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="151dp"
+    android:background="@drawable/shape_radua_bg"
+    android:layout_marginTop="15dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <TextView
+        android:id="@+id/tvMessageTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="消息题目"
+        android:textSize="16sp"
+        android:textColor="@color/color_666666"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"/>
+    
+    <TextView
+        android:id="@+id/tvMessageTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="2019-09-09 11:56"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/tvMessageTitle"
+        />
+
+    <TextView
+        android:id="@+id/tvMessageAbstract"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="《小白理财训练营》第七课解锁， 快来训练吧！"
+        app:layout_constraintTop_toBottomOf="@id/tvMessageTime"
+        android:textColor="#777777"
+        android:textSize="14dp"
+        android:layout_marginTop="20dp"/>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#979797"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@id/tvMessageAbstract"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toBottomOf="@id/line"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查看详情"
+            android:textColor="#ff8e39"
+            android:textSize="15sp"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="16dp"
+            android:src="@mipmap/arrow_right"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+
+
+
+
+
+</android.support.constraint.ConstraintLayout>
