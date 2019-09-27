@@ -8,7 +8,7 @@
         android:id="@+id/bannerImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="25dp"
         app:cardCornerRadius="8dp">
 
         <android.support.v4.view.ViewPager
@@ -22,8 +22,8 @@
     <LinearLayout
         android:id="@+id/layout_banner_points_group"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_below="@id/bannerImage"
+        android:layout_height="25dp"
+        android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"

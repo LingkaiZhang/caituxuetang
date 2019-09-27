@@ -2,8 +2,9 @@
 <com.yuanin.fuliclub.homePart.itemView.BannerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/banner"
     android:layout_width="match_parent"
-    android:layout_marginTop="@dimen/left_margin"
+    android:paddingTop="@dimen/left_margin"
     android:paddingLeft="@dimen/left_margin"
     android:paddingRight="15dp"
     android:focusable="false"
-    android:layout_height="170dp" />
+    android:layout_height="190dp"
+    android:background="@color/white"/>

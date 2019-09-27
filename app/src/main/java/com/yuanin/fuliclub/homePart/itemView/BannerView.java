@@ -116,7 +116,7 @@ public class BannerView extends RelativeLayout {
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     DisplayUtil.dp2px(getContext(), 5),
                     DisplayUtil.dp2px(getContext(), 5));
-            params.leftMargin = 10;
+            params.leftMargin = 20;
             dot.setLayoutParams(params);
             dot.setEnabled(false);
             points.addView(dot);
