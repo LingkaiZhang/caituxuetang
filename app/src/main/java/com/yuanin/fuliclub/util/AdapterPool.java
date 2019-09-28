@@ -4,10 +4,14 @@ import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 
 import com.adapter.adapter.DelegateAdapter;
+import com.yuanin.fuliclub.coursePart.CourseInfoVo;
+import com.yuanin.fuliclub.coursePart.CourseItemHolder;
 import com.yuanin.fuliclub.homePart.banner.BannerListVo;
+import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.CategoryVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.homePart.itemView.BannerItemView;
+import com.yuanin.fuliclub.homePart.itemView.BottomBackgroundItemView;
 import com.yuanin.fuliclub.homePart.itemView.CategoryItemView;
 import com.yuanin.fuliclub.homePart.itemView.TypeItemView;
 import com.yuanin.fuliclub.minePart.MyMessageListHolder;
@@ -44,9 +48,8 @@ public class AdapterPool {
                 .bind(BannerListVo.class, new BannerItemView(context))
                 .bind(TypeVo.class, new TypeItemView(context))
                 .bind(CategoryVo.class, new CategoryItemView(context))
-//                .bind(BookList.class, new BookItemHolder(context))
-//                .bind(CourseInfoVo.class, new CourseItemHolder(context))
-//                .bind(LiveRecommendVo.class, new HomeLiveItemView(context))
+                .bind(CourseInfoVo.class, new CourseItemHolder(context))
+                .bind(BottomBackgroundVo.class, new BottomBackgroundItemView(context))
 //                .bind(MatreialSubjectVo.class, new HomeMaterialItemView(context))
                  ;
     }

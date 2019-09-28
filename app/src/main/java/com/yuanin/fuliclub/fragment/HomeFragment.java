@@ -1,6 +1,7 @@
 package com.yuanin.fuliclub.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
@@ -10,10 +11,12 @@ import com.adapter.listener.OnItemClickListener;
 import com.mvvm.base.BaseFragment;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.BaseListFragment;
+import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.homePart.HomeRepository;
 import com.yuanin.fuliclub.homePart.HomeViewModel;
 import com.yuanin.fuliclub.homePart.banner.BannerListVo;
 import com.yuanin.fuliclub.homePart.banner.BannerVo;
+import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.CategoryVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.homePart.itemView.BannerView;
@@ -59,7 +62,7 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
 
     @Override
     protected RecyclerView.LayoutManager createLayoutManager() {
-        return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        return new LinearLayoutManager(getActivity());
     }
 
     @Override
@@ -95,6 +98,16 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
         mItems.add(new BannerListVo(data));
         mItems.add(new CategoryVo("title"));
         mItems.add(new TypeVo("小白入门"));
+        mItems.add(new CourseInfoVo());
+        mItems.add(new CourseInfoVo());
+        mItems.add(new CourseInfoVo());
+        mItems.add(new BottomBackgroundVo());
+
+        mItems.add(new TypeVo("进阶学习"));
+        mItems.add(new CourseInfoVo());
+        mItems.add(new CourseInfoVo());
+        mItems.add(new CourseInfoVo());
+        mItems.add(new BottomBackgroundVo());
 
         setData();
     }

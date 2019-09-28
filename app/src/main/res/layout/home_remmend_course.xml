@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/ivItemCourseImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/item_course"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/ivItemCourseName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="课程名称"
+        android:textSize="14sp"
+        android:textColor="@color/color_333333"
+        app:layout_constraintLeft_toRightOf="@id/ivItemCourseImage"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="13dp"/>
+
+    <TextView
+        android:id="@+id/tvItemCourseSlogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="改变思维，从现在开始"
+        android:textSize="12sp"
+        android:textColor="@color/login_text_color_9b"
+        app:layout_constraintLeft_toRightOf="@id/ivItemCourseImage"
+        app:layout_constraintTop_toBottomOf="@id/ivItemCourseName"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/tvItemCourseGrade"
+        android:layout_width="37dp"
+        android:layout_height="19dp"
+        android:text="入门"
+        android:gravity="center"
+        android:textSize="11sp"
+        android:textColor="#ff6500"
+        app:layout_constraintLeft_toRightOf="@id/ivItemCourseImage"
+        app:layout_constraintTop_toBottomOf="@id/tvItemCourseSlogan"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/shape_order_price_bg"/>
+
+    <TextView
+        android:id="@+id/tvItemCourseBought"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="839人已购买"
+        android:textSize="12sp"
+        android:textColor="#A58A78"
+        app:layout_constraintLeft_toRightOf="@id/ivItemCourseImage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="7dp" />
+
+    <TextView
+        android:id="@+id/tvitemCoursePrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¥99"
+        android:textColor="#FF9500"
+        android:textSize="13sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="7dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ivItemCourseImage"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#13979797"
+            android:layout_marginLeft="110dp"
+            android:layout_marginRight="@dimen/left_margin"/>
+    </LinearLayout>
+
+
+
+
+</android.support.constraint.ConstraintLayout>
