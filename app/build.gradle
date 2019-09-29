@@ -26,7 +26,7 @@ android {
         config {
             keyAlias 'caitu'
             keyPassword 'caitutu'
-            storeFile file('D:\\fuliketang\\fuliketang.jks')
+            storeFile file('C://AndroidCode/fuliclub/fuliketang.jks')
             storePassword 'caitu123456'
         }
     }

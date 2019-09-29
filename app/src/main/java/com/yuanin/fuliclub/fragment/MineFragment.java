@@ -2,10 +2,13 @@ package com.yuanin.fuliclub.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,6 +19,7 @@ import com.yuanin.fuliclub.minePart.FeedBackActivity;
 import com.yuanin.fuliclub.minePart.MyAccountActivity;
 import com.yuanin.fuliclub.minePart.MyMessageActivity;
 import com.yuanin.fuliclub.minePart.OrderDetaailsActivity;
+import com.yuanin.fuliclub.util.PopupWindowUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +54,8 @@ public class MineFragment extends BaseFragment {
     RelativeLayout rlMineNews;
     @BindView(R.id.rl_mine_about)
     RelativeLayout rlMineAbout;
+    @BindView(R.id.clMain)
+    ConstraintLayout clMain;
 
 
     private View popupWindowContactUs;
@@ -119,6 +125,8 @@ public class MineFragment extends BaseFragment {
             case R.id.rl_mine_about:
                 break;
             case R.id.ivKefu:
+                PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popupWindowContactUs, getActivity());
+                ContactUsPop.showAtLocation(clMain, Gravity.CENTER, 0, 0);
 
                 break;
 

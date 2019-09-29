@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/llKefu"
             android:layout_width="315dp"
             android:layout_height="421dp"
             android:orientation="vertical">
@@ -51,10 +52,20 @@
                         android:id="@+id/tvKefuWeChat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="客服微信：asldjjokg"
+                        android:text="客服微信："
                         android:textSize="14sp"
                         android:textColor="@color/color_333333"
                         android:layout_marginLeft="24dp"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/tvKefuWeChatNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="asldjjokg"
+                        android:textSize="14sp"
+                        android:layout_toRightOf="@id/tvKefuWeChat"
+                        android:textColor="@color/color_333333"
                         android:layout_centerVertical="true"/>
 
                     <TextView
@@ -70,14 +81,15 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
+                <ImageView
+                    android:id="@+id/rlQRcode"
                     android:layout_width="170dp"
                     android:layout_height="170dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="12dp"
-                    android:background="@mipmap/kefuWeChat">
+                    android:background="@mipmap/kefu_wechat">
 
-                </RelativeLayout>
+                </ImageView>
                 
                 <TextView
                     android:layout_width="match_parent"
