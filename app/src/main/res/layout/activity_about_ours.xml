@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <com.next.easytitlebar.view.EasyTitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"/>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginTop="80dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="财兔学堂"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/color_333333"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当前版本: V1.0.0"
+        android:textSize="14sp"
+        android:textColor="@color/color_333333"
+        android:layout_marginTop="12dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上海财兔信息科技有限公司"
+        android:textColor="@color/login_text_color_9b"
+        android:textSize="@dimen/login_text_14"
+        android:layout_marginTop="210dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="沪ICP备12016575号"
+        android:textColor="@color/login_text_color_9b"
+        android:textSize="@dimen/login_text_14"
+        android:layout_marginTop="12dp"/>
+
+</LinearLayout>

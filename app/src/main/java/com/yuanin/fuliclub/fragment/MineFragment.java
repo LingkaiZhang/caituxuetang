@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.mvvm.base.BaseFragment;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
+import com.yuanin.fuliclub.minePart.AboutOursActivity;
 import com.yuanin.fuliclub.minePart.FeedBackActivity;
 import com.yuanin.fuliclub.minePart.MyAccountActivity;
 import com.yuanin.fuliclub.minePart.MyMessageActivity;
@@ -123,6 +124,7 @@ public class MineFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), FeedBackActivity.class));
                 break;
             case R.id.rl_mine_about:
+                startActivity(new Intent(getActivity(), AboutOursActivity.class));
                 break;
             case R.id.ivKefu:
                 PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popupWindowContactUs, getActivity());
