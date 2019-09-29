@@ -65,4 +65,9 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
+    <style name="SignPopupWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/pop_sign_show_anim</item>
+        <item name="android:windowExitAnimation">@anim/pop_sign_hidden_anim</item>
+    </style>
+
 </resources>

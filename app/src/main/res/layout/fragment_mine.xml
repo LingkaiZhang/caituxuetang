@@ -32,7 +32,15 @@
             android:layout_marginBottom="32dp"
             android:src="@mipmap/combined_nation" />
 
-
+        <ImageView
+            android:id="@+id/ivKefu"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_toLeftOf="@id/ivMessage"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="32dp"
+            android:layout_marginRight="25dp"
+            android:src="@mipmap/kefu" />
 
         <LinearLayout
             android:layout_width="wrap_content"

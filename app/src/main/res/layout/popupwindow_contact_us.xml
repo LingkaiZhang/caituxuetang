@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/popMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#55000000"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="315dp"
+            android:layout_height="421dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="83dp"
+                android:background="@drawable/shape_popup_bg_1"
+                android:text="请添加微信人工客服"
+                android:textSize="17sp"
+                android:gravity="center"
+                android:textColor="#774600"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="339dp"
+                android:orientation="vertical"
+                android:background="@drawable/shape_popup_bg_2">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:text="人工客服"
+                    android:textColor="#774600"
+                    android:textSize="18sp"
+                    android:layout_marginTop="13dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="18dp">
+
+                    <TextView
+                        android:id="@+id/tvKefuWeChat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="客服微信：asldjjokg"
+                        android:textSize="14sp"
+                        android:textColor="@color/color_333333"
+                        android:layout_marginLeft="24dp"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/tvCopy"
+                        android:layout_width="28dp"
+                        android:layout_height="match_parent"
+                        android:textSize="14sp"
+                        android:textColor="#FF625E"
+                        android:text="复制"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:layout_centerVertical="true"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12dp"
+                    android:background="@mipmap/kefuWeChat">
+
+                </RelativeLayout>
+                
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="长按二维码保存"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/color_999999"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

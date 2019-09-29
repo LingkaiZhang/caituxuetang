@@ -51,6 +51,9 @@ public class MineFragment extends BaseFragment {
     @BindView(R.id.rl_mine_about)
     RelativeLayout rlMineAbout;
 
+
+    private View popupWindowContactUs;
+
     public static MineFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -80,6 +83,9 @@ public class MineFragment extends BaseFragment {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
+
+        popupWindowContactUs = inflater.inflate(R.layout.popupwindow_contact_us, container, false);
+
         return rootView;
     }
 
@@ -89,7 +95,7 @@ public class MineFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.iv_user_header, R.id.ivMessage, R.id.tvGoLogin, R.id.rl_mine_account, R.id.rl_mine_order, R.id.rl_mine_news, R.id.rl_mine_about})
+    @OnClick({R.id.ivKefu, R.id.iv_user_header, R.id.ivMessage, R.id.tvGoLogin, R.id.rl_mine_account, R.id.rl_mine_order, R.id.rl_mine_news, R.id.rl_mine_about})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_user_header:
@@ -112,6 +118,12 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.rl_mine_about:
                 break;
+            case R.id.ivKefu:
+
+                break;
+
+
         }
     }
+
 }
