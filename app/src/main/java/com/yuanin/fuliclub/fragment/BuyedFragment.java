@@ -10,7 +10,9 @@ import com.adapter.listener.OnItemClickListener;
 import com.mvvm.base.BaseFragment;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.BaseListFragment;
+import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.homePart.HomeViewModel;
+import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.util.AdapterPool;
@@ -79,6 +81,9 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
         }
         mItems.add(new LastLearnVo());
         mItems.add(new TypeVo("我的课程"));
+        mItems.add(new CourseInfoVo());
+        mItems.add(new CourseInfoVo());
+        mItems.add(new BottomBackgroundVo());
 
         setData();
     }
