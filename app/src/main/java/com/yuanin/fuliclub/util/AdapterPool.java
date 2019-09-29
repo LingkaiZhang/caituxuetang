@@ -14,6 +14,9 @@ import com.yuanin.fuliclub.homePart.itemView.BannerItemView;
 import com.yuanin.fuliclub.homePart.itemView.BottomBackgroundItemView;
 import com.yuanin.fuliclub.homePart.itemView.CategoryItemView;
 import com.yuanin.fuliclub.homePart.itemView.TypeItemView;
+import com.yuanin.fuliclub.homePart.itemView.TypeItemView2;
+import com.yuanin.fuliclub.learnPart.LastLearnItemView;
+import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.minePart.MyMessageListHolder;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
 
@@ -52,5 +55,12 @@ public class AdapterPool {
                 .bind(BottomBackgroundVo.class, new BottomBackgroundItemView(context))
 //                .bind(MatreialSubjectVo.class, new HomeMaterialItemView(context))
                  ;
+    }
+
+    public DelegateAdapter.Builder getLearnFragmentAdapter(Context context) {
+        return new DelegateAdapter.Builder<>()
+                .bind(LastLearnVo.class, new LastLearnItemView(context))
+                .bind(TypeVo.class, new TypeItemView2(context));
+
     }
 }
