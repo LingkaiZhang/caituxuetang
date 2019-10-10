@@ -14,6 +14,12 @@
         <item name="android:digits">12345678 90</item>
     </style>
 
+    <!--去掉Activity的ActionBar的样式-->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="sms_message_ver">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">45dp</item>

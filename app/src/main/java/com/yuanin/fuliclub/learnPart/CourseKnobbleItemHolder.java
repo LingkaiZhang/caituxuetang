@@ -15,17 +15,17 @@ import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 /**
  * @author：tqzhang on 18/6/19 15:00
  */
-public class CourseLearnLogItemHolder extends AbsItemHolder<CourseInfoVo, CourseLearnLogItemHolder.ViewHolder> {
+public class CourseKnobbleItemHolder extends AbsItemHolder<CourseKnobbleInfoVo, CourseKnobbleItemHolder.ViewHolder> {
 
 
-    public CourseLearnLogItemHolder(Context context) {
+    public CourseKnobbleItemHolder(Context context) {
         super(context);
 
     }
 
     @Override
     public int getLayoutResId() {
-        return R.layout.item_learn_log_course;
+        return R.layout.item_course_knobble_list;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class CourseLearnLogItemHolder extends AbsItemHolder<CourseInfoVo, Course
 
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull final CourseInfoVo courseListBean) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull final CourseKnobbleInfoVo courseListBean) {
 //        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
 //                commonWidth, (int) (0.56 * commonWidth));
 //        holder.mVideoImage.setLayoutParams(params);
@@ -50,6 +50,8 @@ public class CourseLearnLogItemHolder extends AbsItemHolder<CourseInfoVo, Course
 
     static class ViewHolder extends AbsHolder {
 
+        private ImageView mVideoImage, mUserIcon;
+        private TextView mLookNum, mVideoTitle, mUserName;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);

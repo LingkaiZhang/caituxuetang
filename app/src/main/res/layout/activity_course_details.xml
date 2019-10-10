@@ -4,93 +4,160 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/bg"
+    android:fitsSystemWindows="true"
     tools:context=".learnPart.CourseDetailsActivity">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="128dp"
         android:scaleType="fitXY"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@mipmap/course_bg"/>
+        android:src="@mipmap/course_bg"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
-        android:id="@+id/rlCourseHeader"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:paddingBottom="15dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/ivBack"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rlCourseHeader"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/icon_kc_bk"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="20dp"/>
+            android:paddingBottom="15dp"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/ivShare"
-            android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="20dp"
+                android:src="@mipmap/icon_kc_bk" />
+
+            <ImageView
+                android:id="@+id/ivShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="18dp"
+                android:src="@mipmap/course_share" />
+
+            <ImageView
+                android:id="@+id/ivItemCourseImage"
+                android:layout_width="80dp"
+                android:layout_height="101dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="70dp"
+                android:src="@mipmap/item_course" />
+
+            <TextView
+                android:id="@+id/tvCourseName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="95dp"
+                android:layout_toRightOf="@id/ivItemCourseImage"
+                android:text="基金训练营"
+                android:textColor="@color/color_333333"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/tvItemCourseSlogan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvCourseName"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_toRightOf="@id/ivItemCourseImage"
+                android:text="每月一眼长投温度，科学养金“基”"
+                android:textColor="@color/color_333333"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:id="@+id/magic_indicator1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/mViewPager"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/course_share"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="18dp"
-            android:layout_marginTop="20dp"/>
-
-        <ImageView
-            android:id="@+id/ivItemCourseImage"
-            android:layout_width="80dp"
-            android:layout_height="101dp"
-            android:src="@mipmap/item_course"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="70dp"/>
-
-        <TextView
-            android:id="@+id/tvCourseName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="基金训练营"
-            android:textSize="19sp"
-            android:textColor="@color/color_333333"
-            android:layout_toRightOf="@id/ivItemCourseImage"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="95dp"/>
-
-        <TextView
-            android:id="@+id/tvItemCourseSlogan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="每月一眼长投温度，科学养金“基”"
-            android:textSize="14sp"
-            android:textColor="@color/color_333333"
-            android:layout_toRightOf="@id/ivItemCourseImage"
-            android:layout_below="@id/tvCourseName"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="15dp"
-            />
-
-    </RelativeLayout>
-
-    <net.lucode.hackware.magicindicator.MagicIndicator
-        android:id="@+id/magic_indicator1"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        app:layout_constraintTop_toBottomOf="@id/rlCourseHeader"
-        />
-
-    <android.support.v4.view.ViewPager
-        android:layout_marginTop="1dp"
-        android:id="@+id/mViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1.0"
-        android:flipInterval="30"
-        app:layout_constraintTop_toBottomOf="@id/magic_indicator1"
-        android:persistentDrawingCache="animation"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="1dp"
+            android:layout_weight="1.0"
+            android:flipInterval="30"
+            android:persistentDrawingCache="animation" />
 
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="@color/white"
+            >
+
+            <TextView
+                android:id="@+id/tvPriceUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥"
+                android:textSize="12sp"
+                android:paddingTop="5dp"
+                android:layout_marginLeft="28dp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/color_orang_f4"/>
+
+            <TextView
+                android:id="@+id/tvCoursePrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1080"
+                android:layout_toRightOf="@id/tvPriceUnit"
+                android:layout_centerVertical="true"
+                android:textSize="19sp"
+                android:textColor="@color/color_orang_f4"/>
+
+            <LinearLayout
+                android:layout_toRightOf="@id/tvCoursePrice"
+                android:layout_width="wrap_content"
+                android:paddingTop="5dp"
+                android:layout_marginLeft="8dp"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content">
+                
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="18dp"
+                    android:background="#13979797"/>
+
+                <TextView
+                    android:id="@+id/tvOriginalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥1880"
+                    android:textColor="#D8D8D8"
+                    android:textSize="15dp"
+                    android:layout_marginLeft="8dp"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="34dp"
+                android:text="立即购买"
+                android:textColor="@color/white"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:background="@drawable/shape_course_buy_bg"
+                android:layout_marginRight="28dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

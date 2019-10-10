@@ -46,7 +46,7 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
 
     @Override
     protected DelegateAdapter createAdapter() {
-        return AdapterPool.newInstance().getLearnFragmentAdapter(getActivity())
+        return AdapterPool.newInstance().getCourseDetailListFragmentAdapter(getActivity())
                 .setOnItemClickListener(this)
                 .build();
     }
@@ -62,8 +62,9 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
             mItems.clear();
         }
 
-        mItems.add(new CourseInfoVo());
-        mItems.add(new CourseInfoVo());
+        for (int i = 0; i < 10; i++) {
+            mItems.add(new CourseKnobbleInfoVo());
+        }
         mItems.add(new BottomBackgroundVo());
 
         setData();

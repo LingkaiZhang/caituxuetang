@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@+id/tvKnobbleName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="第零课 课程学习须知"
+        android:textSize="14sp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:layout_centerVertical="true"
+        android:textColor="@color/color_333333"
+        android:layout_marginLeft="18dp"/>
+
+    <TextView
+        android:id="@+id/tvTryLearn"
+        android:layout_width="30dp"
+        android:layout_height="14dp"
+        android:text="试听"
+        android:textSize="9sp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_toRightOf="@id/tvKnobbleName"
+        android:textColor="@color/color_orang_f4"
+        android:background="@drawable/shape_orang_bg"
+        android:layout_marginLeft="5dp"/>
+
+    <ImageView
+        android:id="@+id/ivPlay"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/play"/>
+
+    <ImageView
+        android:id="@+id/ivLock"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="18dp"
+        android:src="@mipmap/play"
+        android:visibility="gone"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#13979797"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
