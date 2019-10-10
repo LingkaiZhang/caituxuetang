@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/bg"
+    tools:context=".learnPart.OrderPayActivity">
+
+    <com.next.easytitlebar.view.EasyTitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_order_heaer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/titleBar"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/shape_radua_bg">
+
+        <ImageView
+            android:id="@+id/ivOrderIMG"
+            android:layout_width="68dp"
+            android:layout_height="88dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/order_details_def"/>
+
+        <TextView
+            android:id="@+id/tvOrderName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已购课程名称"
+            android:textSize="14sp"
+            android:textColor="@color/color_333333"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/ivOrderIMG"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/tvItemCourseSlogan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="你看到有利可图，我看到危机四伏"
+            android:textSize="12sp"
+            android:textColor="#555555"
+            android:layout_toRightOf="@id/ivOrderIMG"
+            android:layout_marginTop="40dp"/>
+
+        <TextView
+            android:id="@+id/tvOrderPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:text="需支付： 6元"
+            android:textSize="11sp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textColor="@color/theme_color"
+            android:layout_toRightOf="@id/ivOrderIMG"
+            android:layout_marginTop="65dp"
+            android:gravity="center"
+            android:background="@drawable/shape_order_price_bg"/>
+
+    </RelativeLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>

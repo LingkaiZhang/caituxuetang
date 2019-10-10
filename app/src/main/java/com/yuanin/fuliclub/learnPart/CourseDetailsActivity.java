@@ -1,6 +1,7 @@
 package com.yuanin.fuliclub.learnPart;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -54,6 +55,10 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
     MagicIndicator magicIndicator;
     @BindView(R.id.mViewPager)
     ViewPager mViewPager;
+    @BindView(R.id.tvCoursePrice)
+    TextView tvCoursePrice;
+    @BindView(R.id.tvOriginalPrice)
+    TextView tvOriginalPrice;
 
    /* @BindView(R.id.titleBar)
     EasyTitleBar titleBar;
@@ -168,7 +173,7 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.ivBack, R.id.ivShare})
+    @OnClick({R.id.ivBack, R.id.ivShare, R.id.tvBuyButton})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivBack:
@@ -177,6 +182,11 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
             case R.id.ivShare:
                 Toast.makeText(CourseDetailsActivity.this, "点击分享课程", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.tvBuyButton:
+                Intent intent = new Intent(CourseDetailsActivity.this, OrderPayActivity.class);
+                startActivity(intent);
+                break;
         }
     }
+
 }

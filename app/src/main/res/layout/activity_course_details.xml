@@ -146,6 +146,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvBuyButton"
                 android:layout_width="100dp"
                 android:layout_height="34dp"
                 android:text="立即购买"
