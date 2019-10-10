@@ -59,4 +59,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/commons-io/commons-io
     api 'commons-io:commons-io:2.4'
+
+    //如tabLyout滑动切换
+    api 'com.github.hackware1993:MagicIndicator:1.5.0'
 }

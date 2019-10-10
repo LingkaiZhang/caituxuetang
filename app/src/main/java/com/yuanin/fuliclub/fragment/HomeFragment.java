@@ -1,5 +1,6 @@
 package com.yuanin.fuliclub.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.CategoryVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.homePart.itemView.BannerView;
+import com.yuanin.fuliclub.learnPart.CourseDetailsActivity;
 import com.yuanin.fuliclub.util.AdapterPool;
 
 import java.util.ArrayList;
@@ -114,6 +116,9 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
 
     @Override
     public void onItemClick(View view, int position, Object o) {
-
+        if (o instanceof CourseInfoVo) {
+            Intent intent = new Intent(getActivity(), CourseDetailsActivity.class);
+            startActivity(intent);
+        }
     }
 }
