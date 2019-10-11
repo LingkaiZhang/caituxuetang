@@ -183,8 +183,21 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                 Toast.makeText(CourseDetailsActivity.this, "点击分享课程", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tvBuyButton:
-                Intent intent = new Intent(CourseDetailsActivity.this, OrderPayActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(CourseDetailsActivity.this, OrderPayActivity.class);
+//                startActivity(intent);
+                List<String> dataList = new ArrayList<>();
+                dataList.add("2018-05-04");
+                dataList.add("2018-09-04");
+                dataList.add("2019-11-12");
+
+                SelectTimeDialogFragment.show(getSupportFragmentManager(), dataList, new SelectTimeDialogFragment.OnSelectTimeListener() {
+                    @Override
+                    public void selectTime(String time) {
+                        Intent intent = new Intent(CourseDetailsActivity.this, OrderPayActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
                 break;
         }
     }
