@@ -1,5 +1,6 @@
 package com.yuanin.fuliclub.learnPart;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -72,6 +73,8 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
 
     @Override
     public void onItemClick(View view, int position, Object o) {
-
+        if (o instanceof CourseKnobbleInfoVo) {
+            startActivity(new Intent(getActivity(), CourseKnobbleDetailsActivity.class));
+        }
     }
 }
