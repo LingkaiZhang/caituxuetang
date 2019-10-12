@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import com.mvvm.base.AbsLifecycleActivity;
 import com.next.easytitlebar.view.EasyTitleBar;
 import com.yuanin.fuliclub.R;
+import com.yuanin.fuliclub.view.ObservableWebView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +21,8 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     LinearLayout llWriteNote;
     @BindView(R.id.llDoHomeWork)
     LinearLayout llDoHomeWork;
+    @BindView(R.id.obsWebView)
+    ObservableWebView obsWebView;
 
 
     @Override

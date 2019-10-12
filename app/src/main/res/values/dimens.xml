@@ -6,4 +6,7 @@
     <dimen name="button_normal_height">44dp</dimen>
     <dimen name="left_margin">15dp</dimen>
     <dimen name="mine_item_radius">8dp</dimen>
+    <dimen name="music_text">12sp</dimen>
+    <dimen name="item_icon_padding">8dp</dimen>
+    <dimen name="music_seek_bar_height">2dp</dimen>
 </resources>

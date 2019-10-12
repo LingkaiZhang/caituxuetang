@@ -36,6 +36,8 @@
     <color name="color_gray_888">#888888</color>
     <color name="bg">#f7f7f7</color>
     <color name="text_black_4a">#4a4a4a</color>
+    <color name="music_text">#ffffff</color>
+    <color name="music_seek_bar_bg">#D8D8D8</color>
 
 
 </resources>
