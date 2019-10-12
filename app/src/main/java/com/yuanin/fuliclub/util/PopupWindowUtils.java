@@ -32,6 +32,60 @@ import java.lang.reflect.Type;
  */
 public class PopupWindowUtils {
 
+    public static PopupWindow createClassWaiting(View popView, final Context context){
+        final PopupWindow mPop = new PopupWindow(popView, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, true);
+        mPop.setAnimationStyle(R.style.SignPopupWindowAnimation);
+        //mPop.setFocusable(false);
+
+        mPop.setFocusable(true);
+        ColorDrawable dw = new ColorDrawable(0x00000000);
+        mPop.setBackgroundDrawable(dw);
+
+        return mPop;
+    }
+
+
+
+    public static PopupWindow createClassnfoPop(View popView, final Context context, String className, String classWecahtNo, String QRcode){
+        final PopupWindow mPop = new PopupWindow(popView, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, true);
+        mPop.setAnimationStyle(R.style.SignPopupWindowAnimation);
+        //mPop.setFocusable(false);
+
+        mPop.setFocusable(true);
+        ColorDrawable dw = new ColorDrawable(0x00000000);
+        mPop.setBackgroundDrawable(dw);
+
+        TextView tvCopy = popView.findViewById(R.id.tvCopy);
+        TextView tvClassWeChatNo = popView.findViewById(R.id.tvClassWeChatNo);
+        tvClassWeChatNo.setText(classWecahtNo);
+
+        TextView tvClassName = popView.findViewById(R.id.tvClassName);
+        tvClassName.setText(className);
+
+        ImageView rlQRcode = popView.findViewById(R.id.rlQRcode);
+        LinearLayout llKefu = popView.findViewById(R.id.llKefu);
+        tvCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String KefuWeChatNo = tvClassWeChatNo.getText().toString().trim();
+                ClipboardHelper.getInstance(context).copyText("class_wechat",KefuWeChatNo);
+                ToastUtils.showToast("已复制");
+            }
+        });
+        rlQRcode.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                shareImage(llKefu,context);
+
+                return false;
+            }
+        });
+
+        return mPop;
+    }
+
+
     public static PopupWindow createContactUsPop(View popView, final Context context) {
         final PopupWindow mPop = new PopupWindow(popView, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, true);
         mPop.setAnimationStyle(R.style.SignPopupWindowAnimation);

@@ -18,14 +18,32 @@
             android:layout_height="421dp"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="83dp"
                 android:background="@drawable/shape_popup_bg_1"
-                android:text="请添加微信人工客服"
-                android:textSize="17sp"
                 android:gravity="center"
-                android:textColor="#774600"/>
+                android:orientation="vertical"
+                android:textColor="#774600">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="训练班加群信息"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:textColor="#774600"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="请在开营前添加班级微信，进入训练营学习"
+                    android:textSize="12sp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textColor="#94611A"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,10 +53,11 @@
 
 
                 <TextView
+                    android:id="@+id/tvClassName"
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:gravity="center"
-                    android:text="人工客服"
+                    android:text="00期000班"
                     android:textColor="#774600"
                     android:textSize="18sp"
                     android:layout_marginTop="13dp"/>
@@ -52,14 +71,14 @@
                         android:id="@+id/tvKefuWeChat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="客服微信："
+                        android:text="班级微信："
                         android:textSize="14sp"
                         android:textColor="@color/color_333333"
                         android:layout_marginLeft="24dp"
                         android:layout_centerVertical="true"/>
 
                     <TextView
-                        android:id="@+id/tvKefuWeChatNo"
+                        android:id="@+id/tvClassWeChatNo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="asldjjokg"
