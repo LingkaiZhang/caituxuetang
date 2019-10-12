@@ -62,4 +62,6 @@ dependencies {
 
     //如tabLyout滑动切换
     api 'com.github.hackware1993:MagicIndicator:1.5.0'
+
+    api 'com.github.yhaolpz:FloatWindow:1.0.9'
 }

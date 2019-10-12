@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/ll_play_small_container"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
     android:visibility="visible"
     android:orientation="vertical">
 

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mvvm.base.AbsLifecycleActivity;
+import com.yhao.floatwindow.FloatWindow;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.adapter.ViewPagerFragmentAdapter;
 import com.yuanin.fuliclub.util.ViewPagerUtils;
@@ -107,6 +108,9 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
 
         initViewPager();
         initMagicIndicator();
+
+        //手动控制
+        //FloatWindow.get().hide();
 
     }
 

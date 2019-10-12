@@ -5,12 +5,15 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yuanin.fuliclub.R;
+import com.yuanin.fuliclub.base.App;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -38,6 +41,8 @@ public class MusicPlayControlView extends LinearLayout {
     @BindView(R.id.ll_play_small_container)
     LinearLayout llPlaySmallContainer;
 
+    private OnPlayClickListener onPlayClickListener;
+
     public MusicPlayControlView(Context context) {
         super(context);
         initView(context);
@@ -55,7 +60,19 @@ public class MusicPlayControlView extends LinearLayout {
 
     private void initView(Context context) {
         LayoutInflater.from(context).inflate(R.layout.music_paly_control, this, true);
+
+        if (onPlayClickListener != null) {
+            ivPlayControl.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onPlayClickListener.onplayClick();
+                    Toast.makeText(context, "onClick2", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
+
+
 
     public void setCourseName(String courseName) {
         if (!TextUtils.isEmpty(courseName)) {
@@ -85,8 +102,13 @@ public class MusicPlayControlView extends LinearLayout {
         sbProgress.setProgress(Progress);
     }
 
-    public void setIvPlayControlListener(OnClickListener onClickListener) {
-        ivPlayControl.setOnClickListener(onClickListener);
+
+    public interface OnPlayClickListener {
+        void onplayClick();
+    }
+
+    public void setOnPlayClickListener(OnPlayClickListener onPlayClickListener){
+        this.onPlayClickListener = onPlayClickListener;
     }
 
 }

@@ -7,7 +7,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.BounceInterpolator;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mvvm.http.HttpHelper;
@@ -25,9 +29,17 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tqzhang.stateview.core.LoadState;
+import com.yhao.floatwindow.FloatWindow;
+import com.yhao.floatwindow.MoveType;
+import com.yhao.floatwindow.PermissionListener;
+import com.yhao.floatwindow.Screen;
+import com.yhao.floatwindow.ViewStateListener;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.config.AppConst;
 import com.yuanin.fuliclub.config.URL;
+import com.yuanin.fuliclub.learnPart.CourseDetailsActivity;
+import com.yuanin.fuliclub.learnPart.CourseKnobbleDetailsActivity;
+import com.yuanin.fuliclub.view.MusicPlayControlView;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -37,6 +49,9 @@ import butterknife.Unbinder;
  * @author：tqzhang on 18/4/19 17:57
  */
 public class App extends Application implements ComponentCallbacks2 {
+
+    private static final String TAG = "FloatWindow";
+
     public static App mInstance;
 
     public static IWXAPI mWxApi;
@@ -91,7 +106,84 @@ public class App extends Application implements ComponentCallbacks2 {
         initCallBack();
         initEasyTitleBar();
 
+        initFloatWindow();
+
     }
+
+    private void initFloatWindow() {
+        MusicPlayControlView musicPlayControlView = new MusicPlayControlView(getApplicationContext());
+
+        FloatWindow
+                .with(getApplicationContext())
+                .setView(musicPlayControlView)
+                .setWidth(Screen.width, 1.0f) //设置悬浮控件宽高
+                .setX(Screen.width, 0.0f)
+                .setY(Screen.height, 0.6f)
+                .setMoveStyle(500, new BounceInterpolator())
+                .setFilter(true, CourseKnobbleDetailsActivity.class)
+                .setViewStateListener(mViewStateListener)
+                .setPermissionListener(mPermissionListener)
+                .setDesktopShow(false)
+                .build();
+
+
+        musicPlayControlView.setOnPlayClickListener(new MusicPlayControlView.OnPlayClickListener() {
+            @Override
+            public void onplayClick() {
+                Toast.makeText(App.this, "onClick", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private PermissionListener mPermissionListener = new PermissionListener() {
+        @Override
+        public void onSuccess() {
+            Log.d(TAG, "onSuccess");
+        }
+
+        @Override
+        public void onFail() {
+            Log.d(TAG, "onFail");
+        }
+    };
+
+    private ViewStateListener mViewStateListener = new ViewStateListener() {
+        @Override
+        public void onPositionUpdate(int x, int y) {
+            Log.d(TAG, "onPositionUpdate: x=" + x + " y=" + y);
+        }
+
+        @Override
+        public void onShow() {
+            Log.d(TAG, "onShow");
+        }
+
+        @Override
+        public void onHide() {
+            Log.d(TAG, "onHide");
+        }
+
+        @Override
+        public void onDismiss() {
+            Log.d(TAG, "onDismiss");
+        }
+
+        @Override
+        public void onMoveAnimStart() {
+            Log.d(TAG, "onMoveAnimStart");
+        }
+
+        @Override
+        public void onMoveAnimEnd() {
+            Log.d(TAG, "onMoveAnimEnd");
+        }
+
+        @Override
+        public void onBackToDesktop() {
+            Log.d(TAG, "onBackToDesktop");
+        }
+    };
+
 
     private void registToWX() {
         //AppConst.WEIXIN.APP_ID是指你应用在微信开放平台上的AppID，记得替换。
