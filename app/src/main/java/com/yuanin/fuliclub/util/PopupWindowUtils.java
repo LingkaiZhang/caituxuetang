@@ -25,12 +25,43 @@ import org.json.JSONObject;
 import java.io.File;
 import java.lang.reflect.Type;
 
+import top.androidman.SuperButton;
+
 /**
  * description ： PopupWindow弹窗工具类
  * author : lingkai
  * date : 2019/9/29 09:54
  */
 public class PopupWindowUtils {
+
+    public static PopupWindow createPayAbnormal(View popView, final Context context){
+        final PopupWindow mPop = new PopupWindow(popView, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, true);
+        mPop.setAnimationStyle(R.style.SignPopupWindowAnimation);
+        //mPop.setFocusable(false);
+
+        mPop.setFocusable(true);
+        ColorDrawable dw = new ColorDrawable(0x00000000);
+        mPop.setBackgroundDrawable(dw);
+
+        SuperButton btnCancel = popView.findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPop.dismiss();
+            }
+        });
+
+        SuperButton btnGoPay = popView.findViewById(R.id.btnGoPay);
+        btnGoPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO 跳转去支付页面
+
+            }
+        });
+
+        return mPop;
+    }
 
     public static PopupWindow createClassWaiting(View popView, final Context context){
         final PopupWindow mPop = new PopupWindow(popView, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, true);

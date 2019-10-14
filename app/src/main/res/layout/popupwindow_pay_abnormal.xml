@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:id="@+id/popMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/popupWindow_bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="315dp"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:background="@drawable/shape_radua_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支付异常"
+                android:textSize="16sp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/text_black_4a"
+                android:layout_marginTop="22dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支付出现异常，是否重新支付？"
+                android:textSize="14sp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/color_666666"
+                android:layout_marginTop="2dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="21dp"
+                android:orientation="horizontal">
+
+                <top.androidman.SuperButton
+                    android:id="@+id/btnCancel"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    app:color_normal="#FECE55"
+                    app:color_pressed="@color/color_gray_cc"
+                    app:text="再想想"
+                    app:corner="15dp"
+                    app:textSize="15sp"
+                    app:textColor="#FF9500"
+                    />
+
+                <top.androidman.SuperButton
+                    android:id="@+id/btnGoPay"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    app:color_normal="#FF9500"
+                    app:color_pressed="@color/color_gray_cc"
+                    app:text="去支付"
+                    app:corner="15dp"
+                    app:textSize="15sp"
+                    android:layout_marginLeft="25dp"
+                    app:textColor="@color/white"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*温馨提示："
+                android:layout_marginLeft="40dp"
+                android:textColor="#888888"
+                android:layout_marginTop="16dp"
+                android:textSize="11sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="如您已支付，但显示支付失败，可点击联系客服"
+                android:layout_marginLeft="40dp"
+                android:textColor="#888888"
+                android:layout_marginTop="3dp"
+                android:textSize="11sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
