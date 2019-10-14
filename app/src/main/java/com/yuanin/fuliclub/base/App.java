@@ -123,6 +123,7 @@ public class App extends Application implements ComponentCallbacks2 {
         StaticMembers.SCREEN_WIDTH = metrics.widthPixels;
         StaticMembers.SCREEN_HEIGHT = metrics.heightPixels;
 
+        AppUtils.initBooleanData(mInstance);
 
 
     }

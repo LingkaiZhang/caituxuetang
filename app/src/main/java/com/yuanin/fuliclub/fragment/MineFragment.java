@@ -13,8 +13,15 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.mvvm.base.BaseFragment;
+import com.mvvm.http.HttpHelper;
+import com.mvvm.http.rx.RxSchedulers;
 import com.yuanin.fuliclub.R;
+import com.yuanin.fuliclub.base.ApiService;
+import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.minePart.AboutOursActivity;
@@ -22,12 +29,15 @@ import com.yuanin.fuliclub.minePart.FeedBackActivity;
 import com.yuanin.fuliclub.minePart.MyAccountActivity;
 import com.yuanin.fuliclub.minePart.MyMessageActivity;
 import com.yuanin.fuliclub.minePart.OrderDetaailsActivity;
+import com.yuanin.fuliclub.network.RxSubscriber;
+import com.yuanin.fuliclub.minePart.bean.UserInfoEntity;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.reactivex.Flowable;
 
 /**
  * description ： 首页
@@ -65,6 +75,9 @@ public class MineFragment extends BaseFragment {
 
     private View popupWindowContactUs;
 
+    protected ApiService apiService;
+    private Flowable<ReturnResult<UserInfoEntity>> userInfo;
+
     public static MineFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -82,7 +95,9 @@ public class MineFragment extends BaseFragment {
     @Override
     public void initView(Bundle state) {
 
-
+        if (null == apiService) {
+            apiService = HttpHelper.getInstance().create(ApiService.class);
+        }
     }
 
     @Override
@@ -96,8 +111,38 @@ public class MineFragment extends BaseFragment {
             tvGoLogin.setVisibility(View.GONE);
             llUserInfo.setVisibility(View.VISIBLE);
             // 请求用户数据
-
+            requsetData();
         }
+    }
+
+    private void requsetData() {
+        userInfo = apiService.getUserInfo();
+        userInfo.compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<UserInfoEntity>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<UserInfoEntity> stringReturnResult) {
+                        UserInfoEntity userInfoEntity = stringReturnResult.getData();
+                        tvUserName.setText(userInfoEntity.getNickName());
+                        tvUserNo.setText("学号：" + userInfoEntity.getMobile());
+                        setUserHeadImage(userInfoEntity.getProfilePictureLink());
+
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+                    }
+                });
+    }
+
+    private void setUserHeadImage(String profilePictureLink) {
+        RequestOptions options = new RequestOptions()
+                .circleCropTransform()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+                .placeholder(R.mipmap.avatar);
+        Glide.with(getActivity()).load(profilePictureLink)
+                .apply(options)
+                .into(ivUserHeader);
     }
 
     @Override

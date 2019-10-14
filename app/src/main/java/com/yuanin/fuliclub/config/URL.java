@@ -44,5 +44,13 @@ public class URL {
     public static final String LOGIN_WECHAT = URL.FLKT + URL.MODULE_USER + "authorizeLogin";
     //绑定微信
     public static final String BIND_WECHAT = URL.FLKT + URL.MODULE_USER + "bindWx";
+
+
+    //我的
+    public static  final String USER_CAPACITY =  URL.MODULE_USER + "userCapacity";
+    //编辑头像
+    public static  final String USER_HEAD_IMAGE_MODIFY =  URL.MODULE_USER + "updateImage";
+    //文件上传
+    public static final String UPDATE_FILE = URL.FLKT + "/gene/fileIntact/uploadFile";
 }
 

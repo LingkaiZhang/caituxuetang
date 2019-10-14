@@ -81,6 +81,11 @@
             android:name=".minePart.MyAccountActivity"
             android:label="我的账户"
             android:screenOrientation="portrait" />
+        <!-- 图片选择框架类 -->
+        <activity
+            android:name="com.wildma.pictureselector.PictureSelectActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 结束 -->
         <activity
             android:name=".minePart.AboutOursActivity"
             android:label="关于我们"

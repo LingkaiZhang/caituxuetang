@@ -15,4 +15,8 @@ public class MyViewModel extends AbsViewModel<MyRepository> {
     public MyViewModel(@NonNull Application application) {
         super(application);
     }
+
+    public void upLoadPicture(String picturePath) {
+        mRepository.upLoadPicture(picturePath);
+    }
 }

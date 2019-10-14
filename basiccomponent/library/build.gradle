@@ -64,4 +64,10 @@ dependencies {
     api 'com.github.hackware1993:MagicIndicator:1.5.0'
 
     api 'com.github.yhaolpz:FloatWindow:1.0.9'
+
+    // (必选)
+    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+
+    //头像图片编辑
+    api 'com.github.wildma:PictureSelector:1.0.0'
 }
