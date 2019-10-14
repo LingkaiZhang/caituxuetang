@@ -10,8 +10,8 @@
 
     <style name="phoneEditText">
         <!--<item name="android:inputType">number</item>-->
-        <item name="android:maxLength">13</item>
-        <item name="android:digits">12345678 90</item>
+        <item name="android:maxLength">11</item>
+        <item name="android:digits">1234567890</item>
     </style>
 
     <!--去掉Activity的ActionBar的样式-->

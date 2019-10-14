@@ -15,6 +15,15 @@ public class LoginSuccessEntity implements Serializable {
     private int uid;
     private int wxId;
     private String mobile;
+    private String sceneCode;
+
+    public String getSceneCode() {
+        return sceneCode;
+    }
+
+    public void setSceneCode(String sceneCode) {
+        this.sceneCode = sceneCode;
+    }
 
     public int getWxId() {
         return wxId;

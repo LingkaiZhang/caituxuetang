@@ -88,7 +88,7 @@ public class SmsMessageVerActivity extends AbsLifecycleActivity<LoginRegisterVie
 
     protected void dataObserver() {
 
-        registerSubscriber(LoginRegisterRepository.EVENT_KEY_LOGIN_PHONE, ReturnResult.class).observe(this, loginSuccessEntityReturnResult -> {
+        /*registerSubscriber(LoginRegisterRepository.EVENT_KEY_LOGIN_PHONE, ReturnResult.class).observe(this, loginSuccessEntityReturnResult -> {
             if (loginSuccessEntityReturnResult != null) {
                 if (loginSuccessEntityReturnResult.isSuccess()) {
                     ReturnResult<LoginSuccessEntity> entity = loginSuccessEntityReturnResult;
@@ -111,7 +111,7 @@ public class SmsMessageVerActivity extends AbsLifecycleActivity<LoginRegisterVie
 
             }
         });
-
+*/
         registerSubscriber(LoginRegisterRepository.EVENT_KEY_LOGIN_MESSAGE, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
                 BToast.makeText(this, returnResult.getMessage(), true).show();

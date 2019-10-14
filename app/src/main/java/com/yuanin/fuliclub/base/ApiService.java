@@ -19,11 +19,23 @@ public interface ApiService {
     @FormUrlEncoded
     Flowable<ReturnResult<String>> sendMessageVerification(@Field("mobile")String phoneNo);
 
+    @POST(URL.SMSVALIDCODE_BIND_MOBILE)
+    @FormUrlEncoded
+    Flowable<ReturnResult<String>> smsValidCodeBindMobile(@Field("mobile")String phoneNo);
+
     @POST(URL.LOGIN_PHONE)
     @FormUrlEncoded
     Flowable<ReturnResult<LoginSuccessEntity>> gotoPhoneLoginRegister(@Field("mobile")String phoneNo,@Field("validCode")String phonvalidCodeeNo);
 
+    @POST(URL.AUTHORIZE_MOBILE_LOGIN)
+    @FormUrlEncoded
+    Flowable<ReturnResult<LoginSuccessEntity>> gotoBindPhone(@Field("mobile") String phoneNo, @Field("validCode") String phonvalidCodeeNo, @Field("wxId") String weChatUid);
+
     @POST(URL.LOGIN_WECHAT)
     @FormUrlEncoded
     Flowable<ReturnResult<LoginSuccessEntity>> sendWeChatCodeToLogin(@Field("code") String code);
+
+    @POST(URL.BIND_WECHAT)
+    @FormUrlEncoded
+    Flowable<ReturnResult<String>> bindWechat(@Field("code") String code);
 }

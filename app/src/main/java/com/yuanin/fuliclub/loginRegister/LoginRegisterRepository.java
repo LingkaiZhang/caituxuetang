@@ -22,13 +22,18 @@ public class LoginRegisterRepository extends BaseRepository {
 
     public static String EVENT_KEY_LOGIN_MESSAGE = null;
 
+    public static String EVENT_KEY_BIND_PHONE_MESSAGE = null;
+
     public static String EVENT_KEY_LOGIN_PHONE = null;
+
+    public static String EVENT_KEY_BIND_PHONE = null;
 
 
 
     private BooleanTest booleanTest = new BooleanTest();
 
     private Flowable<ReturnResult<String>> sendMessageVerification;
+    private Flowable<ReturnResult<String>> smsValidCodeBindMobile;
 
     public LoginRegisterRepository() {
         if (IS_INSTALL_WECHAT == null) {
@@ -38,8 +43,15 @@ public class LoginRegisterRepository extends BaseRepository {
         if (EVENT_KEY_LOGIN_MESSAGE == null) {
             EVENT_KEY_LOGIN_MESSAGE = StringUtil.getEventKey();
         }
+        if (EVENT_KEY_BIND_PHONE_MESSAGE == null) {
+            EVENT_KEY_BIND_PHONE_MESSAGE = StringUtil.getEventKey();
+        }
         if (EVENT_KEY_LOGIN_PHONE == null) {
             EVENT_KEY_LOGIN_PHONE = StringUtil.getEventKey();
+        }
+
+        if (EVENT_KEY_BIND_PHONE == null) {
+            EVENT_KEY_BIND_PHONE = StringUtil.getEventKey();
         }
 
     }
@@ -83,6 +95,42 @@ public class LoginRegisterRepository extends BaseRepository {
                     @Override
                     public void onSuccess(ReturnResult<LoginSuccessEntity> loginSuccessEntityReturnResult) {
                         postData(EVENT_KEY_LOGIN_PHONE, loginSuccessEntityReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void smsValidCodeBindMobile(String phoneNo) {
+        smsValidCodeBindMobile = apiService.smsValidCodeBindMobile(phoneNo);
+        addDisposable(smsValidCodeBindMobile
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<String>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<String> stringReturnResult) {
+                        postData(EVENT_KEY_BIND_PHONE_MESSAGE, stringReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                })
+        );
+    }
+
+    public void gotoBindPhone(String phoneNo, String smsCode, String weChatUid) {
+        addDisposable(apiService.gotoBindPhone(phoneNo, smsCode,weChatUid)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<LoginSuccessEntity>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<LoginSuccessEntity> loginSuccessEntityReturnResult) {
+                        postData(EVENT_KEY_BIND_PHONE, loginSuccessEntityReturnResult);
                         postState(StateConstants.SUCCESS_STATE);
                     }
 

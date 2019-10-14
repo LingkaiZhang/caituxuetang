@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.google.android.exoplayer2.metadata.emsg.EventMessage;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mvvm.http.HttpHelper;
 import com.mvvm.http.rx.RxSchedulers;
 import com.mvvm.stateview.StateConstants;
@@ -26,6 +28,7 @@ import com.yuanin.fuliclub.config.ParamsKeys;
 import com.yuanin.fuliclub.config.ParamsValues;
 import com.yuanin.fuliclub.config.StaticMembers;
 
+import com.yuanin.fuliclub.loginRegister.BindPhoneActivity;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.util.AppUtils;
@@ -35,6 +38,9 @@ import com.yuanin.fuliclub.util.ToastUtils;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
@@ -62,6 +68,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     protected ApiService apiService;
     private Flowable<ReturnResult<LoginSuccessEntity>> weChatCodeToLogin;
+    private Flowable<ReturnResult<String>> bindWechat;
 
     /**
      * 微信登录相关
@@ -123,7 +130,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     //sendCodeToService(wxCode);
                     sendCodeToLogin(wxCode);
                 } else {
-                    //sendCodeBindWeChat(wxCode);
+                    sendCodeBindWeChat(wxCode);
                 }
 
                 /*String code = ((SendAuth.Resp) baseResp).code;
@@ -180,7 +187,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     @Override
                     public void onSuccess(ReturnResult<LoginSuccessEntity> loginSuccessEntityReturnResult) {
                         if (loginSuccessEntityReturnResult.isSuccess()) {
-                            if ( loginSuccessEntityReturnResult.getData().getMobile() != null && loginSuccessEntityReturnResult.getData().getMobile().length() > 0) {
+                            if ( loginSuccessEntityReturnResult.getData().getSceneCode().equals("LOGIN")) {
                                 SharedPreferencesUtils.save2SharedPreferences(context, ParamsKeys.LOGIN_FILE, ParamsKeys.LOGIN_MBOILE, loginSuccessEntityReturnResult.getData().getMobile());
                                 SharedPreferencesUtils.save2SharedPreferences(context, ParamsKeys.LOGIN_FILE, ParamsKeys.LOGIN_USERID, String.valueOf(loginSuccessEntityReturnResult.getData().getWxId()));
                                 SharedPreferencesUtils.save2SharedPreferences(context, ParamsKeys.LOGIN_FILE, ParamsKeys.LOGIN_TOKEN, loginSuccessEntityReturnResult.getData().getAccessToken());
@@ -191,11 +198,11 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                                 //通知MainActivity跳到首页
                                 Intent intent = new Intent(context, MainActivity.class);
                                 startActivity(intent);
-                            } else {
+                            } else if (loginSuccessEntityReturnResult.getData().getSceneCode().equals("REGISTER")){
                                 StaticMembers.USER_ID = String.valueOf(loginSuccessEntityReturnResult.getData().getWxId());
-//                                Intent intent = new Intent(context, ImportPhoneActivity.class);
-//                                intent.putExtra("uid", String.valueOf(entity.getData().getWxId()));
-//                                startActivity(intent);
+                                Intent intent = new Intent(context, BindPhoneActivity.class);
+                                intent.putExtra("uid", String.valueOf(loginSuccessEntityReturnResult.getData().getWxId()));
+                                startActivity(intent);
                                 ToastUtils.showToast("微信授权成功");
                             }
                         } else {
@@ -214,45 +221,23 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                 });
     }
 
-    /*private void sendCodeBindWeChat(String code) {
-        HashMap<String, String> map = new HashMap<>();
-        map.put("code",code);
-        Type type = new TypeToken<ReturnResult<String>>() {
-        }.getType();
-        NetUtils.request(ParamsValues.USER_BIND_WECHAT, map, type, true, new IHttpRequestCallBack() {
-            @Override
-            public void onStart() {
-
-            }
-
-            @Override
-            public void onFinish() {
-
-            }
-
-            @Override
-            public void onSuccess(Object object) {
-                ReturnResult<String> entity = (ReturnResult<String>) object;
-                if (entity.isSuccess()) {
-                    EventMessage eventMessage = new EventMessage();
-                    eventMessage.setType(EventMessage.REFRESH_PERSONL_INFO);
-                    EventBus.getDefault().post(eventMessage);
-                    finish();
-                }  else {
-                    if (entity.getCode() == ParamsValues.TOKEN_FAILURE) {
-                        AppUtils.exitLogin(context);
-                        //AppUtils.showToast(context, entity.getMessage());
+    @SuppressLint("CheckResult")
+    private void sendCodeBindWeChat(String code) {
+        bindWechat = apiService.bindWechat(code);
+        bindWechat.compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<String>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<String> stringReturnResult) {
+                        ToastUtils.showToast(stringReturnResult.getMessage());
+                        Intent intent = new Intent(context, MainActivity.class);
+                        startActivity(intent);
                     }
-                }
-                AppUtils.showToast(context, entity.getMessage());
-            }
 
-            @Override
-            public void onFailure() {
-
-            }
-        });
-    }*/
+                    @Override
+                    public void onFailure(String msg, int code) {
+                    }
+                });
+    }
 
     /*private void sendCodeToService(String code) {
         HashMap<String, String> map = new HashMap<>();

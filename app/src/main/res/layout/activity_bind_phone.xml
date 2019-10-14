@@ -135,7 +135,7 @@
         app:button_click_able="false"
         app:color_normal="@color/btn_unable_click_gray"
         app:corner="20dp"
-        app:text="@string/next_step"
+        app:text="登录"
         app:textColor="@color/white"
         app:textSize="17sp"/>
 
@@ -147,7 +147,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:visibility="gone">
 
         <View
             android:layout_width="80dp"
@@ -182,7 +183,8 @@
         android:textColor="@color/text_color_64"
         android:drawablePadding="5dp"
         android:drawableTop="@drawable/weixin"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="30dp"
+        android:visibility="gone"/>
 
 
 

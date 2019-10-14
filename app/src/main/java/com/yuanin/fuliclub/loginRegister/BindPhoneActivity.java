@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mvvm.base.AbsLifecycleActivity;
 import com.next.easytitlebar.view.EasyTitleBar;
@@ -23,7 +21,6 @@ import com.yuanin.fuliclub.util.SharedPreferencesUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.view.ClearEditText;
 import com.yuanin.fuliclub.view.CountDownTextView;
-import com.yuanin.fuliclub.view.bamtoast.btoast.BToast;
 
 import java.lang.ref.WeakReference;
 
@@ -32,7 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import top.androidman.SuperButton;
 
-public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> {
+public class BindPhoneActivity extends AbsLifecycleActivity<LoginRegisterViewModel> {
 
     @BindView(R.id.titleBar)
     EasyTitleBar titleBar;
@@ -47,10 +44,11 @@ public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> 
     @BindView(R.id.tvCountDownText)
     CountDownTextView tvCountDownText;
 
-    private WeakReference<LoginActivity> weakReference;
-    private Context context = LoginActivity.this;
+    private WeakReference<BindPhoneActivity> weakReference;
+    private Context context = BindPhoneActivity.this;
     private String phoneNo;
     private String smsCode;
+    private String weChatUid;
 
     @Override
     protected int getScreenMode() {
@@ -59,7 +57,7 @@ public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> 
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_login;
+        return R.layout.activity_bind_phone;
     }
 
     @Override
@@ -72,6 +70,7 @@ public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> 
         titleBar.setBackImageRes(R.drawable.black);
         titleBar.getBackLayout().setOnClickListener(v -> finish());
 
+        weChatUid = getIntent().getStringExtra("uid");
 
         initListener();
 
@@ -80,12 +79,12 @@ public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> 
     private void initListener() {
         //验证码倒计时
         tvCountDownText.setOnClickListener(v -> {
-            phoneNo = LoginActivity.this.etPhone.getText().toString().trim();
+            phoneNo = etPhone.getText().toString().trim();
 
-            if (!TextUtils.isEmpty(phoneNo)){
-                if (PhoneNumUtils.isPhone(context, phoneNo)){
+            if (!TextUtils.isEmpty(phoneNo)) {
+                if (PhoneNumUtils.isPhone(context, phoneNo)) {
                     tvCountDownText.start();
-                    mViewModel.sendSmsVerification(phoneNo);
+                    mViewModel.smsValidCodeBindMobile(phoneNo);
                 } else {
                     tvCountDownText.reset();
                     ToastUtils.showToast("请输入正确的手机号");
@@ -106,11 +105,11 @@ public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> 
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                smsCode = LoginActivity.this.tvSmsCode.getText().toString().trim();
+                smsCode = tvSmsCode.getText().toString().trim();
                 if (s.length() == 11 && !TextUtils.isEmpty(smsCode) && smsCode.length() == 6) {
                     btnNextStep.setColorNormal(getResources().getColor(R.color.theme_color));
                     btnNextStep.setButtonClickable(true);
-                } else{
+                } else {
                     if (btnNextStep.isClickable()) {
                         btnNextStep.setColorNormal(getResources().getColor(R.color.btn_unable_click_gray));
                         btnNextStep.setButtonClickable(false);
@@ -133,11 +132,11 @@ public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> 
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                phoneNo = LoginActivity.this.etPhone.getText().toString().trim();
+                phoneNo = etPhone.getText().toString().trim();
                 if (s.length() == 6 && !TextUtils.isEmpty(phoneNo) && phoneNo.length() == 11) {
                     btnNextStep.setColorNormal(getResources().getColor(R.color.theme_color));
                     btnNextStep.setButtonClickable(true);
-                } else{
+                } else {
                     if (btnNextStep.isClickable()) {
                         btnNextStep.setColorNormal(getResources().getColor(R.color.btn_unable_click_gray));
                         btnNextStep.setButtonClickable(false);
@@ -153,39 +152,15 @@ public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
-
-    @Override
     protected void dataObserver() {
-        registerSubscriber(LoginRegisterRepository.IS_INSTALL_WECHAT, BooleanTest.class).observe(this, booleanTest -> {
-            if (booleanTest != null) {
-                boolean isTrue = booleanTest.isTrue;
-                if (isTrue) {
-                   // Toast.makeText(this, "您的设备还没有安装微信", Toast.LENGTH_SHORT).show();
-                    ToastUtils.showToast("您的设备还没有安装微信");
-                }
-            }
-        });
-
-
-        registerSubscriber(LoginRegisterRepository.EVENT_KEY_LOGIN_MESSAGE, ReturnResult.class).observe(this, returnResult -> {
+        registerSubscriber(LoginRegisterRepository.EVENT_KEY_BIND_PHONE_MESSAGE, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
-               /* if (returnResult.isSuccess()) {
-                    Intent intent = new Intent(this, SmsMessageVerActivity.class);
-                    intent.putExtra("phone", phoneNo);
-                    startActivity(intent);
-                }*/
-                //BToast.makeText(this, returnResult.getMessage(), true).show();
                 ToastUtils.showToast(returnResult.getMessage());
             }
         });
 
 
-        registerSubscriber(LoginRegisterRepository.EVENT_KEY_LOGIN_PHONE, ReturnResult.class).observe(this, loginSuccessEntityReturnResult -> {
+        registerSubscriber(LoginRegisterRepository.EVENT_KEY_BIND_PHONE, ReturnResult.class).observe(this, loginSuccessEntityReturnResult -> {
             if (loginSuccessEntityReturnResult != null) {
                 if (loginSuccessEntityReturnResult.isSuccess()) {
                     ReturnResult<LoginSuccessEntity> entity = loginSuccessEntityReturnResult;
@@ -197,14 +172,9 @@ public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> 
                     StaticMembers.MOBILE = entity.getData().getMobile();
                     StaticMembers.TOKEN = entity.getData().getAccessToken();
                     //登陆成功后，跳转主页面
-                    if (entity.getData().getSceneCode().equals("LOGIN")) {
-                        Intent intent = new Intent(context, MainActivity.class);
-                        startActivity(intent);
-                    } else if (entity.getData().getSceneCode().equals("REGISTER")) {
-                        mViewModel.weChatLogin();
-                    }
+                    Intent intent = new Intent(context, MainActivity.class);
+                    startActivity(intent);
                     //BToast.makeText(this, loginSuccessEntityReturnResult.getMessage(), true).show();
-
                 }
 
                 ToastUtils.showToast(loginSuccessEntityReturnResult.getMessage());
@@ -213,22 +183,22 @@ public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> 
         });
     }
 
-    @OnClick({R.id.btn_next_step, R.id.imBtnWeixin})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn_next_step:
-                phoneNo = LoginActivity.this.etPhone.getText().toString().trim();
-                if (TextUtils.isEmpty(smsCode) && smsCode.length() == 6) {
-                    ToastUtils.showToast("请输入正确位数的短信验证码");
-                    break;
-                }
-                if (PhoneNumUtils.isPhone(context,phoneNo)) {
-                    mViewModel.gotoLoginRegister(phoneNo, smsCode);
-                }
-                break;
-            case R.id.imBtnWeixin:
-                mViewModel.weChatLogin();
-                break;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.btn_next_step)
+    public void onViewClicked() {
+        phoneNo = etPhone.getText().toString().trim();
+        if (TextUtils.isEmpty(smsCode) && smsCode.length() == 6) {
+            ToastUtils.showToast("请输入正确位数的短信验证码");
+            return;
+        }
+        if (PhoneNumUtils.isPhone(context,phoneNo)) {
+            mViewModel.gotoBindPhone(phoneNo, smsCode, weChatUid);
         }
     }
 }

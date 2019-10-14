@@ -152,7 +152,7 @@ public class LoginRegisterActivity extends AbsLifecycleActivity<LoginRegisterVie
             }
         });
 
-
+/*
         registerSubscriber(LoginRegisterRepository.EVENT_KEY_LOGIN_MESSAGE, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
@@ -162,6 +162,6 @@ public class LoginRegisterActivity extends AbsLifecycleActivity<LoginRegisterVie
                 }
                 BToast.makeText(this, returnResult.getMessage(), true).show();
             }
-        });
+        });*/
     }
 }

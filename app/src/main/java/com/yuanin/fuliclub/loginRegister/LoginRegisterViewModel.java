@@ -29,4 +29,12 @@ public class LoginRegisterViewModel extends AbsViewModel<LoginRegisterRepository
     public void gotoLoginRegister(String phone, String code) {
         mRepository.gotoLoginRegister(phone, code);
     }
+
+    public void smsValidCodeBindMobile(String phoneNo) {
+        mRepository.smsValidCodeBindMobile(phoneNo);
+    }
+
+    public void gotoBindPhone(String phoneNo, String smsCode, String weChatUid) {
+        mRepository.gotoBindPhone(phoneNo, smsCode, weChatUid);
+    }
 }

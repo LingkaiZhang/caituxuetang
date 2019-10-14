@@ -34,9 +34,15 @@ public class URL {
 
     //短信发送接口
     public static final String SEND_MESSAGE_VERIFICATION = URL.FLKT + URL.MODULE_USER + "smsValidCode";
+    //发送短信验证码-绑定手机号
+    public static  final String SMSVALIDCODE_BIND_MOBILE = URL.FLKT + URL.MODULE_USER + "smsValidCodeBindMobile";
     //登录
     public static final String LOGIN_PHONE = URL.FLKT + URL.MODULE_USER + "login";
+    //授权登录绑定手机号
+    public static final String AUTHORIZE_MOBILE_LOGIN = URL.FLKT + URL.MODULE_USER + "authorizeMobileLogin";
     //微信登录发送code到service
     public static final String LOGIN_WECHAT = URL.FLKT + URL.MODULE_USER + "authorizeLogin";
+    //绑定微信
+    public static final String BIND_WECHAT = URL.FLKT + URL.MODULE_USER + "bindWx";
 }
 
