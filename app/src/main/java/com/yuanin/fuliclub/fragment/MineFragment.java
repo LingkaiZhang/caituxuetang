@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mvvm.base.BaseFragment;
 import com.yuanin.fuliclub.R;
+import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.minePart.AboutOursActivity;
 import com.yuanin.fuliclub.minePart.FeedBackActivity;
@@ -57,6 +59,8 @@ public class MineFragment extends BaseFragment {
     RelativeLayout rlMineAbout;
     @BindView(R.id.clMain)
     ConstraintLayout clMain;
+    @BindView(R.id.llUserInfo)
+    LinearLayout llUserInfo;
 
 
     private View popupWindowContactUs;
@@ -78,6 +82,22 @@ public class MineFragment extends BaseFragment {
     @Override
     public void initView(Bundle state) {
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (StaticMembers.IS_NEED_LOGIN) {
+            tvGoLogin.setVisibility(View.VISIBLE);
+            llUserInfo.setVisibility(View.GONE);
+            ivUserHeader.setImageDrawable(getResources().getDrawable(R.mipmap.avatar));
+        }else {
+            tvGoLogin.setVisibility(View.GONE);
+            llUserInfo.setVisibility(View.VISIBLE);
+            // 请求用户数据
+
+        }
     }
 
     @Override

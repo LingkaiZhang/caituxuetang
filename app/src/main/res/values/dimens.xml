@@ -9,4 +9,7 @@
     <dimen name="music_text">12sp</dimen>
     <dimen name="item_icon_padding">8dp</dimen>
     <dimen name="music_seek_bar_height">2dp</dimen>
+    <dimen name="small_margin">16dp</dimen>
+    <dimen name="line">1dp</dimen>
+    <dimen name="long_button_corners">44dp</dimen>
 </resources>

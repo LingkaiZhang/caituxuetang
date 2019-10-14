@@ -39,6 +39,8 @@
     <color name="music_text">#ffffff</color>
     <color name="music_seek_bar_bg">#D8D8D8</color>
     <color name="popupWindow_bg">#55000000</color>
+    <color name="gray_cancel_click">#ddd</color>
+    <color name="text_light_gray">#999</color>
 
 
 </resources>

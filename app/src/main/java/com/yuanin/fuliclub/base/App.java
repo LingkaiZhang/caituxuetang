@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
@@ -39,7 +40,9 @@ import com.yuanin.fuliclub.config.AppConst;
 import com.yuanin.fuliclub.config.URL;
 import com.yuanin.fuliclub.learnPart.CourseDetailsActivity;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleDetailsActivity;
+import com.yuanin.fuliclub.util.AppUtils;
 import com.yuanin.fuliclub.view.MusicPlayControlView;
+import com.yuanin.fuliclub.view.StaticMembers;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -107,6 +110,20 @@ public class App extends Application implements ComponentCallbacks2 {
         initEasyTitleBar();
 
         initFloatWindow();
+
+        init();
+
+
+    }
+
+    private void init() {
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+//        int statusBarHeight1 = (int) Math.ceil(25 * metrics.density);
+        StaticMembers.STATUS_HEIGHT = AppUtils.getStatusHeight(this);
+        StaticMembers.SCREEN_WIDTH = metrics.widthPixels;
+        StaticMembers.SCREEN_HEIGHT = metrics.heightPixels;
+
+
 
     }
 
