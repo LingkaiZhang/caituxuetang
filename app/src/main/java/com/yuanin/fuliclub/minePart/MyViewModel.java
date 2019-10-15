@@ -19,4 +19,20 @@ public class MyViewModel extends AbsViewModel<MyRepository> {
     public void upLoadPicture(String picturePath) {
         mRepository.upLoadPicture(picturePath);
     }
+
+    public void updateUserHeaderImage(String saveName) {
+        mRepository.updateUserHeaderImage(saveName);
+    }
+
+    public void getUserInfo() {
+        mRepository.getUserInfo();
+    }
+
+    public void weChatLogin() {
+        mRepository.weChatLgin();
+    }
+
+    public void saveNewNickName(String newNickName) {
+        mRepository.saveNewNickName(newNickName);
+    }
 }

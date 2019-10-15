@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 填充 -->
+    <solid android:color="@color/theme_color" />
+
+    <!-- 边框颜色 宽度 -->
+    <!--<stroke android:width="2dp" android:color="@color/white"/>-->
+
+    <corners
+        android:bottomLeftRadius="@dimen/long_button_corners"
+        android:bottomRightRadius="@dimen/long_button_corners"
+        android:topLeftRadius="@dimen/long_button_corners"
+        android:topRightRadius="@dimen/long_button_corners"
+        />
+
+</shape>

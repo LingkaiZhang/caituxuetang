@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.luck.picture.lib.permissions.RxPermissions;
 import com.mvvm.base.AbsLifecycleActivity;
@@ -21,6 +22,8 @@ import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.loginRegister.BooleanTest;
 import com.yuanin.fuliclub.loginRegister.LoginRegisterRepository;
 import com.yuanin.fuliclub.loginRegister.SmsMessageVerActivity;
+import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
+import com.yuanin.fuliclub.minePart.bean.UpdateFileCallbackEntity;
 import com.yuanin.fuliclub.util.AppUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.view.GeneralDialog;
@@ -52,6 +55,9 @@ public class MyAccountActivity extends AbsLifecycleActivity<MyViewModel> {
     private WeakReference<MyAccountActivity> weakReference;
     private GeneralDialog exitDialog;
 
+    private boolean isBindWeChat = false;
+    private String nickName;
+
     @Override
     protected int getScreenMode() {
         return 0;
@@ -72,6 +78,7 @@ public class MyAccountActivity extends AbsLifecycleActivity<MyViewModel> {
         titleBar.setBackImageRes(R.drawable.black);
         titleBar.getBackLayout().setOnClickListener(v -> finish());
 
+        mViewModel.getUserInfo();
     }
 
     @Override
@@ -81,7 +88,7 @@ public class MyAccountActivity extends AbsLifecycleActivity<MyViewModel> {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.ivHeaderImage, R.id.tvExitLogin})
+    @OnClick({R.id.ivHeaderImage, R.id.tvExitLogin, R.id.tvWeChatName, R.id.tvNickName})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivHeaderImage:
@@ -134,6 +141,21 @@ public class MyAccountActivity extends AbsLifecycleActivity<MyViewModel> {
                     }
                 });
                 break;
+
+            case R.id.tvNickName:
+                Intent intent = new Intent(this, NickNameModifyActivity.class);
+                intent.putExtra("nickName", nickName);
+                startActivity(intent);
+                break;
+
+            case R.id.tvWeChatName:
+                if (isBindWeChat) {
+                    ToastUtils.showToast("您的账号已绑定微信！");
+                } else {
+                    //绑定微信
+                    mViewModel.weChatLogin();
+                }
+                break;
         }
     }
 
@@ -163,14 +185,68 @@ public class MyAccountActivity extends AbsLifecycleActivity<MyViewModel> {
     @Override
     protected void dataObserver() {
 
+        registerSubscriber(MyRepository.IS_INSTALL_WECHAT, BooleanTest.class).observe(this, booleanTest -> {
+            if (booleanTest != null) {
+                boolean isTrue = booleanTest.isTrue;
+                if (isTrue) {
+                    // Toast.makeText(this, "您的设备还没有安装微信", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showToast("您的设备还没有安装微信");
+                }
+            }
+        });
+
         registerSubscriber(MyRepository.EVENT_KEY_UPLOAD_FILE, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
-                  //图片上传结果,更新我的头像
-
+                    UpdateFileCallbackEntity updateFileCallbackEntity = (UpdateFileCallbackEntity) returnResult.getData();
+                    //图片上传结果,更新我的头像
+                    mViewModel.updateUserHeaderImage(updateFileCallbackEntity.getSaveName());
                 }
                 ToastUtils.showToast(returnResult.getMessage());
             }
         });
+
+        registerSubscriber(MyRepository.EVENT_KEY_UPLOAD_USER_HEADER, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                ToastUtils.showToast(returnResult.getMessage());
+            }
+        });
+
+        registerSubscriber(MyRepository.EVENT_KEY_USER_ACCOUNT_INFO, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    PersonalInfoEntity personalInfoEntity = (PersonalInfoEntity) returnResult.getData();
+                    setUserInfo(personalInfoEntity);
+                } else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
+        });
+    }
+
+    private void setUserInfo(PersonalInfoEntity entity) {
+        setUserHeadImage(entity.getProfilePictureLink());
+        tvNickName.setText(entity.getNickName());
+        tvPhoneNo.setText(entity.getMobile());
+        nickName = entity.getNickName();
+
+        if (entity.getRelevance() == 0) {
+            tvWeChatName.setText("未关联");
+            isBindWeChat = false;
+        } else if (entity.getRelevance() == 1) {
+            tvWeChatName.setText("已关联");
+            isBindWeChat = true;
+        }
+    }
+
+    private void setUserHeadImage(String profilePictureLink) {
+        RequestOptions options = new RequestOptions()
+                .circleCropTransform()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .skipMemoryCache(true)
+                .placeholder(R.mipmap.avatar);
+        Glide.with(this).load(profilePictureLink)
+                .apply(options)
+                .into(ivHeaderImage);
     }
 }

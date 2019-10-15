@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".minePart.NickNameModifyActivity">
+
+    <com.next.easytitlebar.view.EasyTitleBar
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"/>
+
+    <EditText
+        android:id="@+id/edtNickName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="@dimen/small_margin"
+        android:paddingRight="@dimen/small_margin"
+        android:hint="请输入新的昵称"
+        android:textColor="@color/color_333333"
+        android:background="@color/bg"
+
+        />
+
+    <Button
+        android:id="@+id/btnSaveNickName"
+        android:text="保存"
+        android:textColor="@color/white"
+        android:layout_width="@dimen/dp_316"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_44"
+        android:background="@drawable/selector_dialog_confirm_button_click"/>
+
+</LinearLayout>

@@ -52,5 +52,9 @@ public class URL {
     public static  final String USER_HEAD_IMAGE_MODIFY =  URL.MODULE_USER + "updateImage";
     //文件上传
     public static final String UPDATE_FILE = URL.FLKT + "/gene/fileIntact/uploadFile";
+    //我的账户
+    public static  final String USER_INFO =  URL.MODULE_USER + "userInfo";
+    //编辑用户昵称
+    public static  final String USER_NICK_NAME_MODIFY =  URL.MODULE_USER + "updateName";
 }
 

@@ -1,5 +1,6 @@
 package com.yuanin.fuliclub.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -107,7 +108,7 @@ public class MineFragment extends BaseFragment {
             tvGoLogin.setVisibility(View.VISIBLE);
             llUserInfo.setVisibility(View.GONE);
             ivUserHeader.setImageDrawable(getResources().getDrawable(R.mipmap.avatar));
-        }else {
+        } else {
             tvGoLogin.setVisibility(View.GONE);
             llUserInfo.setVisibility(View.VISIBLE);
             // 请求用户数据
@@ -115,6 +116,7 @@ public class MineFragment extends BaseFragment {
         }
     }
 
+    @SuppressLint("CheckResult")
     private void requsetData() {
         userInfo = apiService.getUserInfo();
         userInfo.compose(RxSchedulers.io_main())
@@ -167,38 +169,51 @@ public class MineFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.ivKefu, R.id.iv_user_header, R.id.ivMessage, R.id.tvGoLogin, R.id.rl_mine_account, R.id.rl_mine_order, R.id.rl_mine_news, R.id.rl_mine_about})
-    public void onViewClicked(View view) {
+    @OnClick(value = {R.id.tvGoLogin, R.id.rl_mine_about, R.id.ivKefu})
+    public void unLoginOnClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_user_header:
-                break;
-            case R.id.ivMessage:
-                startActivity(new Intent(getActivity(), MyMessageActivity.class));
-                break;
             case R.id.tvGoLogin:
                 startActivity(new Intent(getActivity(), LoginActivity.class));
                 break;
-            case R.id.rl_mine_account:
-                startActivity(new Intent(getActivity(), MyAccountActivity.class));
-                break;
-            case R.id.rl_mine_order:
-                //订单详情
-                startActivity(new Intent(getActivity(), OrderDetaailsActivity.class));
-                break;
-            case R.id.rl_mine_news:
-                startActivity(new Intent(getActivity(), FeedBackActivity.class));
-                break;
+
             case R.id.rl_mine_about:
                 startActivity(new Intent(getActivity(), AboutOursActivity.class));
                 break;
             case R.id.ivKefu:
                 PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popupWindowContactUs, getActivity());
                 ContactUsPop.showAtLocation(clMain, Gravity.CENTER, 0, 0);
-
                 break;
-
-
         }
     }
 
+    @OnClick({R.id.iv_user_header, R.id.ivMessage, R.id.rl_mine_account, R.id.rl_mine_order, R.id.rl_mine_news})
+    public void onViewClick(View view) {
+
+        if (StaticMembers.IS_NEED_LOGIN) {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+        } else {
+            switch (view.getId()) {
+                case R.id.iv_user_header:
+                    break;
+                case R.id.ivMessage:
+                    startActivity(new Intent(getActivity(), MyMessageActivity.class));
+                    break;
+                case R.id.rl_mine_account:
+                    startActivity(new Intent(getActivity(), MyAccountActivity.class));
+                    break;
+                case R.id.rl_mine_order:
+                    //订单详情
+                    startActivity(new Intent(getActivity(), OrderDetaailsActivity.class));
+                    break;
+                case R.id.rl_mine_news:
+                    startActivity(new Intent(getActivity(), FeedBackActivity.class));
+                    break;
+            }
+
+        }
+
+
+    }
 }
+
+

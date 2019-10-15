@@ -2,6 +2,7 @@ package com.yuanin.fuliclub.base;
 
 import com.yuanin.fuliclub.config.URL;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
+import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.minePart.bean.UpdateFileCallbackEntity;
 import com.yuanin.fuliclub.minePart.bean.UserInfoEntity;
 
@@ -53,4 +54,14 @@ public interface ApiService {
     Flowable<ReturnResult<UpdateFileCallbackEntity>> upLoadPicture(@Part MultipartBody.Part part);
 
 
+    @POST(URL.USER_HEAD_IMAGE_MODIFY)
+    @FormUrlEncoded
+    Flowable<ReturnResult<String>> updateUserHeaderImage(@Field("saveName") String saveName);
+
+    @POST(URL.USER_INFO)
+    Flowable<ReturnResult<PersonalInfoEntity>> getUserAccountInfo();
+
+    @POST(URL.USER_NICK_NAME_MODIFY)
+    @FormUrlEncoded
+    Flowable<ReturnResult<String>> saveNewNickName(@Field("nickName") String newNickName);
 }
