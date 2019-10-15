@@ -8,12 +8,14 @@ import com.yuanin.fuliclub.base.BaseRepository;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.loginRegister.BooleanTest;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
+import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.minePart.bean.UpdateFileCallbackEntity;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.util.StringUtil;
 
 import java.io.File;
+import java.util.List;
 
 import io.reactivex.Flowable;
 import okhttp3.MediaType;
@@ -34,7 +36,12 @@ public class MyRepository extends BaseRepository {
     public static String EVENT_KEY_UPLOAD_USER_HEADER = null;
 
     public static String EVENT_KEY_USER_ACCOUNT_INFO = null;
+
     public static String EVENT_KEY_SAVE_USER_NICKNAME = null;
+
+    public static String EVENT_KEY_MESSAGE_LIST = null;
+
+    public static String EVENT_KEY_MESSAGE_UPDATE_STATUS = null;
 
     private BooleanTest booleanTest = new BooleanTest();
 
@@ -57,6 +64,12 @@ public class MyRepository extends BaseRepository {
         }
         if (EVENT_KEY_SAVE_USER_NICKNAME == null) {
             EVENT_KEY_SAVE_USER_NICKNAME = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_MESSAGE_LIST == null) {
+            EVENT_KEY_MESSAGE_LIST = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_MESSAGE_UPDATE_STATUS == null) {
+            EVENT_KEY_MESSAGE_UPDATE_STATUS = StringUtil.getEventKey();
         }
     }
 
@@ -148,5 +161,41 @@ public class MyRepository extends BaseRepository {
 
                     }
                 }));
+    }
+
+    public void getMessageList(String pageNum) {
+        addDisposable(apiService.getMessageList(pageNum, "15")
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<List<MyMessageVo>>>() {
+
+                    @Override
+                    public void onSuccess(ReturnResult<List<MyMessageVo>> messageVoReturnResult) {
+                        postData(EVENT_KEY_MESSAGE_LIST, messageVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void updateMessageStatus(String newId, String type){
+        addDisposable(apiService.updateMessageStatus(newId, type)
+        .compose(RxSchedulers.io_main())
+        .subscribeWith(new RxSubscriber<ReturnResult<String>>(){
+
+            @Override
+            public void onSuccess(ReturnResult<String> stringReturnResult) {
+                postData(EVENT_KEY_MESSAGE_UPDATE_STATUS, stringReturnResult);
+                postState(StateConstants.SUCCESS_STATE);
+            }
+
+            @Override
+            public void onFailure(String msg, int code) {
+
+            }
+        }));
     }
 }

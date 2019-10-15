@@ -35,4 +35,12 @@ public class MyViewModel extends AbsViewModel<MyRepository> {
     public void saveNewNickName(String newNickName) {
         mRepository.saveNewNickName(newNickName);
     }
+
+    public void getMessageList(String pageNum) {
+        mRepository.getMessageList(pageNum);
+    }
+
+    public void upDateMessageStatus(String newid, String type){
+        mRepository.updateMessageStatus(newid,type);
+    }
 }

@@ -56,5 +56,9 @@ public class URL {
     public static  final String USER_INFO =  URL.MODULE_USER + "userInfo";
     //编辑用户昵称
     public static  final String USER_NICK_NAME_MODIFY =  URL.MODULE_USER + "updateName";
+    //消息列表
+    public static final String USER_MESSAGE_LIST = URL.MODULE_ORDER + "per/newSList";
+    //标记消息为已读或删除
+    public static final String MESSAGE_STATUS_UPDATE = URL.MODULE_ORDER + "per/newUpdate";
 }
 

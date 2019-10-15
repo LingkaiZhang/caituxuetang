@@ -15,13 +15,17 @@ import com.mvvm.base.AbsLifecycleActivity;
 import com.next.easytitlebar.view.EasyTitleBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yuanin.fuliclub.R;
+import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
+import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.RefreshHelper;
+import com.yuanin.fuliclub.util.ToastUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +49,7 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
 
     protected boolean isRefresh = false;
     private ArrayList<MyMessageVo> myMessageVos;
+
 
 
     @Override
@@ -79,11 +84,13 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
         mRecyclerView.addOnScrollListener(onScrollListener);
 
         //模拟数据
-        myMessageVos = new ArrayList<>();
+        /*myMessageVos = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             myMessageVos.add(new MyMessageVo());
         }
-        setUiData(myMessageVos);
+        setUiData(myMessageVos);*/
+
+        mViewModel.getMessageList("1");
 
     }
 
@@ -101,7 +108,21 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
 
     @Override
     protected void dataObserver() {
+        registerSubscriber(MyRepository.EVENT_KEY_MESSAGE_LIST, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    loadManager.showSuccess();
+                    List<MyMessageVo> myMessageVoList = (List<MyMessageVo>) returnResult.getData();
 
+                    setUiData(myMessageVoList);
+
+                    ToastUtils.showToast(returnResult.getMessage());
+                } else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+
+            }
+        });
     }
 
     protected void setData() {
@@ -137,12 +158,12 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
 
     @Override
     public void onRefresh(boolean isRefresh) {
-
+        mViewModel.getMessageList("1");
     }
 
     @Override
     public void onLoadMore(boolean isLoadMore, int pageIndex) {
-
+        mViewModel.getMessageList(String.valueOf(pageIndex));
     }
 
 

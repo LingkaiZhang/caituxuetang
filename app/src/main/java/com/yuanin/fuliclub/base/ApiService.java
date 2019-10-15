@@ -2,14 +2,18 @@ package com.yuanin.fuliclub.base;
 
 import com.yuanin.fuliclub.config.URL;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
+import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.minePart.bean.UpdateFileCallbackEntity;
 import com.yuanin.fuliclub.minePart.bean.UserInfoEntity;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -64,4 +68,12 @@ public interface ApiService {
     @POST(URL.USER_NICK_NAME_MODIFY)
     @FormUrlEncoded
     Flowable<ReturnResult<String>> saveNewNickName(@Field("nickName") String newNickName);
+
+    @POST(URL.USER_MESSAGE_LIST)
+    @FormUrlEncoded
+    Flowable<ReturnResult<List<MyMessageVo>>> getMessageList(@Field("pageNum") String pageNum, @Field("pageSize") String pageSize);
+
+    @POST(URL.MESSAGE_STATUS_UPDATE)
+    @FormUrlEncoded
+    Flowable<ReturnResult<String>> updateMessageStatus(@Field("newId") String newId, @Field("type") String type);
 }
