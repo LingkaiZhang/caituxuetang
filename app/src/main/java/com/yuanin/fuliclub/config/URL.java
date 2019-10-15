@@ -44,6 +44,10 @@ public class URL {
     public static final String LOGIN_WECHAT = URL.FLKT + URL.MODULE_USER + "authorizeLogin";
     //绑定微信
     public static final String BIND_WECHAT = URL.FLKT + URL.MODULE_USER + "bindWx";
+    //修改手机号发送短信
+    public static  final String USER_SMSVALIDCODE_CHANGE_MOBILE = URL.MODULE_USER + "smsValidCodeChangMobile";
+    //修改用户手机号
+    public static  final String USER_UPDATE_MOBILE_MODIFY =  URL.MODULE_USER + "updateMobile";
 
 
     //我的

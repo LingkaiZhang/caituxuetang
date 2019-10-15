@@ -43,4 +43,12 @@ public class MyViewModel extends AbsViewModel<MyRepository> {
     public void upDateMessageStatus(String newid, String type){
         mRepository.updateMessageStatus(newid,type);
     }
+
+    public void getSmsCodeBindPhone(String etPhone) {
+        mRepository.getSmsCodeBindPhone(etPhone);
+    }
+
+    public void updateUserPhone(String etPhone, String erMessageCode) {
+        mRepository.upDateUserPhone(etPhone, erMessageCode);
+    }
 }

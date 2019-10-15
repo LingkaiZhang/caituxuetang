@@ -43,6 +43,10 @@ public class MyRepository extends BaseRepository {
 
     public static String EVENT_KEY_MESSAGE_UPDATE_STATUS = null;
 
+    public static String EVENT_KEY_USER_UPDATE_PHONE = null;
+
+    public static String EVENT_KEY_USER_UPDATE_PHONE_SMS = null;
+
     private BooleanTest booleanTest = new BooleanTest();
 
     private Flowable<ReturnResult<UpdateFileCallbackEntity>> upLoadPicture;
@@ -70,6 +74,12 @@ public class MyRepository extends BaseRepository {
         }
         if (EVENT_KEY_MESSAGE_UPDATE_STATUS == null) {
             EVENT_KEY_MESSAGE_UPDATE_STATUS = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_USER_UPDATE_PHONE == null) {
+            EVENT_KEY_USER_UPDATE_PHONE = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_USER_UPDATE_PHONE_SMS == null) {
+            EVENT_KEY_USER_UPDATE_PHONE_SMS = StringUtil.getEventKey();
         }
     }
 
@@ -181,21 +191,57 @@ public class MyRepository extends BaseRepository {
                 }));
     }
 
-    public void updateMessageStatus(String newId, String type){
+    public void updateMessageStatus(String newId, String type) {
         addDisposable(apiService.updateMessageStatus(newId, type)
-        .compose(RxSchedulers.io_main())
-        .subscribeWith(new RxSubscriber<ReturnResult<String>>(){
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<String>>() {
 
-            @Override
-            public void onSuccess(ReturnResult<String> stringReturnResult) {
-                postData(EVENT_KEY_MESSAGE_UPDATE_STATUS, stringReturnResult);
-                postState(StateConstants.SUCCESS_STATE);
-            }
+                    @Override
+                    public void onSuccess(ReturnResult<String> stringReturnResult) {
+                        postData(EVENT_KEY_MESSAGE_UPDATE_STATUS, stringReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
 
-            @Override
-            public void onFailure(String msg, int code) {
+                    @Override
+                    public void onFailure(String msg, int code) {
 
-            }
-        }));
+                    }
+                }));
+    }
+
+    public void getSmsCodeBindPhone(String etPhone) {
+        addDisposable(apiService.smsValidCodeUpdateMobile(etPhone)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<String>>() {
+
+                    @Override
+                    public void onSuccess(ReturnResult<String> stringReturnResult) {
+                        postData(EVENT_KEY_USER_UPDATE_PHONE_SMS, stringReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void upDateUserPhone(String etPhone, String erMessageCode) {
+        addDisposable(apiService.UpdateMobile(etPhone, erMessageCode)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<LoginSuccessEntity>>() {
+
+                    @Override
+                    public void onSuccess(ReturnResult<LoginSuccessEntity> stringReturnResult) {
+                        postData(EVENT_KEY_USER_UPDATE_PHONE, stringReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
     }
 }

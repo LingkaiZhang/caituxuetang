@@ -83,4 +83,9 @@
         <item name="android:windowExitAnimation">@anim/pop_sign_hidden_anim</item>
     </style>
 
+    <style name="numberEditText">
+        <item name="android:inputType">number</item>
+        <item name="android:digits">1234567890</item>
+    </style>
+
 </resources>

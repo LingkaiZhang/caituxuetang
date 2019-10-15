@@ -80,6 +80,10 @@
         <activity
             android:name=".minePart.NickNameModifyActivity"
             android:label="修改用户昵称"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".minePart.BindingPhoneNumActivity"
+            android:label="修改用户手机号"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".minePart.MyAccountActivity"

@@ -33,6 +33,14 @@ public interface ApiService {
     @FormUrlEncoded
     Flowable<ReturnResult<String>> smsValidCodeBindMobile(@Field("mobile")String phoneNo);
 
+    @POST(URL.USER_SMSVALIDCODE_CHANGE_MOBILE)
+    @FormUrlEncoded
+    Flowable<ReturnResult<String>> smsValidCodeUpdateMobile(@Field("mobile") String phoneNo);
+
+    @POST(URL.USER_UPDATE_MOBILE_MODIFY)
+    @FormUrlEncoded
+    Flowable<ReturnResult<LoginSuccessEntity>> UpdateMobile(@Field("mobile") String phoneNo, @Field("validCode") String validCode);
+
     @POST(URL.LOGIN_PHONE)
     @FormUrlEncoded
     Flowable<ReturnResult<LoginSuccessEntity>> gotoPhoneLoginRegister(@Field("mobile")String phoneNo,@Field("validCode")String phonvalidCodeeNo);
@@ -76,4 +84,6 @@ public interface ApiService {
     @POST(URL.MESSAGE_STATUS_UPDATE)
     @FormUrlEncoded
     Flowable<ReturnResult<String>> updateMessageStatus(@Field("newId") String newId, @Field("type") String type);
+
+
 }

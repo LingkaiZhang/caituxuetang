@@ -88,9 +88,14 @@ public class MyAccountActivity extends AbsLifecycleActivity<MyViewModel> {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.ivHeaderImage, R.id.tvExitLogin, R.id.tvWeChatName, R.id.tvNickName})
+    @OnClick({R.id.ivHeaderImage, R.id.tvExitLogin, R.id.tvWeChatName, R.id.tvNickName, R.id.tvPhoneNo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+
+            case R.id.tvPhoneNo:
+                Intent intent2 = new Intent(this, BindingPhoneNumActivity.class);
+                startActivity(intent2);
+                break;
             case R.id.ivHeaderImage:
 
                 /**
