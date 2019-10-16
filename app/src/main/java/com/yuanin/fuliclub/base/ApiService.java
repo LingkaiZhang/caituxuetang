@@ -1,6 +1,7 @@
 package com.yuanin.fuliclub.base;
 
 import com.yuanin.fuliclub.config.URL;
+import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
@@ -17,6 +18,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * description ： TODO:类的作用
@@ -27,11 +30,11 @@ public interface ApiService {
 
     @POST(URL.SEND_MESSAGE_VERIFICATION)
     @FormUrlEncoded
-    Flowable<ReturnResult<String>> sendMessageVerification(@Field("mobile")String phoneNo);
+    Flowable<ReturnResult<String>> sendMessageVerification(@Field("mobile") String phoneNo);
 
     @POST(URL.SMSVALIDCODE_BIND_MOBILE)
     @FormUrlEncoded
-    Flowable<ReturnResult<String>> smsValidCodeBindMobile(@Field("mobile")String phoneNo);
+    Flowable<ReturnResult<String>> smsValidCodeBindMobile(@Field("mobile") String phoneNo);
 
     @POST(URL.USER_SMSVALIDCODE_CHANGE_MOBILE)
     @FormUrlEncoded
@@ -43,7 +46,7 @@ public interface ApiService {
 
     @POST(URL.LOGIN_PHONE)
     @FormUrlEncoded
-    Flowable<ReturnResult<LoginSuccessEntity>> gotoPhoneLoginRegister(@Field("mobile")String phoneNo,@Field("validCode")String phonvalidCodeeNo);
+    Flowable<ReturnResult<LoginSuccessEntity>> gotoPhoneLoginRegister(@Field("mobile") String phoneNo, @Field("validCode") String phonvalidCodeeNo);
 
     @POST(URL.AUTHORIZE_MOBILE_LOGIN)
     @FormUrlEncoded
@@ -85,5 +88,8 @@ public interface ApiService {
     @FormUrlEncoded
     Flowable<ReturnResult<String>> updateMessageStatus(@Field("newId") String newId, @Field("type") String type);
 
+
+    @GET(URL.COURSE_LIST)
+    Flowable<ReturnResult<CourseListVo>> getCourseList(@Path("typeId") int id, @Query("page") int page, @Query("limit") int limit);
 
 }

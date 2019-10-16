@@ -64,5 +64,11 @@ public class URL {
     public static final String USER_MESSAGE_LIST = URL.MODULE_ORDER + "per/newSList";
     //标记消息为已读或删除
     public static final String MESSAGE_STATUS_UPDATE = URL.MODULE_ORDER + "per/newUpdate";
+
+    //课程列表
+    public static final String COURSE_LIST = "http://10.1.1.46:60000" + "/course/ct/course/queryListByType/{typeId}";
+
+
+
 }
 

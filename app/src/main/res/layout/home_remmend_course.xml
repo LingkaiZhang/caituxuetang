@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:text="课程名称"
         android:textSize="14sp"
+        android:lines="1"
         android:textColor="@color/color_333333"
         app:layout_constraintLeft_toRightOf="@id/ivItemCourseImage"
         app:layout_constraintTop_toTopOf="parent"

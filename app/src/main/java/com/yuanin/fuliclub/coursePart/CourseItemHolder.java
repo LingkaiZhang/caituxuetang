@@ -10,7 +10,10 @@ import android.widget.TextView;
 import com.adapter.holder.AbsHolder;
 import com.adapter.holder.AbsItemHolder;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.yuanin.fuliclub.R;
+import com.yuanin.fuliclub.util.DensityUtil;
 import com.yuanin.fuliclub.util.DisplayUtil;
 
 
@@ -20,8 +23,11 @@ import com.yuanin.fuliclub.util.DisplayUtil;
 public class CourseItemHolder extends AbsItemHolder<CourseInfoVo, CourseItemHolder.ViewHolder> {
 
 
+    Context mContext;
+
     public CourseItemHolder(Context context) {
         super(context);
+        this.mContext = context;
 
     }
 
@@ -38,25 +44,43 @@ public class CourseItemHolder extends AbsItemHolder<CourseInfoVo, CourseItemHold
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull final CourseInfoVo courseListBean) {
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-//                commonWidth, (int) (0.56 * commonWidth));
-//        holder.mVideoImage.setLayoutParams(params);
-//        holder.mVideoImage.setScaleType(ImageView.ScaleType.FIT_XY);
-//        Glide.with(mContext).load(courseListBean.thumb_url).placeholder(R.color.black_e8e8e8).into(holder.mVideoImage);
-//        Glide.with(mContext).load(courseListBean.userinfo.avatar).transform(new GlideCircleTransform(mContext)).into(holder.mUserIcon);
-//        holder.mUserName.setText(courseListBean.userinfo.sname);
-//        holder.mVideoTitle.setText(courseListBean.title);
-//        holder.mLookNum.setText(new StringBuilder(String.valueOf(courseListBean.hits)).append("人看过"));
+        //设置图片圆角角度
+        RoundedCorners roundedCorners= new RoundedCorners(DensityUtil.dip2px(mContext,8));
+        //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+        RequestOptions options=RequestOptions
+                .bitmapTransform(roundedCorners)
+                .override(300, 300)
+                .placeholder(R.mipmap.item_course);
+
+        Glide.with(mContext).load(courseListBean.getSmallPicture())
+                .apply(options)
+                .into(holder.ivItemCourseImage);
+
+        holder.ivItemCourseName.setText(courseListBean.getCourseTitle());
+        holder.tvItemCourseSlogan.setText(courseListBean.getCourseName());
+        holder.tvItemCourseBought.setText(courseListBean.getBoughtNum() + "已购买");
+        holder.tvitemCoursePrice.setText("￥" + courseListBean.getCostPrice());
+
     }
 
 
     static class ViewHolder extends AbsHolder {
 
-        private ImageView mVideoImage, mUserIcon;
-        private TextView mLookNum, mVideoTitle, mUserName;
+
+        ImageView ivItemCourseImage;
+        TextView ivItemCourseName;
+        TextView tvItemCourseSlogan;
+        TextView tvItemCourseBought;
+        TextView tvitemCoursePrice;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            ivItemCourseImage = itemView.findViewById(R.id.ivItemCourseImage);
+            ivItemCourseName = itemView.findViewById(R.id.ivItemCourseName);
+            tvItemCourseSlogan = itemView.findViewById(R.id.tvItemCourseSlogan);
+            tvItemCourseBought = itemView.findViewById(R.id.tvItemCourseBought);
+            tvitemCoursePrice = itemView.findViewById(R.id.tvitemCoursePrice);
 
         }
     }
