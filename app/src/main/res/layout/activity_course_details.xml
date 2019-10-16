@@ -94,6 +94,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/rl_price_info"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:background="@color/white"

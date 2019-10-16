@@ -155,7 +155,7 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
     public void onItemClick(View view, int position, Object o) {
         if (o instanceof CourseInfoVo) {
             Intent intent = new Intent(getActivity(), CourseDetailsActivity.class);
-            intent.putExtra("courseId", ((CourseInfoVo) o).getId());
+            intent.putExtra("courseId", String.valueOf(((CourseInfoVo) o).getId()));
             startActivity(intent);
         } else if (o instanceof TypeVo) {
             if (((TypeVo) o).title.equals("小白入门")){

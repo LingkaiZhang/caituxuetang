@@ -94,7 +94,7 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
             myMessageVos.add(new MyMessageVo());
         }
         setUiData(myMessageVos);*/
-        mViewModel.getHomePageCourseList(1,1,3);
+        mViewModel.getHomePageCourseList(1,1,5);
 
 
     }
@@ -103,10 +103,12 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
         if (!isLoadMore) {
             mItems.clear();
             isLoadMore = false;
+            mItems.add(new TypeVo("小白入门"));
             mItems.addAll(data);
+            mItems.add(new BottomBackgroundVo());
             setData();
         } else {
-            mItems.addAll(data);
+            mItems.addAll(mItems.size() - 1,data);
             setMoreData();
         }
     }
@@ -119,15 +121,8 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
                     CourseListVo courseListVo = (CourseListVo) returnResult.getData();
                     List<CourseInfoVo> courseInfoVos = courseListVo.getList();
 
-                    addItems();
+                    setUiData(courseInfoVos);
 
-                    mItems.add(new TypeVo("小白入门"));
-
-                    mItems.addAll(courseInfoVos);
-
-                    mItems.add(new BottomBackgroundVo());
-
-                    setData();
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
                 }
@@ -175,12 +170,14 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
 
     @Override
     public void onRefresh(boolean isRefresh) {
-
+        this.isRefresh = isRefresh;
+        mViewModel.getHomePageCourseList(1,1,3);
     }
 
     @Override
     public void onLoadMore(boolean isLoadMore, int pageIndex) {
-        mViewModel.getHomePageCourseList(1,pageIndex, 10);
+        this.isLoadMore = isLoadMore;
+        mViewModel.getHomePageCourseList(1,pageIndex, 3);
     }
 
 

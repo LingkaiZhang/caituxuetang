@@ -67,6 +67,8 @@ public class URL {
 
     //课程列表
     public static final String COURSE_LIST = "http://10.1.1.46:60000" + "/course/ct/course/queryListByType/{typeId}";
+    //课程详情
+    public static final String COURSE_DETAILS = "http://10.1.1.46:60000" + "/course/ct/course/queryDetailById/{id}";
 
 
 

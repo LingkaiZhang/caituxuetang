@@ -3,10 +3,12 @@ package com.yuanin.fuliclub.learnPart;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -14,10 +16,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.mvvm.base.AbsLifecycleActivity;
 import com.yhao.floatwindow.FloatWindow;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.adapter.ViewPagerFragmentAdapter;
+import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
+import com.yuanin.fuliclub.minePart.MyRepository;
+import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
+import com.yuanin.fuliclub.util.DensityUtil;
+import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.util.ViewPagerUtils;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -60,6 +71,8 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
     TextView tvCoursePrice;
     @BindView(R.id.tvOriginalPrice)
     TextView tvOriginalPrice;
+    @BindView(R.id.rl_price_info)
+    RelativeLayout rl_price_info;
 
    /* @BindView(R.id.titleBar)
     EasyTitleBar titleBar;
@@ -70,8 +83,11 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
     private List<String> mDataList = Arrays.asList(CHANNELS);
 
     private WeakReference<CourseDetailsActivity> weakReference;
-    private CourseIntroduceFragment courseIntroduceFragment;
+    private CourseIntroFragment courseIntroduceFragment;
     private CourseDetailListFragment courseDetailListFragment;
+    private String courseId;
+    private CourseDetailsVo courseDetails;
+    private Context mContext = CourseDetailsActivity.this;
 
     @Override
     protected int getScreenMode() {
@@ -106,12 +122,65 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
 
         loadManager.showSuccess();
 
+
         initViewPager();
         initMagicIndicator();
+
+        courseId = getIntent().getStringExtra("courseId");
+        if (!TextUtils.isEmpty(courseId)) {
+            mViewModel.getCourseDetails(courseId);
+        }
+
 
         //手动控制
         //FloatWindow.get().hide();
 
+    }
+
+
+    @Override
+    protected void dataObserver() {
+        super.dataObserver();
+
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_DETAILS, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    courseDetails = (CourseDetailsVo) returnResult.getData();
+                    setCourseInfo(courseDetails);
+                    courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
+
+                } else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
+        });
+    }
+
+    private void setCourseInfo(CourseDetailsVo courseDetails) {
+        tvCourseName.setText(courseDetails.getCourseName());
+        tvItemCourseSlogan.setText(courseDetails.getCourseApplyCrowd());
+
+        //设置图片圆角角度
+        RoundedCorners roundedCorners = new RoundedCorners(DensityUtil.dip2px(mContext, 8));
+        //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+        RequestOptions options = RequestOptions
+                .bitmapTransform(roundedCorners)
+                .override(300, 300)
+                .placeholder(R.mipmap.item_course);
+
+        Glide.with(mContext).load(courseDetails.getSmallPicture())
+                .apply(options)
+                .into(ivItemCourseImage);
+
+        if (courseDetails.getIsBuy() == 0) {
+            //未购买
+            rl_price_info.setVisibility(View.VISIBLE);
+            tvCoursePrice.setText(String.valueOf(courseDetails.getCostPrice()));
+            tvOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+
+        } else if (courseDetails.getIsBuy() == 1) {
+            //已购买
+        }
     }
 
     private void initMagicIndicator() {
@@ -161,7 +230,7 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
         List<TabIndicatorEntity> list = ViewPagerUtils.getTabIndicator(2);
         // 3个fragment界面封装
         fragmentList = new ArrayList<Fragment>();
-        courseIntroduceFragment = new CourseIntroduceFragment();
+        courseIntroduceFragment = new CourseIntroFragment();
         fragmentList.add(courseIntroduceFragment);
         courseDetailListFragment = new CourseDetailListFragment();
         fragmentList.add(courseDetailListFragment);

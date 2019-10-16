@@ -15,6 +15,7 @@ import com.yuanin.fuliclub.homePart.itemView.BottomBackgroundItemView;
 import com.yuanin.fuliclub.homePart.itemView.CategoryItemView;
 import com.yuanin.fuliclub.homePart.itemView.TypeItemView;
 import com.yuanin.fuliclub.homePart.itemView.TypeItemView2;
+import com.yuanin.fuliclub.learnPart.CourseIntroImageItemHolder;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleInfoVo;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleItemHolder;
 import com.yuanin.fuliclub.learnPart.CourseLearnLogItemHolder;
@@ -64,7 +65,7 @@ public class AdapterPool {
                 .bind(CourseInfoVo.class, new CourseItemHolder(context))
                 .bind(BottomBackgroundVo.class, new BottomBackgroundItemView(context))
 //                .bind(MatreialSubjectVo.class, new HomeMaterialItemView(context))
-                 ;
+                ;
     }
 
     public DelegateAdapter.Builder getLearnFragmentAdapter(Context context) {
@@ -81,6 +82,13 @@ public class AdapterPool {
         return new DelegateAdapter.Builder<>()
                 .bind(CourseKnobbleInfoVo.class, new CourseKnobbleItemHolder(context))
                 .bind(BottomBackgroundVo.class, new BottomBackgroundItemView(context))
+                ;
+
+    }
+
+    public DelegateAdapter.Builder getCourseIntroImageListFragmentAdapter(Context context) {
+        return new DelegateAdapter.Builder<>()
+                .bind(String.class, new CourseIntroImageItemHolder(context))
                 ;
 
     }

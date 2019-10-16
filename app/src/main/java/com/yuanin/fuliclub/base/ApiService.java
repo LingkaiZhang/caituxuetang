@@ -1,6 +1,7 @@
 package com.yuanin.fuliclub.base;
 
 import com.yuanin.fuliclub.config.URL;
+import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
@@ -91,5 +92,9 @@ public interface ApiService {
 
     @GET(URL.COURSE_LIST)
     Flowable<ReturnResult<CourseListVo>> getCourseList(@Path("typeId") int id, @Query("page") int page, @Query("limit") int limit);
+
+    @GET(URL.COURSE_DETAILS)
+    Flowable<ReturnResult<CourseDetailsVo>> getCourseDetails(@Path("id") String id);
+
 
 }

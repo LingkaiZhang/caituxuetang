@@ -16,4 +16,8 @@ public class CourseViewModel extends AbsViewModel<CourseRepository> {
     public CourseViewModel(@NonNull Application application) {
         super(application);
     }
+
+    public void getCourseDetails(String courseId) {
+        mRepository.getCourseDetails(courseId);
+    }
 }
