@@ -2,8 +2,11 @@ package com.yuanin.fuliclub.coursePart;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.yuanin.fuliclub.R;
+import com.yuanin.fuliclub.util.AppUtils;
 import com.yuanin.fuliclub.util.DensityUtil;
 import com.yuanin.fuliclub.util.DisplayUtil;
 
@@ -56,10 +60,29 @@ public class CourseItemHolder extends AbsItemHolder<CourseInfoVo, CourseItemHold
                 .apply(options)
                 .into(holder.ivItemCourseImage);
 
-        holder.ivItemCourseName.setText(courseListBean.getCourseTitle());
-        holder.tvItemCourseSlogan.setText(courseListBean.getCourseName());
+        holder.ivItemCourseName.setText(courseListBean.getCourseName());
+        holder.tvItemCourseSlogan.setText(courseListBean.getCourseTitle());
         holder.tvItemCourseBought.setText(courseListBean.getBoughtNum() + "已购买");
         holder.tvitemCoursePrice.setText("￥" + courseListBean.getCostPrice());
+
+
+        //课程类型标记
+        holder.llTips.removeAllViews();
+        for (int j = 0; j < courseListBean.getCourseLabels().size(); j++) {
+            TextView textView = new TextView(mContext);
+            textView.setGravity(Gravity.CENTER_VERTICAL);
+            textView.setTextColor(mContext.getResources().getColor(R.color.text_orang_ff6500));
+            textView.setTextSize(11);
+            textView.setBackground(mContext.getDrawable(R.drawable.shape_order_price_bg));
+            textView.setPadding( DensityUtil.dip2px(mContext, 5), DensityUtil.dip2px(mContext, 0), DensityUtil.dip2px(mContext, 5), 0);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.setMargins(DensityUtil.dip2px(mContext, 8),0,0,0);//4个参数按顺序分别是左上右下
+            textView.setLayoutParams(layoutParams);
+
+            textView.setText(courseListBean.getCourseLabels().get(j).trim());
+
+            holder.llTips.addView(textView);
+        }
 
     }
 
@@ -73,6 +96,8 @@ public class CourseItemHolder extends AbsItemHolder<CourseInfoVo, CourseItemHold
         TextView tvItemCourseBought;
         TextView tvitemCoursePrice;
 
+        LinearLayout llTips;
+
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -81,6 +106,8 @@ public class CourseItemHolder extends AbsItemHolder<CourseInfoVo, CourseItemHold
             tvItemCourseSlogan = itemView.findViewById(R.id.tvItemCourseSlogan);
             tvItemCourseBought = itemView.findViewById(R.id.tvItemCourseBought);
             tvitemCoursePrice = itemView.findViewById(R.id.tvitemCoursePrice);
+
+            llTips = itemView.findViewById(R.id.llTips);
 
         }
     }

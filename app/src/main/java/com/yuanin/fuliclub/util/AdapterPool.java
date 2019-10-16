@@ -49,6 +49,13 @@ public class AdapterPool {
                 .bind(MyMessageVo.class, new MyMessageListHolder(context));
     }
 
+    public DelegateAdapter.Builder getCourseListAdapter(Context context) {
+        return new DelegateAdapter.Builder<>()
+                .bind(TypeVo.class, new TypeItemView2(context))
+                .bind(CourseInfoVo.class, new CourseItemHolder(context))
+                .bind(BottomBackgroundVo.class, new BottomBackgroundItemView(context));
+    }
+
     public DelegateAdapter.Builder getHomeAdapter(Context context) {
         return new DelegateAdapter.Builder<>()
                 .bind(BannerListVo.class, new BannerItemView(context))

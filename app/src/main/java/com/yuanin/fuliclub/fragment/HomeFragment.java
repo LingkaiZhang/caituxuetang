@@ -13,7 +13,9 @@ import com.mvvm.base.BaseFragment;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.BaseListFragment;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.coursePart.AdvanceCourseListActivity;
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
+import com.yuanin.fuliclub.coursePart.RookieCourseListActivity;
 import com.yuanin.fuliclub.homePart.HomeRepository;
 import com.yuanin.fuliclub.homePart.HomeViewModel;
 import com.yuanin.fuliclub.homePart.banner.BannerListVo;
@@ -76,11 +78,11 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
 
                     mItems.add(new BottomBackgroundVo());
 
-                    mItems.add(new TypeVo("进阶学习"));
-
                     mViewModel.getHomePageCourseListjinjie(1,2,3);
+
+                }else {
+                    ToastUtils.showToast(returnResult.getMessage());
                 }
-                ToastUtils.showToast(returnResult.getMessage());
             }
         });
 
@@ -90,14 +92,17 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
                     CourseListVo courseListVo = (CourseListVo) returnResult.getData();
                     List<CourseInfoVo> courseInfoVos = courseListVo.getList();
 
+                    mItems.add(new TypeVo("进阶学习"));
+
                     mItems.addAll(courseInfoVos);
 
                     mItems.add(new BottomBackgroundVo());
 
                     setData();
 
+                }else {
+                    ToastUtils.showToast(returnResult.getMessage());
                 }
-                ToastUtils.showToast(returnResult.getMessage());
             }
         });
 
@@ -142,7 +147,7 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
         }
 
         mItems.add(new BannerListVo(data));
-
+        mItems.add(new CategoryVo("列表"));
 
     }
 
@@ -150,7 +155,16 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
     public void onItemClick(View view, int position, Object o) {
         if (o instanceof CourseInfoVo) {
             Intent intent = new Intent(getActivity(), CourseDetailsActivity.class);
+            intent.putExtra("courseId", ((CourseInfoVo) o).getId());
             startActivity(intent);
+        } else if (o instanceof TypeVo) {
+            if (((TypeVo) o).title.equals("小白入门")){
+                Intent intent = new Intent(getActivity(), RookieCourseListActivity.class);
+                startActivity(intent);
+            } else if (((TypeVo) o).title.equals("进阶学习")){
+                Intent intent = new Intent(getActivity(), AdvanceCourseListActivity.class);
+                startActivity(intent);
+            }
         }
     }
 }

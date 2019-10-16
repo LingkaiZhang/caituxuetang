@@ -129,6 +129,14 @@
             android:name=".learnPart.CourseKnobbleDetailsActivity"
             android:label="课程详情"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".coursePart.RookieCourseListActivity"
+            android:label="小白入门"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".coursePart.AdvanceCourseListActivity"
+            android:label="进阶课程"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

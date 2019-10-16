@@ -41,6 +41,7 @@
     <color name="popupWindow_bg">#55000000</color>
     <color name="gray_cancel_click">#ddd</color>
     <color name="text_light_gray">#999</color>
+    <color name="text_orang_ff6500">#ff6500</color>
 
 
 </resources>
