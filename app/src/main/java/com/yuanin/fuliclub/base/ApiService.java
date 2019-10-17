@@ -2,7 +2,9 @@ package com.yuanin.fuliclub.base;
 
 import com.yuanin.fuliclub.config.URL;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
+import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
+import com.yuanin.fuliclub.coursePart.bean.WeChatOrderVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleInfoVo;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
@@ -112,5 +114,12 @@ public interface ApiService {
     @GET(URL.COURSE_KNOBBLE_LIST_LOGIN)
     Flowable<ReturnResult<List<CourseKnobbleInfoVo>>> getCourseKnobbleListLogin(@Path("parentId") String courseId, @Query("token") String token);
 
+    @GET(URL.COURSE_CREATE_ORDER)
+    Flowable<ReturnResult<CourseOrderCreatVo>> createCourseOrder(@Query("courseId") String courseId,@Query("periodsId") String periodsId, @Query("Android") String payType);
 
+    @POST(URL.WECHAT_CREATE_ORDER)
+    @FormUrlEncoded
+    Flowable<ReturnResult<WeChatOrderVo>> weChatCreateOrder(@Field("orderNo") String orderNo, @Field("productType") String productType,
+                @Field("productId") String productId, @Field("price") String price, @Field("productName") String productName,
+                                                            @Field("key") String key);
 }

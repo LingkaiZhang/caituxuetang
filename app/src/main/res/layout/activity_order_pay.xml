@@ -37,12 +37,12 @@
             android:id="@+id/tvOrderName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="已购课程名称"
-            android:textSize="14sp"
-            android:textColor="@color/color_333333"
-            android:textStyle="bold"
+            android:layout_marginTop="20dp"
             android:layout_toRightOf="@id/ivOrderIMG"
-            android:layout_marginTop="20dp"/>
+            android:text="已购课程名称"
+            android:textColor="@color/color_333333"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvItemCourseSlogan"
@@ -94,6 +94,7 @@
         <View style="@style/mine_item_line" />
 
         <RelativeLayout
+            android:id="@+id/rlWeChatPay"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
@@ -128,6 +129,7 @@
         <View style="@style/mine_item_line" />
 
         <RelativeLayout
+            android:id="@+id/rlAliPay"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 

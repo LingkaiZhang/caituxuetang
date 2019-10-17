@@ -76,6 +76,9 @@ public class URL {
     public static final String COURSE_KNOBBLE_LIST = "/course/ct/courseChild/queryChild/{parentId}";
     public static final String COURSE_KNOBBLE_LIST_LOGIN = "/course/ct/courseChild/queryChildWithToken/{parentId}";
 
-
+    //创建订单
+    public static final String COURSE_CREATE_ORDER = URL.MODULE_ORDER + "CtcreateOrder";
+    //微信下单
+    public static final String WECHAT_CREATE_ORDER = URL.MODULE_PAY + "weiXinCtGZHPay";
 }
 

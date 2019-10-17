@@ -5,7 +5,9 @@ import com.mvvm.stateview.StateConstants;
 import com.yuanin.fuliclub.base.BaseRepository;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
+import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
+import com.yuanin.fuliclub.coursePart.bean.WeChatOrderVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.util.StringUtil;
@@ -27,6 +29,8 @@ public class CourseRepository extends BaseRepository {
     public static String EVENT_KEY_COURSE_START_TIME_LIST = null;
     public static String EVENT_KEY_COURSE_KNOBBLE_LIST = null;
     public static String EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN = null;
+    public static String EVENT_KEY_COURSE_CREATE_ORDER = null;
+    public static String EVENT_KEY_WECHAT_CREATE_ORDER = null;
 
     public CourseRepository() {
         if (EVENT_KEY_COURSE_DETAILS == null) {
@@ -43,6 +47,12 @@ public class CourseRepository extends BaseRepository {
         }
         if (EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN == null) {
             EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_COURSE_CREATE_ORDER == null) {
+            EVENT_KEY_COURSE_CREATE_ORDER = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_WECHAT_CREATE_ORDER == null) {
+            EVENT_KEY_WECHAT_CREATE_ORDER = StringUtil.getEventKey();
         }
     }
 
@@ -134,5 +144,40 @@ public class CourseRepository extends BaseRepository {
                     }
                 }));
 
+    }
+
+    public void createCourseOrder(String courseId, String periodsId) {
+        addDisposable(apiService.createCourseOrder(courseId, periodsId, "Android")
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<CourseOrderCreatVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<CourseOrderCreatVo> courseOrderCreatVoReturnResult) {
+                        postData(EVENT_KEY_COURSE_CREATE_ORDER, courseOrderCreatVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void createWeChatOrder(String orderNo, int productType, String productId, String productName, String price, String key) {
+
+        addDisposable(apiService.weChatCreateOrder(orderNo, String.valueOf(productType), productId, price, productName, key)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<WeChatOrderVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<WeChatOrderVo> weChatOrderVoReturnResult) {
+                        postData(EVENT_KEY_WECHAT_CREATE_ORDER, weChatOrderVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
     }
 }

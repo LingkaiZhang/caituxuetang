@@ -24,6 +24,7 @@ import com.yhao.floatwindow.FloatWindow;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.adapter.ViewPagerFragmentAdapter;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
@@ -32,7 +33,7 @@ import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.util.DensityUtil;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.util.ViewPagerUtils;
-import com.yuanin.fuliclub.view.StaticMembers;
+
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -188,7 +189,9 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                         @Override
                         public void selectTime(CourseStartTimeListVo time) {
                             //TODO 跳转订单
-                            Intent intent = new Intent(CourseDetailsActivity.this, OrderPayActivity.class);
+                            Intent intent = new Intent(mContext, OrderPayActivity.class);
+                            intent.putExtra("courseId", courseId);
+                            intent.putExtra("periodsId",String.valueOf(time.getId()));
                             startActivity(intent);
                         }
                     });

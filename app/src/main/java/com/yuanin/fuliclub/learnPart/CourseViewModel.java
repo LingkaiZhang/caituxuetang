@@ -36,4 +36,12 @@ public class CourseViewModel extends AbsViewModel<CourseRepository> {
     public void getCoursrKonbbleListLogin(String courseId) {
         mRepository.getCoursrKonbbleListLogin(courseId);
     }
+
+    public void createCourseOrder(String courseId, String periodsId) {
+        mRepository.createCourseOrder(courseId,periodsId);
+    }
+
+    public void createWeChatOrder(String orderNo, int productType, String productId, String productName, String price, String key) {
+        mRepository.createWeChatOrder(orderNo, productType, productId, productName, price, key);
+    }
 }

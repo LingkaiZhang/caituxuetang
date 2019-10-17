@@ -106,6 +106,7 @@ public class SelectTimeDialogFragment extends BottomSheetDialogFragment {
 
     private void setData(List data) {
         this.data = data;
+        this.selectTime = (CourseStartTimeListVo) data.get(0);
     }
 
     @Override
