@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yuanin.fuliclub.R;
+import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
+import com.yuanin.fuliclub.util.DateUtil;
 
 import java.util.List;
 
@@ -25,15 +27,16 @@ import java.util.List;
 public class TimeListAdapter extends RecyclerView.Adapter<TimeListAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<String> mList;
+    private List<CourseStartTimeListVo> mList;
     private OnItemClickListener mOnItemClickListener;
 
     //时间选中的条目
-    private String time;
+    private CourseStartTimeListVo selectTime;
 
-    public TimeListAdapter(Context mContext, List<String> mList) {
+    public TimeListAdapter(Context mContext, List<CourseStartTimeListVo> mList) {
         this.mContext = mContext;
         this.mList = mList;
+        selectTime = mList.get(0);
     }
 
 
@@ -46,8 +49,13 @@ public class TimeListAdapter extends RecyclerView.Adapter<TimeListAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull TimeListAdapter.MyViewHolder myViewHolder, int i) {
-        myViewHolder.tvTime.setText(mList.get(i));
-        if (mList.get(i).equals(time)){
+        long startDate = mList.get(i).getStartDate();
+        //格式化时间
+        String stamp2Date = DateUtil.timeStamp2Date(String.valueOf(mList.get(i).getStartDate()/1000), "yyyy-MM-dd");
+
+        myViewHolder.tvTime.setText(stamp2Date);
+
+        if (mList.get(i) == selectTime){
             myViewHolder.ivSelectLogo.setVisibility(View.VISIBLE);
             myViewHolder.tvTime.setBackground(mContext.getResources().getDrawable(R.drawable.shape_select_time_bg));
         }else {
@@ -58,7 +66,7 @@ public class TimeListAdapter extends RecyclerView.Adapter<TimeListAdapter.MyView
             myViewHolder.tvTime.setOnClickListener(v -> {
                 mOnItemClickListener.onItemClick(myViewHolder.tvTime, i);
                 myViewHolder.ivSelectLogo.setVisibility(View.VISIBLE);
-                time = mList.get(i);
+                selectTime = mList.get(i);
                 notifyDataSetChanged();
             });
         }

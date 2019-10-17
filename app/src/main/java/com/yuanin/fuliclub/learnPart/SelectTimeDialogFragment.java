@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.BottomSheetDialogFragment;
+import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
 
 import java.util.List;
 
@@ -47,10 +48,10 @@ public class SelectTimeDialogFragment extends BottomSheetDialogFragment {
     Unbinder unbinder;
 
 
-    private List<String> data;
+    private List<CourseStartTimeListVo> data;
     private OnSelectTimeListener onSelectTimeListener;
     //选中的时间
-    private String time;
+    private CourseStartTimeListVo selectTime;
 
     @Nullable
     @Override
@@ -78,7 +79,7 @@ public class SelectTimeDialogFragment extends BottomSheetDialogFragment {
             @Override
             public void onItemClick(View view, int position) {
                 view.setBackground(getResources().getDrawable(R.drawable.shape_select_time_bg));
-                time = data.get(position);
+                selectTime = data.get(position);
             }
 
             @Override
@@ -88,7 +89,7 @@ public class SelectTimeDialogFragment extends BottomSheetDialogFragment {
         });
     }
 
-    public static void show(FragmentManager fragmentManager, List data, OnSelectTimeListener onSelectTimeListener) {
+    public static void show(FragmentManager fragmentManager, List<CourseStartTimeListVo> data, OnSelectTimeListener onSelectTimeListener) {
         SelectTimeDialogFragment.show(fragmentManager, data, false, onSelectTimeListener);
     }
 
@@ -122,7 +123,7 @@ public class SelectTimeDialogFragment extends BottomSheetDialogFragment {
             case R.id.btnConfirm:
                 if (onSelectTimeListener != null){
 
-                    onSelectTimeListener.selectTime(time);
+                    onSelectTimeListener.selectTime(selectTime);
                 }
                 this.dismiss();
                 break;
@@ -130,6 +131,6 @@ public class SelectTimeDialogFragment extends BottomSheetDialogFragment {
     }
 
     public interface OnSelectTimeListener {
-        void selectTime(String time);
+        void selectTime(CourseStartTimeListVo time);
     }
 }
