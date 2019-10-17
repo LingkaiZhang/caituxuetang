@@ -4,6 +4,7 @@ import com.yuanin.fuliclub.config.URL;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
+import com.yuanin.fuliclub.learnPart.CourseKnobbleInfoVo;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
@@ -103,6 +104,13 @@ public interface ApiService {
     @POST(URL.COURSE_START_TIME_LIST)
     @FormUrlEncoded
     Flowable<ReturnResult<List<CourseStartTimeListVo>>> getCourseStartTimeList(@Field("courseId") String courseId);
+
+
+    @GET(URL.COURSE_KNOBBLE_LIST)
+    Flowable<ReturnResult<List<CourseKnobbleInfoVo>>> getCourseKnobbleList(@Path("parentId") String courseId);
+
+    @GET(URL.COURSE_KNOBBLE_LIST_LOGIN)
+    Flowable<ReturnResult<List<CourseKnobbleInfoVo>>> getCourseKnobbleListLogin(@Path("parentId") String courseId, @Query("token") String token);
 
 
 }

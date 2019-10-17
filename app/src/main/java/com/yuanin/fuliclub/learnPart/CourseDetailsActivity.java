@@ -158,6 +158,7 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                     courseDetails = (CourseDetailsVo) returnResult.getData();
                     setCourseInfo(courseDetails);
                     courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
+                    courseDetailListFragment.setDatas(courseId);
 
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
@@ -171,7 +172,7 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                     courseDetails = (CourseDetailsVo) returnResult.getData();
                     setCourseInfo(courseDetails);
                     courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
-
+                    courseDetailListFragment.setDatas(courseId);
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
                 }
@@ -186,7 +187,7 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                     SelectTimeDialogFragment.show(getSupportFragmentManager(), startTimeList, new SelectTimeDialogFragment.OnSelectTimeListener() {
                         @Override
                         public void selectTime(CourseStartTimeListVo time) {
-
+                            //TODO 跳转订单
                             Intent intent = new Intent(CourseDetailsActivity.this, OrderPayActivity.class);
                             startActivity(intent);
                         }
@@ -303,16 +304,14 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                 Toast.makeText(CourseDetailsActivity.this, "点击分享课程", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.tvBuyButton:
-//                Intent intent = new Intent(CourseDetailsActivity.this, OrderPayActivity.class);
-//                startActivity(intent);
 
-//                if (StaticMembers.IS_NEED_LOGIN) {
-//                    Intent intent = new Intent(mContext, LoginActivity.class);
-//                    startActivity(intent);
-//                } else {
+                if (StaticMembers.IS_NEED_LOGIN) {
+                    Intent intent = new Intent(mContext, LoginActivity.class);
+                    startActivity(intent);
+                } else {
 
                     mViewModel.getCourseStartTime(courseId);
-//                }
+                }
 
                 break;
         }

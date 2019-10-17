@@ -9,10 +9,16 @@ import android.view.View;
 import com.adapter.adapter.DelegateAdapter;
 import com.adapter.listener.OnItemClickListener;
 import com.yuanin.fuliclub.base.BaseListFragment;
+import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
+import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.util.AdapterPool;
+import com.yuanin.fuliclub.util.ToastUtils;
+import com.yuanin.fuliclub.view.StaticMembers;
+
+import java.util.List;
 
 /**
  * <p>类说明</p>
@@ -23,10 +29,12 @@ import com.yuanin.fuliclub.util.AdapterPool;
  */
 public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> implements OnItemClickListener {
 
+    private String courseId;
+
     public static CourseDetailListFragment newInstance() {
-        
+
         Bundle args = new Bundle();
-        
+
         CourseDetailListFragment fragment = new CourseDetailListFragment();
         fragment.setArguments(args);
         return fragment;
@@ -36,6 +44,7 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
     public void initView(Bundle state) {
         super.initView(state);
         refreshHelper.setEnableLoadMore(false);
+        refreshHelper.setEnableRefresh(false);
         loadManager.showSuccess();
     }
 
@@ -54,27 +63,52 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
 
     @Override
     protected void getRemoteData() {
-        //mViewModel.getHomeListData();
-        addItems();
+
+    }
+
+
+    @Override
+    protected void dataObserver() {
+        super.dataObserver();
+
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_KNOBBLE_LIST, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    List<CourseKnobbleInfoVo> knobbleInfoVoList = (List<CourseKnobbleInfoVo>) returnResult.getData();
+                    if (knobbleInfoVoList.size() > 0) {
+                        addItems();
+                        mItems.addAll(knobbleInfoVoList);
+                        mItems.add(new BottomBackgroundVo());
+
+                        setData();
+                    }
+
+                } else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
+        });
     }
 
     private void addItems() {
         if (isRefresh) {
             mItems.clear();
         }
-
-        for (int i = 0; i < 10; i++) {
-            mItems.add(new CourseKnobbleInfoVo());
-        }
-        mItems.add(new BottomBackgroundVo());
-
-        setData();
     }
 
     @Override
     public void onItemClick(View view, int position, Object o) {
         if (o instanceof CourseKnobbleInfoVo) {
             startActivity(new Intent(getActivity(), CourseKnobbleDetailsActivity.class));
+        }
+    }
+
+    public void setDatas(String courseId) {
+        this.courseId = courseId;
+        if (StaticMembers.IS_NEED_LOGIN) {
+            mViewModel.getCoursrKonbbleList(courseId);
+        } else {
+            mViewModel.getCoursrKonbbleListLogin(courseId);
         }
     }
 }

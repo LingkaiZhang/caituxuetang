@@ -36,25 +36,34 @@ public class CourseKnobbleItemHolder extends AbsItemHolder<CourseKnobbleInfoVo, 
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull final CourseKnobbleInfoVo courseListBean) {
-//        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-//                commonWidth, (int) (0.56 * commonWidth));
-//        holder.mVideoImage.setLayoutParams(params);
-//        holder.mVideoImage.setScaleType(ImageView.ScaleType.FIT_XY);
-//        Glide.with(mContext).load(courseListBean.thumb_url).placeholder(R.color.black_e8e8e8).into(holder.mVideoImage);
-//        Glide.with(mContext).load(courseListBean.userinfo.avatar).transform(new GlideCircleTransform(mContext)).into(holder.mUserIcon);
-//        holder.mUserName.setText(courseListBean.userinfo.sname);
-//        holder.mVideoTitle.setText(courseListBean.title);
-//        holder.mLookNum.setText(new StringBuilder(String.valueOf(courseListBean.hits)).append("人看过"));
+
+        holder.tvKnobbleName.setText(courseListBean.getClassHourName());
+        if (courseListBean.getTryOut() == 0) {
+            holder.tvTryLearn.setVisibility(View.VISIBLE);
+            holder.ivPlay.setVisibility(View.VISIBLE);
+            holder.ivLock.setVisibility(View.GONE);
+        } else if (courseListBean.getTryOut() == 1) {
+            holder.tvTryLearn.setVisibility(View.GONE);
+            holder.ivPlay.setVisibility(View.GONE);
+            holder.ivLock.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
 
     static class ViewHolder extends AbsHolder {
 
-        private ImageView mVideoImage, mUserIcon;
-        private TextView mLookNum, mVideoTitle, mUserName;
+        private ImageView ivPlay, ivLock;
+        private TextView tvKnobbleName, tvTryLearn;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            tvKnobbleName = itemView.findViewById(R.id.tvKnobbleName);
+            tvTryLearn = itemView.findViewById(R.id.tvTryLearn);
+            ivPlay = itemView.findViewById(R.id.ivPlay);
+            ivLock = itemView.findViewById(R.id.ivLock);
 
         }
     }

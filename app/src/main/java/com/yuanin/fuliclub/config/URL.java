@@ -66,12 +66,15 @@ public class URL {
     public static final String MESSAGE_STATUS_UPDATE = URL.MODULE_ORDER + "per/newUpdate";
 
     //课程列表
-    public static final String COURSE_LIST = "http://10.1.1.46:60000" + "/course/ct/course/queryListByType/{typeId}";
+    public static final String COURSE_LIST = "/course/ct/course/queryListByType/{typeId}";
     //课程详情
-    public static final String COURSE_DETAILS = "http://10.1.1.46:60000" + "/course/ct/course/queryDetailById/{id}";
-    public static final String COURSE_DETAILS_LOGIN= "http://10.1.1.46:60000" + "/course/ct/course/queryDetailWithToken/{id}";
+    public static final String COURSE_DETAILS = "/course/ct/course/queryDetailById/{id}";
+    public static final String COURSE_DETAILS_LOGIN= "/course/ct/course/queryDetailWithToken/{id}";
     //课程分期下拉
-    public static  final String COURSE_START_TIME_LIST =  URL.MODULE_ORDER + "per/perComboboxBan";
+    public static final String COURSE_START_TIME_LIST =  URL.MODULE_ORDER + "per/perComboboxBan";
+    //课程小结列表
+    public static final String COURSE_KNOBBLE_LIST = "/course/ct/courseChild/queryChild/{parentId}";
+    public static final String COURSE_KNOBBLE_LIST_LOGIN = "/course/ct/courseChild/queryChildWithToken/{parentId}";
 
 
 }

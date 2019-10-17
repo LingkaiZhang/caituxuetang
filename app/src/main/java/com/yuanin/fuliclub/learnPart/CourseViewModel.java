@@ -28,4 +28,12 @@ public class CourseViewModel extends AbsViewModel<CourseRepository> {
     public void getCourseStartTime(String courseId) {
         mRepository.getCourseStartTime(courseId);
     }
+
+    public void getCoursrKonbbleList(String courseId) {
+        mRepository.getCoursrKonbbleList(courseId);
+    }
+
+    public void getCoursrKonbbleListLogin(String courseId) {
+        mRepository.getCoursrKonbbleListLogin(courseId);
+    }
 }

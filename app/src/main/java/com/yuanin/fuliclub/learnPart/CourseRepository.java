@@ -25,6 +25,8 @@ public class CourseRepository extends BaseRepository {
     public static String EVENT_KEY_COURSE_DETAILS = null;
     public static String EVENT_KEY_COURSE_DETAILS_LOGIN = null;
     public static String EVENT_KEY_COURSE_START_TIME_LIST = null;
+    public static String EVENT_KEY_COURSE_KNOBBLE_LIST = null;
+    public static String EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN = null;
 
     public CourseRepository() {
         if (EVENT_KEY_COURSE_DETAILS == null) {
@@ -35,6 +37,12 @@ public class CourseRepository extends BaseRepository {
         }
         if (EVENT_KEY_COURSE_START_TIME_LIST == null) {
             EVENT_KEY_COURSE_START_TIME_LIST = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_COURSE_KNOBBLE_LIST == null) {
+            EVENT_KEY_COURSE_KNOBBLE_LIST = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN == null) {
+            EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN = StringUtil.getEventKey();
         }
     }
 
@@ -90,5 +98,41 @@ public class CourseRepository extends BaseRepository {
 
                     }
                 }));
+    }
+
+    public void getCoursrKonbbleList(String courseId) {
+        addDisposable(apiService.getCourseKnobbleList(courseId)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<List<CourseKnobbleInfoVo>>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<List<CourseKnobbleInfoVo>> listReturnResult) {
+                        postData(EVENT_KEY_COURSE_KNOBBLE_LIST, listReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+
+    }
+
+    public void getCoursrKonbbleListLogin(String courseId) {
+        addDisposable(apiService.getCourseKnobbleListLogin(courseId, StaticMembers.TOKEN)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<List<CourseKnobbleInfoVo>>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<List<CourseKnobbleInfoVo>> listReturnResult) {
+                        postData(EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN, listReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+
     }
 }
