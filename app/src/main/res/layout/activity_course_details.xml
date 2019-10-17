@@ -69,10 +69,22 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvCourseName"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="12dp"
                 android:layout_toRightOf="@id/ivItemCourseImage"
                 android:text="每月一眼长投温度，科学养金“基”"
                 android:textColor="@color/color_333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvCourseTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvItemCourseSlogan"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="0dp"
+                android:layout_toRightOf="@id/ivItemCourseImage"
+                android:text="训练营有效期：2019-08-28～2019-09-2"
+                android:textColor="@color/color_999999"
                 android:textSize="14sp" />
 
         </RelativeLayout>

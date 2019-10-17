@@ -69,7 +69,9 @@ public class URL {
     public static final String COURSE_LIST = "http://10.1.1.46:60000" + "/course/ct/course/queryListByType/{typeId}";
     //课程详情
     public static final String COURSE_DETAILS = "http://10.1.1.46:60000" + "/course/ct/course/queryDetailById/{id}";
-
+    public static final String COURSE_DETAILS_LOGIN= "http://10.1.1.46:60000" + "/course/ct/course/queryDetailWithToken/{id}";
+    //课程分期下拉
+    public static  final String COURSE_START_TIME_LIST =  URL.MODULE_ORDER + "per/perComboboxBan";
 
 
 }

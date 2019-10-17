@@ -25,11 +25,14 @@ import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.adapter.ViewPagerFragmentAdapter;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
+import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
+import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.minePart.MyRepository;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.util.DensityUtil;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.util.ViewPagerUtils;
+import com.yuanin.fuliclub.view.StaticMembers;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -71,6 +74,8 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
     TextView tvCoursePrice;
     @BindView(R.id.tvOriginalPrice)
     TextView tvOriginalPrice;
+    @BindView(R.id.tvCourseTime)
+    TextView tvCourseTime;
     @BindView(R.id.rl_price_info)
     RelativeLayout rl_price_info;
 
@@ -128,7 +133,12 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
 
         courseId = getIntent().getStringExtra("courseId");
         if (!TextUtils.isEmpty(courseId)) {
-            mViewModel.getCourseDetails(courseId);
+            if (StaticMembers.IS_NEED_LOGIN) {
+                mViewModel.getCourseDetails(courseId);
+            } else {
+                mViewModel.getCourseDetailsLogin(courseId);
+            }
+
         }
 
 
@@ -148,6 +158,40 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                     courseDetails = (CourseDetailsVo) returnResult.getData();
                     setCourseInfo(courseDetails);
                     courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
+
+                } else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
+        });
+
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_DETAILS_LOGIN, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    courseDetails = (CourseDetailsVo) returnResult.getData();
+                    setCourseInfo(courseDetails);
+                    courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
+
+                } else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
+        });
+
+
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_START_TIME_LIST, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    List<CourseStartTimeListVo> startTimeList = (List<CourseStartTimeListVo>) returnResult.getData();
+                    SelectTimeDialogFragment.show(getSupportFragmentManager(), startTimeList, new SelectTimeDialogFragment.OnSelectTimeListener() {
+                        @Override
+                        public void selectTime(CourseStartTimeListVo time) {
+
+                            Intent intent = new Intent(CourseDetailsActivity.this, OrderPayActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+
 
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
@@ -175,11 +219,14 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
         if (courseDetails.getIsBuy() == 0) {
             //未购买
             rl_price_info.setVisibility(View.VISIBLE);
+            tvCourseTime.setVisibility(View.GONE);
             tvCoursePrice.setText(String.valueOf(courseDetails.getCostPrice()));
             tvOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         } else if (courseDetails.getIsBuy() == 1) {
             //已购买
+            rl_price_info.setVisibility(View.GONE);
+            tvCourseTime.setVisibility(View.VISIBLE);
         }
     }
 
@@ -258,18 +305,14 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
             case R.id.tvBuyButton:
 //                Intent intent = new Intent(CourseDetailsActivity.this, OrderPayActivity.class);
 //                startActivity(intent);
-                List<String> dataList = new ArrayList<>();
-                dataList.add("2018-05-04");
-                dataList.add("2018-09-04");
-                dataList.add("2019-11-12");
 
-                SelectTimeDialogFragment.show(getSupportFragmentManager(), dataList, new SelectTimeDialogFragment.OnSelectTimeListener() {
-                    @Override
-                    public void selectTime(String time) {
-                        Intent intent = new Intent(CourseDetailsActivity.this, OrderPayActivity.class);
-                        startActivity(intent);
-                    }
-                });
+//                if (StaticMembers.IS_NEED_LOGIN) {
+//                    Intent intent = new Intent(mContext, LoginActivity.class);
+//                    startActivity(intent);
+//                } else {
+
+                    mViewModel.getCourseStartTime(courseId);
+//                }
 
                 break;
         }
