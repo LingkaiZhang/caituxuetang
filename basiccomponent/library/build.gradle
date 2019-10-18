@@ -70,4 +70,7 @@ dependencies {
 
     //头像图片编辑
     api 'com.github.wildma:PictureSelector:1.0.0'
+
+    //    event bus
+    api 'org.greenrobot:eventbus:3.1.1'
 }

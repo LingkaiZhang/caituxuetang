@@ -139,6 +139,7 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
         tvItemCourseSlogan.setText(orderDate.getProductInfo());
 
         tvOrderPrice.setText("需支付：" + orderDate.getPrice() + "元");
+        tvPayMoney.setText("￥" + orderDate.getPrice());
 
 
         //设置图片圆角角度

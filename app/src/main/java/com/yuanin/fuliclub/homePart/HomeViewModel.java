@@ -22,4 +22,8 @@ public class HomeViewModel extends AbsViewModel<HomeRepository> {
     public void getHomePageCourseListjinjie(int courseType,int indexpage, int pageSize) {
         mRepository.getHomePageCourseListjinjie(courseType,indexpage, pageSize);
     }
+
+    public void getLastLearnInfo() {
+        mRepository.getLastLearnInfo();
+    }
 }

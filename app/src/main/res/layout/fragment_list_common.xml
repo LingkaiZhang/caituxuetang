@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:background="@color/bg"
+    android:id="@+id/clMain"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 

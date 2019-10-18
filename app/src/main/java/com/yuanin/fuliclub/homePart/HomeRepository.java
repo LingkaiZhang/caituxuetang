@@ -5,6 +5,7 @@ import com.mvvm.stateview.StateConstants;
 import com.yuanin.fuliclub.base.BaseRepository;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
+import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.util.StringUtil;
 
@@ -19,6 +20,7 @@ public class HomeRepository extends BaseRepository {
 
     public static String EVENT_KEY_COURSE_LIST = null;
     public static String EVENT_KEY_COURSE_LIST_JINJIE = null;
+    public static String EVENT_KEY_COURSE_LAST_LEARN = null;
 
     public HomeRepository() {
         if (EVENT_KEY_COURSE_LIST == null) {
@@ -26,6 +28,9 @@ public class HomeRepository extends BaseRepository {
         }
         if (EVENT_KEY_COURSE_LIST_JINJIE == null) {
             EVENT_KEY_COURSE_LIST_JINJIE = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_COURSE_LAST_LEARN == null) {
+            EVENT_KEY_COURSE_LAST_LEARN = StringUtil.getEventKey();
         }
     }
 
@@ -56,6 +61,23 @@ public class HomeRepository extends BaseRepository {
                     @Override
                     public void onSuccess(ReturnResult<CourseListVo> courseListVoReturnResult) {
                         postData(EVENT_KEY_COURSE_LIST_JINJIE, courseListVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void getLastLearnInfo() {
+        addDisposable(apiService.getLastLearnInfo()
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<LastLearnVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<LastLearnVo> lastLearnVoReturnResult) {
+                        postData(EVENT_KEY_COURSE_LAST_LEARN, lastLearnVoReturnResult);
                         postState(StateConstants.SUCCESS_STATE);
                     }
 

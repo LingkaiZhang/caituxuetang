@@ -1,21 +1,41 @@
 package com.yuanin.fuliclub.fragment;
 
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import com.adapter.adapter.DelegateAdapter;
 import com.adapter.listener.OnItemClickListener;
 import com.mvvm.base.BaseFragment;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.BaseListFragment;
+import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
+import com.yuanin.fuliclub.event.OnClickKefuEvent;
+import com.yuanin.fuliclub.homePart.HomeRepository;
 import com.yuanin.fuliclub.homePart.HomeViewModel;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
+import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.util.AdapterPool;
+import com.yuanin.fuliclub.util.PopupWindowUtils;
+import com.yuanin.fuliclub.util.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
+
+import butterknife.BindView;
 
 /**
  * description ： 首页
@@ -23,6 +43,12 @@ import com.yuanin.fuliclub.util.AdapterPool;
  * date : 2019/8/20 14:51
  */
 public class BuyedFragment extends BaseListFragment<HomeViewModel> implements OnItemClickListener {
+
+    @BindView(R.id.clMain)
+    LinearLayout clMain;
+
+
+    private View popupWindowContactUs;
 
     public static BuyedFragment newInstance() {
         
@@ -38,17 +64,41 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
         super.initView(state);
         refreshHelper.setEnableLoadMore(false);
         loadManager.showSuccess();
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void logoutSuccessEvent(OnClickKefuEvent event) {
+        PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popupWindowContactUs, getActivity());
+        ContactUsPop.showAtLocation(clMain, Gravity.CENTER, 0, 0);
     }
 
     @Override
     protected void dataObserver() {
-//        registerSubscriber(HomeRepository.EVENT_KEY_HOME, HomeMergeVo.class)
-//                .observe(this, homeMergeVo -> {
-//                    if (homeMergeVo != null) {
-//                        HomeFragment.this.addItems(homeMergeVo);
-//                    }
-//                });
+        super.dataObserver();
 
+        registerSubscriber(HomeRepository.EVENT_KEY_COURSE_LAST_LEARN, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    LastLearnVo lastLearnVo = (LastLearnVo) returnResult.getData();
+                    addItems();
+                    mItems.add(0,lastLearnVo);
+
+                    setData();
+
+                }else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
+        });
     }
 
     @Override
@@ -56,6 +106,11 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
 
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
+        popupWindowContactUs = inflater.inflate(R.layout.popupwindow_contact_us, container, false);
+        return super.onCreateView(inflater, container, state);
+    }
 
     @Override
     protected RecyclerView.LayoutManager createLayoutManager() {
@@ -71,21 +126,20 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
 
     @Override
     protected void getRemoteData() {
-        //mViewModel.getHomeListData();
-        addItems();
+        mViewModel.getLastLearnInfo();
     }
 
     private void addItems() {
         if (isRefresh) {
             mItems.clear();
         }
-        mItems.add(new LastLearnVo());
+
         mItems.add(new TypeVo("我的课程"));
         mItems.add(new CourseInfoVo());
         mItems.add(new CourseInfoVo());
         mItems.add(new BottomBackgroundVo());
 
-        setData();
+        //setData();
     }
 
     @Override
