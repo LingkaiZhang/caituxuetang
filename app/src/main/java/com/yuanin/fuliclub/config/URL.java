@@ -67,6 +67,7 @@ public class URL {
 
     //课程列表
     public static final String COURSE_LIST = "/course/ct/course/queryListByType/{typeId}";
+    public static final String COURSE_LIST_LOGIN = "/course/ct/course/queryListWithToken/{typeId}";
     //课程详情
     public static final String COURSE_DETAILS = "/course/ct/course/queryDetailById/{id}";
     public static final String COURSE_DETAILS_LOGIN= "/course/ct/course/queryDetailWithToken/{id}";

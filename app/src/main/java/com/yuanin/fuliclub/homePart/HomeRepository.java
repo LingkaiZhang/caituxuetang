@@ -4,6 +4,7 @@ import com.mvvm.http.rx.RxSchedulers;
 import com.mvvm.stateview.StateConstants;
 import com.yuanin.fuliclub.base.BaseRepository;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.bean.MyCourseListVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
@@ -11,6 +12,7 @@ import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.util.StringUtil;
 
 import io.reactivex.Flowable;
+import nl.qbusict.cupboard.annotation.Ignore;
 
 /**
  * description ： TODO:类的作用
@@ -48,7 +50,14 @@ public class HomeRepository extends BaseRepository {
     }
 
     public void getHomePageCourseList(int courseType, int indexpage, int pageSize) {
-        Flowable<ReturnResult<CourseListVo>> courseList = apiService.getCourseList(courseType, indexpage, pageSize);
+
+        Flowable<ReturnResult<CourseListVo>> courseList;
+        if (StaticMembers.IS_NEED_LOGIN) {
+            courseList = apiService.getCourseList(courseType, indexpage, pageSize);
+        } else {
+            courseList = apiService.getCourseListLogin(courseType, indexpage, pageSize);
+        }
+
         addDisposable(courseList
                 .compose(RxSchedulers.io_main())
                 .subscribeWith(new RxSubscriber<ReturnResult<CourseListVo>>() {
@@ -66,7 +75,14 @@ public class HomeRepository extends BaseRepository {
     }
 
     public void getCourseList(int courseType, int indexpage, int pageSize) {
-        Flowable<ReturnResult<CourseListVo>> courseList = apiService.getCourseList(courseType, indexpage, pageSize);
+
+        Flowable<ReturnResult<CourseListVo>> courseList;
+        if (StaticMembers.IS_NEED_LOGIN) {
+            courseList = apiService.getCourseList(courseType, indexpage, pageSize);
+        } else {
+            courseList = apiService.getCourseListLogin(courseType, indexpage, pageSize);
+        }
+
         addDisposable(courseList
                 .compose(RxSchedulers.io_main())
                 .subscribeWith(new RxSubscriber<ReturnResult<CourseListVo>>() {
@@ -85,7 +101,14 @@ public class HomeRepository extends BaseRepository {
 
 
     public void getHomePageCourseListjinjie(int courseType, int indexpage, int pageSize) {
-        Flowable<ReturnResult<CourseListVo>> courseList = apiService.getCourseList(courseType, indexpage, pageSize);
+
+        Flowable<ReturnResult<CourseListVo>> courseList;
+        if (StaticMembers.IS_NEED_LOGIN) {
+            courseList = apiService.getCourseList(courseType, indexpage, pageSize);
+        } else {
+            courseList = apiService.getCourseListLogin(courseType, indexpage, pageSize);
+        }
+
         addDisposable(courseList
                 .compose(RxSchedulers.io_main())
                 .subscribeWith(new RxSubscriber<ReturnResult<CourseListVo>>() {
@@ -103,7 +126,14 @@ public class HomeRepository extends BaseRepository {
     }
 
     public void getCourseListjinjie(int courseType, int indexpage, int pageSize) {
-        Flowable<ReturnResult<CourseListVo>> courseList = apiService.getCourseList(courseType, indexpage, pageSize);
+
+        Flowable<ReturnResult<CourseListVo>> courseList;
+        if (StaticMembers.IS_NEED_LOGIN) {
+            courseList = apiService.getCourseList(courseType, indexpage, pageSize);
+        } else {
+            courseList = apiService.getCourseListLogin(courseType, indexpage, pageSize);
+        }
+
         addDisposable(courseList
                 .compose(RxSchedulers.io_main())
                 .subscribeWith(new RxSubscriber<ReturnResult<CourseListVo>>() {

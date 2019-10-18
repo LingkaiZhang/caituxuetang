@@ -100,6 +100,9 @@ public interface ApiService {
     @GET(URL.COURSE_LIST)
     Flowable<ReturnResult<CourseListVo>> getCourseList(@Path("typeId") int id, @Query("page") int page, @Query("limit") int limit);
 
+    @GET(URL.COURSE_LIST_LOGIN)
+    Flowable<ReturnResult<CourseListVo>> getCourseListLogin(@Path("typeId") int id, @Query("page") int page, @Query("limit") int limit);
+
     @GET(URL.COURSE_DETAILS)
     Flowable<ReturnResult<CourseDetailsVo>> getCourseDetails(@Path("id") String id);
 

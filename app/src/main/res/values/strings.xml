@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FuLiKeTang</string>
+    <string name="app_name">财兔学堂</string>
     <string name="plase_input_phone">请输入手机号码</string>
     <string name="next_step">下一步</string>
     <string name="relogin_remind">登录已失效，请重新登录</string>
