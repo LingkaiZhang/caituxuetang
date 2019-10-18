@@ -84,7 +84,7 @@
         <activity
             android:name=".minePart.BindingPhoneNumActivity"
             android:label="修改用户手机号"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".minePart.MyAccountActivity"
             android:label="我的账户"
@@ -96,6 +96,10 @@
             android:name=".minePart.AboutOursActivity"
             android:label="关于我们"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".minePart.OrderListActivity"
+            android:label="我的订单"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".minePart.FeedBackActivity"
             android:label="意见反馈"

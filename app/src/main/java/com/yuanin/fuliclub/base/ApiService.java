@@ -11,6 +11,7 @@ import com.yuanin.fuliclub.learnPart.CourseKnobbleInfoVo;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
+import com.yuanin.fuliclub.minePart.bean.MyOrderListVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.minePart.bean.UpdateFileCallbackEntity;
 import com.yuanin.fuliclub.minePart.bean.UserInfoEntity;
@@ -130,5 +131,8 @@ public interface ApiService {
 
     @GET(URL.COURSE_MY_LIST)
     Flowable<ReturnResult<MyCourseListVo>> getMyCourseList(@Query("page") String page, @Query("limit") String limit);
+
+    @GET(URL.COURSE_ORDER_LIST)
+    Flowable<ReturnResult<MyOrderListVo>> getMyOrderList(@Query("pageNum") String pageNum, @Query("pageSize") String pageSize);
 
 }

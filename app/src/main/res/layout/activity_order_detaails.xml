@@ -78,6 +78,7 @@
                 android:textColor="#555555"/>
 
             <TextView
+                android:id="@+id/tvProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="已购商品名称"
@@ -149,6 +150,7 @@
                 android:textColor="#555555"/>
 
             <TextView
+                android:id="@+id/tvCreatTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2019-08-09 55:09"

@@ -23,7 +23,9 @@ import com.yuanin.fuliclub.learnPart.CourseLearnLogItemHolder;
 import com.yuanin.fuliclub.learnPart.LastLearnItemView;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.minePart.MyMessageListHolder;
+import com.yuanin.fuliclub.minePart.MyOrderListHolder;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
+import com.yuanin.fuliclub.minePart.bean.OrderDetailsInfoVo;
 
 /**
  * description ： TODO:类的作用
@@ -49,6 +51,11 @@ public class AdapterPool {
     public DelegateAdapter.Builder getMyMessageAdapter(Context context) {
         return new DelegateAdapter.Builder<>()
                 .bind(MyMessageVo.class, new MyMessageListHolder(context));
+    }
+
+    public DelegateAdapter.Builder getMyOrderListAdapter(Context context) {
+        return new DelegateAdapter.Builder<>()
+                .bind(OrderDetailsInfoVo.class, new MyOrderListHolder(context));
     }
 
     public DelegateAdapter.Builder getCourseListAdapter(Context context) {

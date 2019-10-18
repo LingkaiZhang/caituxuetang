@@ -78,6 +78,8 @@ public class URL {
 
     //创建订单
     public static final String COURSE_CREATE_ORDER = URL.MODULE_ORDER + "CtcreateOrder";
+    //我的订单列表
+    public static final String COURSE_ORDER_LIST = URL.MODULE_ORDER + "QueyOrderNoList";
     //微信下单
     public static final String WECHAT_CREATE_ORDER = URL.MODULE_PAY + "weiXinCtAppPay";
     //更新上次学到记录

@@ -30,6 +30,7 @@ import com.yuanin.fuliclub.minePart.FeedBackActivity;
 import com.yuanin.fuliclub.minePart.MyAccountActivity;
 import com.yuanin.fuliclub.minePart.MyMessageActivity;
 import com.yuanin.fuliclub.minePart.OrderDetaailsActivity;
+import com.yuanin.fuliclub.minePart.OrderListActivity;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.minePart.bean.UserInfoEntity;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
@@ -203,7 +204,7 @@ public class MineFragment extends BaseFragment {
                     break;
                 case R.id.rl_mine_order:
                     //订单详情
-                    startActivity(new Intent(getActivity(), OrderDetaailsActivity.class));
+                    startActivity(new Intent(getActivity(), OrderListActivity.class));
                     break;
                 case R.id.rl_mine_news:
                     startActivity(new Intent(getActivity(), FeedBackActivity.class));

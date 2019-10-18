@@ -51,4 +51,8 @@ public class MyViewModel extends AbsViewModel<MyRepository> {
     public void updateUserPhone(String etPhone, String erMessageCode) {
         mRepository.upDateUserPhone(etPhone, erMessageCode);
     }
+
+    public void getMyOrderList(String pageNum, String pageSize) {
+        mRepository.getMyOrderList(pageNum, pageSize);
+    }
 }

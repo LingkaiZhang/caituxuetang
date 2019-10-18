@@ -185,17 +185,21 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     List<CourseStartTimeListVo> startTimeList = (List<CourseStartTimeListVo>) returnResult.getData();
-                    SelectTimeDialogFragment.show(getSupportFragmentManager(), startTimeList, new SelectTimeDialogFragment.OnSelectTimeListener() {
-                        @Override
-                        public void selectTime(CourseStartTimeListVo time) {
-                            //TODO 跳转订单
-                            Intent intent = new Intent(mContext, OrderPayActivity.class);
-                            intent.putExtra("courseId", courseId);
-                            intent.putExtra("periodsId",String.valueOf(time.getId()));
-                            startActivity(intent);
-                        }
-                    });
 
+                    if (startTimeList.size() > 0) {
+                        SelectTimeDialogFragment.show(getSupportFragmentManager(), startTimeList, new SelectTimeDialogFragment.OnSelectTimeListener() {
+                            @Override
+                            public void selectTime(CourseStartTimeListVo time) {
+                                //TODO 跳转订单
+                                Intent intent = new Intent(mContext, OrderPayActivity.class);
+                                intent.putExtra("courseId", courseId);
+                                intent.putExtra("periodsId", String.valueOf(time.getId()));
+                                startActivity(intent);
+                            }
+                        });
+                    } else {
+                        ToastUtils.showToast("当前没有开课日期。");
+                    }
 
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());

@@ -9,6 +9,7 @@ import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.loginRegister.BooleanTest;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
+import com.yuanin.fuliclub.minePart.bean.MyOrderListVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.minePart.bean.UpdateFileCallbackEntity;
 import com.yuanin.fuliclub.network.RxSubscriber;
@@ -47,6 +48,8 @@ public class MyRepository extends BaseRepository {
 
     public static String EVENT_KEY_USER_UPDATE_PHONE_SMS = null;
 
+    public static String EVENT_KEY_MY_ORDER_LIST = null;
+
     private BooleanTest booleanTest = new BooleanTest();
 
     private Flowable<ReturnResult<UpdateFileCallbackEntity>> upLoadPicture;
@@ -58,6 +61,10 @@ public class MyRepository extends BaseRepository {
 
         if (EVENT_KEY_UPLOAD_FILE == null) {
             EVENT_KEY_UPLOAD_FILE = StringUtil.getEventKey();
+        }
+
+        if (EVENT_KEY_MY_ORDER_LIST == null) {
+            EVENT_KEY_MY_ORDER_LIST = StringUtil.getEventKey();
         }
 
         if (EVENT_KEY_UPLOAD_USER_HEADER == null) {
@@ -235,6 +242,23 @@ public class MyRepository extends BaseRepository {
                     @Override
                     public void onSuccess(ReturnResult<LoginSuccessEntity> stringReturnResult) {
                         postData(EVENT_KEY_USER_UPDATE_PHONE, stringReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void getMyOrderList(String pageNum, String pageSize) {
+        addDisposable(apiService.getMyOrderList(pageNum,pageSize)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<MyOrderListVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<MyOrderListVo> myOrderListVoReturnResult) {
+                        postData(EVENT_KEY_MY_ORDER_LIST, myOrderListVoReturnResult);
                         postState(StateConstants.SUCCESS_STATE);
                     }
 
