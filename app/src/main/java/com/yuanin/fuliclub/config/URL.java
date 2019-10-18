@@ -84,6 +84,8 @@ public class URL {
     public static final String COURSE_UPDATE_LAST_LEARN = "/course/ct/course/joinCourse";
     //上次学习
     public static final String COURSE_LAST_LEARN = "/course/ct/course/querylogByUserId";
+    //我的课程
+    public static final String COURSE_MY_LIST = "/course/ct/course/myCourseList";
 
 
 }

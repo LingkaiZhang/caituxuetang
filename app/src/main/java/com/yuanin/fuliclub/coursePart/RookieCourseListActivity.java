@@ -1,6 +1,7 @@
 package com.yuanin.fuliclub.coursePart;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.yuanin.fuliclub.homePart.HomeViewModel;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
+import com.yuanin.fuliclub.learnPart.CourseDetailsActivity;
 import com.yuanin.fuliclub.minePart.MyRepository;
 import com.yuanin.fuliclub.minePart.MyViewModel;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
@@ -94,7 +96,7 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
             myMessageVos.add(new MyMessageVo());
         }
         setUiData(myMessageVos);*/
-        mViewModel.getHomePageCourseList(1,1,5);
+        mViewModel.getCourseList(1,1,5);
 
 
     }
@@ -171,13 +173,13 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
     @Override
     public void onRefresh(boolean isRefresh) {
         this.isRefresh = isRefresh;
-        mViewModel.getHomePageCourseList(1,1,3);
+        mViewModel.getCourseList(1,1,3);
     }
 
     @Override
     public void onLoadMore(boolean isLoadMore, int pageIndex) {
         this.isLoadMore = isLoadMore;
-        mViewModel.getHomePageCourseList(1,pageIndex, 3);
+        mViewModel.getCourseList(1,pageIndex, 3);
     }
 
 
@@ -199,12 +201,10 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
 
     @Override
     public void onItemClick(View view, int position, Object object) {
-        if (object != null) {
-            if (object instanceof MyMessageVo) {
-//                Intent intent = new Intent(activity, VideoDetailsActivity.class);
-//                intent.putExtra(Constants.COURSE_ID, ((CourseInfoVo) object).courseid);
-//                activity.startActivity(intent);
-            }
+        if (object instanceof CourseInfoVo) {
+            Intent intent = new Intent(this, CourseDetailsActivity.class);
+            intent.putExtra("courseId", String.valueOf(((CourseInfoVo) object).getId()));
+            startActivity(intent);
         }
     }
 }

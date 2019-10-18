@@ -70,7 +70,7 @@
 
                     <TextView
                         android:id="@+id/tvCopy"
-                        android:layout_width="28dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:textSize="14sp"
                         android:textColor="#FF625E"

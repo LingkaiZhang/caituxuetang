@@ -4,6 +4,7 @@ import com.yuanin.fuliclub.config.URL;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
+import com.yuanin.fuliclub.coursePart.bean.MyCourseListVo;
 import com.yuanin.fuliclub.coursePart.bean.WeChatOrderVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleInfoVo;
@@ -126,5 +127,8 @@ public interface ApiService {
 
     @GET(URL.COURSE_LAST_LEARN)
     Flowable<ReturnResult<LastLearnVo>> getLastLearnInfo();
+
+    @GET(URL.COURSE_MY_LIST)
+    Flowable<ReturnResult<MyCourseListVo>> getMyCourseList(@Query("page") String page, @Query("limit") String limit);
 
 }

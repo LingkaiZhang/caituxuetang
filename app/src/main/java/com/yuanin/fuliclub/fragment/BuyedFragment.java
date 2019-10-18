@@ -1,5 +1,6 @@
 package com.yuanin.fuliclub.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,12 +19,14 @@ import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.BaseListFragment;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
+import com.yuanin.fuliclub.coursePart.bean.MyCourseListVo;
 import com.yuanin.fuliclub.event.OnClickKefuEvent;
 import com.yuanin.fuliclub.homePart.HomeRepository;
 import com.yuanin.fuliclub.homePart.HomeViewModel;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
+import com.yuanin.fuliclub.learnPart.CourseDetailsActivity;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
@@ -92,6 +95,26 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
                     addItems();
                     mItems.add(0,lastLearnVo);
 
+                    mViewModel.getMyCourseList("1","15");
+
+                }else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
+        });
+
+        registerSubscriber(HomeRepository.EVENT_KEY_COURSE_MY_LIST, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    MyCourseListVo myCourseListVo = (MyCourseListVo) returnResult.getData();
+                    List<MyCourseListVo.MyCourseInfoVo> list = myCourseListVo.getList();
+                    if (list != null && list.size() > 0){
+                        mItems.add(new TypeVo("我的课程"));
+                        mItems.addAll(list);
+                        mItems.add(new BottomBackgroundVo());
+                    }else {
+                        mItems.add(new TypeVo("我的课程"));
+                    }
                     setData();
 
                 }else {
@@ -134,16 +157,20 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
             mItems.clear();
         }
 
-        mItems.add(new TypeVo("我的课程"));
-        mItems.add(new CourseInfoVo());
-        mItems.add(new CourseInfoVo());
-        mItems.add(new BottomBackgroundVo());
+//        mItems.add(new TypeVo("我的课程"));
+//        mItems.add(new MyCourseListVo());
+//        mItems.add(new MyCourseListVo());
+//        mItems.add(new BottomBackgroundVo());
 
         //setData();
     }
 
     @Override
     public void onItemClick(View view, int position, Object o) {
-
+        if (o instanceof MyCourseListVo.MyCourseInfoVo) {
+            Intent intent = new Intent(getActivity(), CourseDetailsActivity.class);
+            intent.putExtra("courseId", String.valueOf(((MyCourseListVo.MyCourseInfoVo) o).getId()));
+            startActivity(intent);
+        }
     }
 }

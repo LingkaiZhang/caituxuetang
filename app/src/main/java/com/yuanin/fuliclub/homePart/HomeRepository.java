@@ -4,6 +4,7 @@ import com.mvvm.http.rx.RxSchedulers;
 import com.mvvm.stateview.StateConstants;
 import com.yuanin.fuliclub.base.BaseRepository;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.coursePart.bean.MyCourseListVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.network.RxSubscriber;
@@ -21,6 +22,9 @@ public class HomeRepository extends BaseRepository {
     public static String EVENT_KEY_COURSE_LIST = null;
     public static String EVENT_KEY_COURSE_LIST_JINJIE = null;
     public static String EVENT_KEY_COURSE_LAST_LEARN = null;
+    public static String EVENT_KEY_COURSE_MY_LIST = null;
+    public static String EVENT_KEY_COURSE_LIST_HOMEPAGE = null;
+    public static String EVENT_KEY_COURSE_LIST_JINJIE_HOMEPAGE = null;
 
     public HomeRepository() {
         if (EVENT_KEY_COURSE_LIST == null) {
@@ -32,9 +36,36 @@ public class HomeRepository extends BaseRepository {
         if (EVENT_KEY_COURSE_LAST_LEARN == null) {
             EVENT_KEY_COURSE_LAST_LEARN = StringUtil.getEventKey();
         }
+        if (EVENT_KEY_COURSE_MY_LIST == null) {
+            EVENT_KEY_COURSE_MY_LIST = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_COURSE_LIST_HOMEPAGE == null) {
+            EVENT_KEY_COURSE_LIST_HOMEPAGE = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_COURSE_LIST_JINJIE_HOMEPAGE == null) {
+            EVENT_KEY_COURSE_LIST_JINJIE_HOMEPAGE = StringUtil.getEventKey();
+        }
     }
 
     public void getHomePageCourseList(int courseType, int indexpage, int pageSize) {
+        Flowable<ReturnResult<CourseListVo>> courseList = apiService.getCourseList(courseType, indexpage, pageSize);
+        addDisposable(courseList
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<CourseListVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<CourseListVo> courseListVoReturnResult) {
+                        postData(EVENT_KEY_COURSE_LIST_HOMEPAGE, courseListVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void getCourseList(int courseType, int indexpage, int pageSize) {
         Flowable<ReturnResult<CourseListVo>> courseList = apiService.getCourseList(courseType, indexpage, pageSize);
         addDisposable(courseList
                 .compose(RxSchedulers.io_main())
@@ -60,6 +91,24 @@ public class HomeRepository extends BaseRepository {
                 .subscribeWith(new RxSubscriber<ReturnResult<CourseListVo>>() {
                     @Override
                     public void onSuccess(ReturnResult<CourseListVo> courseListVoReturnResult) {
+                        postData(EVENT_KEY_COURSE_LIST_JINJIE_HOMEPAGE, courseListVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void getCourseListjinjie(int courseType, int indexpage, int pageSize) {
+        Flowable<ReturnResult<CourseListVo>> courseList = apiService.getCourseList(courseType, indexpage, pageSize);
+        addDisposable(courseList
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<CourseListVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<CourseListVo> courseListVoReturnResult) {
                         postData(EVENT_KEY_COURSE_LIST_JINJIE, courseListVoReturnResult);
                         postState(StateConstants.SUCCESS_STATE);
                     }
@@ -78,6 +127,23 @@ public class HomeRepository extends BaseRepository {
                     @Override
                     public void onSuccess(ReturnResult<LastLearnVo> lastLearnVoReturnResult) {
                         postData(EVENT_KEY_COURSE_LAST_LEARN, lastLearnVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void getMyCourseList(String page, String limit){
+        addDisposable(apiService.getMyCourseList(page, limit)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<MyCourseListVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<MyCourseListVo> myCourseListVoReturnResult) {
+                        postData(EVENT_KEY_COURSE_MY_LIST, myCourseListVoReturnResult);
                         postState(StateConstants.SUCCESS_STATE);
                     }
 

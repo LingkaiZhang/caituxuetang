@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import com.adapter.adapter.DelegateAdapter;
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.coursePart.CourseItemHolder;
+import com.yuanin.fuliclub.coursePart.bean.MyCourseListVo;
 import com.yuanin.fuliclub.homePart.banner.BannerListVo;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.CategoryVo;
@@ -72,7 +73,7 @@ public class AdapterPool {
         return new DelegateAdapter.Builder<>()
                 .bind(LastLearnVo.class, new LastLearnItemView(context))
                 .bind(TypeVo.class, new TypeItemView2(context))
-                .bind(CourseInfoVo.class, new CourseLearnLogItemHolder(context))
+                .bind(MyCourseListVo.MyCourseInfoVo.class, new CourseLearnLogItemHolder(context))
                 .bind(BottomBackgroundVo.class, new BottomBackgroundItemView(context))
                 ;
 

@@ -64,7 +64,7 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
     protected void dataObserver() {
 
 
-        registerSubscriber(HomeRepository.EVENT_KEY_COURSE_LIST, ReturnResult.class).observe(this, returnResult -> {
+        registerSubscriber(HomeRepository.EVENT_KEY_COURSE_LIST_HOMEPAGE, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     CourseListVo courseListVo = (CourseListVo) returnResult.getData();
@@ -86,7 +86,7 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
             }
         });
 
-        registerSubscriber(HomeRepository.EVENT_KEY_COURSE_LIST_JINJIE, ReturnResult.class).observe(this, returnResult -> {
+        registerSubscriber(HomeRepository.EVENT_KEY_COURSE_LIST_JINJIE_HOMEPAGE, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     CourseListVo courseListVo = (CourseListVo) returnResult.getData();
