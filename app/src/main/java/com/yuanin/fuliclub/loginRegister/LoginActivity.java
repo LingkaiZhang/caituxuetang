@@ -218,6 +218,7 @@ public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> 
         switch (view.getId()) {
             case R.id.btn_next_step:
                 phoneNo = LoginActivity.this.etPhone.getText().toString().trim();
+                smsCode = LoginActivity.this.tvSmsCode.getText().toString().trim();
                 if (TextUtils.isEmpty(smsCode) && smsCode.length() == 6) {
                     ToastUtils.showToast("请输入正确位数的短信验证码");
                     break;

@@ -138,4 +138,8 @@ public interface ApiService {
     @GET(URL.COURSE_ORDER_LIST)
     Flowable<ReturnResult<MyOrderListVo>> getMyOrderList(@Query("pageNum") String pageNum, @Query("pageSize") String pageSize);
 
+    @POST(URL.COURSE_UPDATE_LAST_LEARN)
+    @FormUrlEncoded
+    Flowable<ReturnResult<String>> updateLearnLog(@Field("courseId") String courseId);
+
 }
