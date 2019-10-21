@@ -90,6 +90,8 @@ public class URL {
     //我的课程
     public static final String COURSE_MY_LIST = "/course/ct/course/myCourseList";
 
-
+    //课程小节详情
+    public static final String COURSE_KNOBBLE_DETAILS = "/course/ct/courseChild/queryChildDetail/{id}";
+    public static final String COURSE_KNOBBLE_DETAILS_lOGIN = "/course/ct/courseChild/queryChildDetailWithToken/{id}";
 }
 

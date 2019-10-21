@@ -61,6 +61,8 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
     ImageView ivShare;
     @BindView(R.id.ivItemCourseImage)
     ImageView ivItemCourseImage;
+    @BindView(R.id.ivCourseBg)
+    ImageView ivCourseBg;
     @BindView(R.id.tvCourseName)
     TextView tvCourseName;
     @BindView(R.id.tvItemCourseSlogan)
@@ -223,6 +225,21 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
         Glide.with(mContext).load(courseDetails.getSmallPicture())
                 .apply(options)
                 .into(ivItemCourseImage);
+
+        //设置图片圆角角度
+        RoundedCorners roundedCorners2 = new RoundedCorners(DensityUtil.dip2px(mContext, 8));
+        //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+        RequestOptions options2 = RequestOptions
+                .bitmapTransform(roundedCorners)
+                .override(300, 300)
+                .placeholder(R.mipmap.course_bg);
+
+        Glide.with(mContext).load(courseDetails.getBackground())
+                .apply(options2)
+                .into(ivCourseBg);
+
+
+
 
         if (courseDetails.getIsBuy() == 0) {
             //未购买

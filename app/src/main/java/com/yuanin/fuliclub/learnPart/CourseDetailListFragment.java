@@ -99,7 +99,9 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
     @Override
     public void onItemClick(View view, int position, Object o) {
         if (o instanceof CourseKnobbleInfoVo) {
-            startActivity(new Intent(getActivity(), CourseKnobbleDetailsActivity.class));
+            Intent intent = new Intent(getActivity(), CourseKnobbleDetailsActivity.class);
+            intent.putExtra("courseKnobbleId", ((CourseKnobbleInfoVo) o).getId());
+            startActivity(intent);
         }
     }
 

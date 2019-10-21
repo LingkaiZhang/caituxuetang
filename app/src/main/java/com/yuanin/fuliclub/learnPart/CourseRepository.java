@@ -7,6 +7,7 @@ import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
+import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.WeChatOrderVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.network.RxSubscriber;
@@ -31,6 +32,8 @@ public class CourseRepository extends BaseRepository {
     public static String EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN = null;
     public static String EVENT_KEY_COURSE_CREATE_ORDER = null;
     public static String EVENT_KEY_WECHAT_CREATE_ORDER = null;
+    public static String EVENT_KEY_KNOBBLE_DETAILS = null;
+    public static String EVENT_KEY_KNOBBLE_DETAILS_LOGIN = null;
 
     public CourseRepository() {
         if (EVENT_KEY_COURSE_DETAILS == null) {
@@ -54,7 +57,14 @@ public class CourseRepository extends BaseRepository {
         if (EVENT_KEY_WECHAT_CREATE_ORDER == null) {
             EVENT_KEY_WECHAT_CREATE_ORDER = StringUtil.getEventKey();
         }
+        if (EVENT_KEY_KNOBBLE_DETAILS == null) {
+            EVENT_KEY_KNOBBLE_DETAILS = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_KNOBBLE_DETAILS_LOGIN == null) {
+            EVENT_KEY_KNOBBLE_DETAILS_LOGIN = StringUtil.getEventKey();
+        }
     }
+
 
     public void getCourseDetails(String courseId) {
         addDisposable(apiService.getCourseDetails(courseId)
@@ -182,4 +192,37 @@ public class CourseRepository extends BaseRepository {
     }
 
 
+    public void getCourseKnobbleDetails(String id){
+        addDisposable(apiService.getCourseKnobbleDetails(id)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<KnobbleDetailsInfoVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<KnobbleDetailsInfoVo> knobbleDetailsInfoVoReturnResult) {
+                        postData(EVENT_KEY_KNOBBLE_DETAILS, knobbleDetailsInfoVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void getCourseKnobbleDetailsLogin(String id){
+        addDisposable(apiService.getCourseKnobbleDetailsLogin(id, com.yuanin.fuliclub.config.StaticMembers.TOKEN)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<KnobbleDetailsInfoVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<KnobbleDetailsInfoVo> knobbleDetailsInfoVoReturnResult) {
+                        postData(EVENT_KEY_KNOBBLE_DETAILS_LOGIN, knobbleDetailsInfoVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
 }

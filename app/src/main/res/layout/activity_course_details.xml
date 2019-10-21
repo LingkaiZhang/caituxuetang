@@ -9,10 +9,11 @@
     tools:context=".learnPart.CourseDetailsActivity">
 
     <ImageView
+        android:id="@+id/ivCourseBg"
         android:layout_width="match_parent"
         android:layout_height="128dp"
         android:scaleType="fitXY"
-        android:src="@mipmap/course_bg"
+        android:background="@mipmap/course_bg"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout

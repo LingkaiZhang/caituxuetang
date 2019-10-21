@@ -73,4 +73,7 @@ dependencies {
 
     //    event bus
     api 'org.greenrobot:eventbus:3.1.1'
+
+    //    apache common lang3
+    api 'org.apache.commons:commons-lang3:3.0'
 }

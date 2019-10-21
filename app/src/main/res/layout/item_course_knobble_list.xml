@@ -38,7 +38,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="18dp"
         android:layout_centerVertical="true"
-        android:src="@mipmap/play"/>
+        android:src="@mipmap/knobble_try"/>
 
     <ImageView
         android:id="@+id/ivLock"

@@ -141,6 +141,11 @@
             android:name=".coursePart.AdvanceCourseListActivity"
             android:label="进阶课程"
             android:screenOrientation="portrait" />
+
+        <service
+            android:name=".musicPlay.MusicPlayerService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

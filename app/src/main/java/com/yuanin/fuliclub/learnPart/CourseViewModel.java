@@ -44,4 +44,12 @@ public class CourseViewModel extends AbsViewModel<CourseRepository> {
     public void createWeChatOrder(String orderNo, int productType, String productId, String productName, String price, String key) {
         mRepository.createWeChatOrder(orderNo, productType, productId, productName, price, key);
     }
+
+    public void getCourseKnobbleDetails(String id){
+        mRepository.getCourseKnobbleDetails(id);
+    }
+
+    public void getCourseKnobbleDetailsLogin(String id){
+        mRepository.getCourseKnobbleDetailsLogin(id);
+    }
 }

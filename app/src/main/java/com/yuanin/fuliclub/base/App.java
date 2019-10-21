@@ -109,7 +109,7 @@ public class App extends Application implements ComponentCallbacks2 {
         initCallBack();
         initEasyTitleBar();
 
-        initFloatWindow();
+     //   initFloatWindow();
 
         init();
 

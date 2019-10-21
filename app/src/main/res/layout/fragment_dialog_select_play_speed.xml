@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/shape_radua_bg">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="倍速播放"
+        android:textColor="@color/color_333333"
+        android:textSize="19sp"
+        android:gravity="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_color"/>
+
+    <TextView
+        android:id="@+id/tvSpeed_1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="1.0倍速"
+        android:textColor="@color/color_333333"
+        android:textSize="16sp"
+        android:gravity="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_color"/>
+
+    <TextView
+        android:id="@+id/tvSpeed_2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="1.5倍速"
+        android:textColor="@color/color_333333"
+        android:textSize="16sp"
+        android:gravity="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_color"/>
+
+    <TextView
+        android:id="@+id/tvSpeed_3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="2.0倍速"
+        android:textColor="@color/color_333333"
+        android:textSize="16sp"
+        android:gravity="center"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_color"/>
+
+    <TextView
+        android:id="@+id/tvCancel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="取消"
+        android:textColor="@color/color_333333"
+        android:textSize="19sp"
+        android:gravity="center"/>
+
+</LinearLayout>

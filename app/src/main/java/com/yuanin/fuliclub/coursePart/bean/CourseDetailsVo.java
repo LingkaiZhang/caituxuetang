@@ -30,6 +30,15 @@ public class CourseDetailsVo {
     private int isBuy;
     private double costPrice;
     private List<String> courseDetailUrls;
+    private String background;
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
+    }
 
     public int getId() {
         return id;
