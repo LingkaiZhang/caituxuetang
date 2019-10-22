@@ -22,6 +22,7 @@ import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.learnPart.CourseDetailsActivity;
+import com.yuanin.fuliclub.learnPart.CourseDetailsLoginActivity;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
 import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.RefreshHelper;
@@ -199,8 +200,12 @@ public class AdvanceCourseListActivity extends AbsLifecycleActivity<HomeViewMode
     @Override
     public void onItemClick(View view, int position, Object object) {
         if (object != null) {
-            if (object instanceof CourseInfoVo) {
+            if (((CourseInfoVo) object).getIsBuy() == 0){
                 Intent intent = new Intent(this, CourseDetailsActivity.class);
+                intent.putExtra("courseId", String.valueOf(((CourseInfoVo) object).getId()));
+                startActivity(intent);
+            }else if (((CourseInfoVo) object).getIsBuy() == 1) {
+                Intent intent = new Intent(this, CourseDetailsLoginActivity.class);
                 intent.putExtra("courseId", String.valueOf(((CourseInfoVo) object).getId()));
                 startActivity(intent);
             }

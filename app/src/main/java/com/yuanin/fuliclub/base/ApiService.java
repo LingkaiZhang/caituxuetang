@@ -116,10 +116,10 @@ public interface ApiService {
 
 
     @GET(URL.COURSE_KNOBBLE_LIST)
-    Flowable<ReturnResult<List<CourseKnobbleInfoVo>>> getCourseKnobbleList(@Path("parentId") String courseId);
+    Flowable<ReturnResult2<List<CourseKnobbleInfoVo>>> getCourseKnobbleList(@Path("parentId") String courseId);
 
     @GET(URL.COURSE_KNOBBLE_LIST_LOGIN)
-    Flowable<ReturnResult<List<CourseKnobbleInfoVo>>> getCourseKnobbleListLogin(@Path("parentId") String courseId, @Query("token") String token);
+    Flowable<ReturnResult2<List<CourseKnobbleInfoVo>>> getCourseKnobbleListLogin(@Path("parentId") String courseId, @Query("token") String token);
 
     @GET(URL.COURSE_CREATE_ORDER)
     Flowable<ReturnResult<CourseOrderCreatVo>> createCourseOrder(@Query("courseId") String courseId,@Query("periodsId") String periodsId, @Query("payType") String payType);

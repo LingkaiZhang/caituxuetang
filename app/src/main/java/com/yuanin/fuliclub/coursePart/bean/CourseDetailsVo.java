@@ -31,6 +31,15 @@ public class CourseDetailsVo {
     private double costPrice;
     private List<String> courseDetailUrls;
     private String background;
+    private String rulingPrice;
+
+    public String getRulingPrice() {
+        return rulingPrice;
+    }
+
+    public void setRulingPrice(String rulingPrice) {
+        this.rulingPrice = rulingPrice;
+    }
 
     public String getBackground() {
         return background;

@@ -96,9 +96,17 @@ public class LastLearnItemView extends AbsItemHolder<LastLearnVo, LastLearnItemV
         holder.btnGotoStudy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, CourseDetailsActivity.class);
-                intent.putExtra("courseId", item.getId());
-                mContext.startActivity(intent);
+                if (item.getIsBuy() == 0) {
+                    Intent intent = new Intent(mContext, CourseDetailsActivity.class);
+                    intent.putExtra("courseId", String.valueOf(item.getCourseId()));
+                    mContext.startActivity(intent);
+                } else if (item.getIsBuy() == 1) {
+                    Intent intent = new Intent(mContext, CourseDetailsLoginActivity.class);
+                    intent.putExtra("courseId", String.valueOf(item.getCourseId()));
+                    mContext.startActivity(intent);
+                }
+
+
             }
         });
 

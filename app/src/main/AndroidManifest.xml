@@ -130,6 +130,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".learnPart.CourseDetailsLoginActivity"
+            android:label=""
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".learnPart.CourseKnobbleDetailsActivity"
             android:label="课程详情"
             android:screenOrientation="portrait" />

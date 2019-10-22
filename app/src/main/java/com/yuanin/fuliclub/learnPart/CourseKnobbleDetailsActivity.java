@@ -2,18 +2,24 @@ package com.yuanin.fuliclub.learnPart;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.adapter.adapter.DelegateAdapter;
 import com.mvvm.base.AbsLifecycleActivity;
 import com.next.easytitlebar.view.EasyTitleBar;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.coursePart.KnobbleDetailsListAdapter;
 import com.yuanin.fuliclub.coursePart.SelectPlaySpeedDialogFragment;
 import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
+import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.musicPlay.MusicPlayerManager;
 import com.yuanin.fuliclub.musicPlay.MusicPlayerService;
 import com.yuanin.fuliclub.musicPlay.OnMusicPlayerListener;
@@ -22,8 +28,11 @@ import com.yuanin.fuliclub.musicPlay.PlayListListener;
 import com.yuanin.fuliclub.musicPlay.PlayListManager;
 import com.yuanin.fuliclub.musicPlay.SharedPreferencesUtil;
 import com.yuanin.fuliclub.musicPlay.TimeUtil;
+import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.view.ObservableWebView;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,8 +46,6 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     LinearLayout llWriteNote;
     @BindView(R.id.llDoHomeWork)
     LinearLayout llDoHomeWork;
-    @BindView(R.id.obsWebView)
-    ObservableWebView obsWebView;
     @BindView(R.id.tv_start_time)
     TextView tvStartTime;
     @BindView(R.id.sb_progress)
@@ -53,6 +60,8 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     TextView tvCourseName;
     @BindView(R.id.tvPlaySpeed)
     TextView tvPlaySpeed;
+    @BindView(R.id.courseIntro)
+    RecyclerView courseIntro;
 
 
     private KnobbleDetailsInfoVo detailsInfoVo;
@@ -63,6 +72,8 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     private MusicPlayerManager musicPlayerManager;
     private PlayListManager playListManager;
     private KnobbleDetailsInfoVo currentSong;
+
+    private WeakReference<CourseKnobbleDetailsActivity> weakReference;
 
 
     @Override
@@ -78,6 +89,9 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     @Override
     public void initViews(Bundle savedInstanceState) {
         super.initViews(savedInstanceState);
+
+        weakReference = new WeakReference<>(this);
+
         loadManager.showSuccess();
         titleBar.setBackImageRes(R.drawable.black);
         titleBar.getBackLayout().setOnClickListener(v -> finish());
@@ -122,9 +136,13 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     detailsInfoVo = (KnobbleDetailsInfoVo) returnResult.getData();
+
+                    setKnobbleDetails(detailsInfoVo);
+
                     //TODO 设置数据
                     detailsInfoVo.setMp3Url("https://fuliketang-test-pub2.oss-cn-shanghai.aliyuncs.com/a1e7d4d2df3b47cf8b219e1c236d313d.mp3");
                     playListManager.play(detailsInfoVo);
+
                     currentSong = this.playListManager.getPlayData();
 
                     setInitData(currentSong);
@@ -134,6 +152,13 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
                 }
             }
         });
+    }
+
+    private void setKnobbleDetails(KnobbleDetailsInfoVo detailsInfoVo) {
+        KnobbleDetailsListAdapter adapter = new KnobbleDetailsListAdapter(this, detailsInfoVo.getChildDetailList());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        courseIntro.setAdapter(adapter);
+        courseIntro.setLayoutManager(layoutManager);
     }
 
     @OnClick({R.id.llWriteNote, R.id.llDoHomeWork, R.id.iv_play_control, R.id.tvPlaySpeed})

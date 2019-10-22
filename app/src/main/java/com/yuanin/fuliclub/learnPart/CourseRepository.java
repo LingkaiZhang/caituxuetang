@@ -4,6 +4,7 @@ import com.mvvm.http.rx.RxSchedulers;
 import com.mvvm.stateview.StateConstants;
 import com.yuanin.fuliclub.base.BaseRepository;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.base.ReturnResult2;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
@@ -34,6 +35,7 @@ public class CourseRepository extends BaseRepository {
     public static String EVENT_KEY_WECHAT_CREATE_ORDER = null;
     public static String EVENT_KEY_KNOBBLE_DETAILS = null;
     public static String EVENT_KEY_KNOBBLE_DETAILS_LOGIN = null;
+    public static String EVENT_KEY_COURSE_LOG_UPDATE = null;
 
     public CourseRepository() {
         if (EVENT_KEY_COURSE_DETAILS == null) {
@@ -63,6 +65,26 @@ public class CourseRepository extends BaseRepository {
         if (EVENT_KEY_KNOBBLE_DETAILS_LOGIN == null) {
             EVENT_KEY_KNOBBLE_DETAILS_LOGIN = StringUtil.getEventKey();
         }
+        if (EVENT_KEY_COURSE_LOG_UPDATE == null) {
+            EVENT_KEY_COURSE_LOG_UPDATE = StringUtil.getEventKey();
+        }
+    }
+
+    public void updateLearnLog(String courseId){
+        addDisposable(apiService.updateLearnLog(courseId)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<String>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<String> stringReturnResult) {
+                        postData(EVENT_KEY_COURSE_LOG_UPDATE, stringReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
     }
 
 
@@ -123,9 +145,9 @@ public class CourseRepository extends BaseRepository {
     public void getCoursrKonbbleList(String courseId) {
         addDisposable(apiService.getCourseKnobbleList(courseId)
                 .compose(RxSchedulers.io_main())
-                .subscribeWith(new RxSubscriber<ReturnResult<List<CourseKnobbleInfoVo>>>() {
+                .subscribeWith(new RxSubscriber<ReturnResult2<List<CourseKnobbleInfoVo>>>() {
                     @Override
-                    public void onSuccess(ReturnResult<List<CourseKnobbleInfoVo>> listReturnResult) {
+                    public void onSuccess(ReturnResult2<List<CourseKnobbleInfoVo>> listReturnResult) {
                         postData(EVENT_KEY_COURSE_KNOBBLE_LIST, listReturnResult);
                         postState(StateConstants.SUCCESS_STATE);
                     }
@@ -141,9 +163,9 @@ public class CourseRepository extends BaseRepository {
     public void getCoursrKonbbleListLogin(String courseId) {
         addDisposable(apiService.getCourseKnobbleListLogin(courseId, StaticMembers.TOKEN)
                 .compose(RxSchedulers.io_main())
-                .subscribeWith(new RxSubscriber<ReturnResult<List<CourseKnobbleInfoVo>>>() {
+                .subscribeWith(new RxSubscriber<ReturnResult2<List<CourseKnobbleInfoVo>>>() {
                     @Override
-                    public void onSuccess(ReturnResult<List<CourseKnobbleInfoVo>> listReturnResult) {
+                    public void onSuccess(ReturnResult2<List<CourseKnobbleInfoVo>> listReturnResult) {
                         postData(EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN, listReturnResult);
                         postState(StateConstants.SUCCESS_STATE);
                     }

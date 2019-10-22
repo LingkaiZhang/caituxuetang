@@ -10,6 +10,7 @@ import com.adapter.adapter.DelegateAdapter;
 import com.adapter.listener.OnItemClickListener;
 import com.yuanin.fuliclub.base.BaseListFragment;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.base.ReturnResult2;
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
@@ -71,7 +72,25 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
     protected void dataObserver() {
         super.dataObserver();
 
-        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_KNOBBLE_LIST, ReturnResult.class).observe(this, returnResult -> {
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_KNOBBLE_LIST, ReturnResult2.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    List<CourseKnobbleInfoVo> knobbleInfoVoList = (List<CourseKnobbleInfoVo>) returnResult.getData();
+                    if (knobbleInfoVoList.size() > 0) {
+                        addItems();
+                        mItems.addAll(knobbleInfoVoList);
+                        mItems.add(new BottomBackgroundVo());
+
+                        setData();
+                    }
+
+                } else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
+        });
+
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN, ReturnResult2.class).observe(this, returnResult -> {
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     List<CourseKnobbleInfoVo> knobbleInfoVoList = (List<CourseKnobbleInfoVo>) returnResult.getData();
@@ -99,6 +118,9 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
     @Override
     public void onItemClick(View view, int position, Object o) {
         if (o instanceof CourseKnobbleInfoVo) {
+
+            mViewModel.updateLearnLastLog(courseId);
+
             Intent intent = new Intent(getActivity(), CourseKnobbleDetailsActivity.class);
             intent.putExtra("courseKnobbleId", ((CourseKnobbleInfoVo) o).getId());
             startActivity(intent);

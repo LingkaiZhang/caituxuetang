@@ -52,4 +52,8 @@ public class CourseViewModel extends AbsViewModel<CourseRepository> {
     public void getCourseKnobbleDetailsLogin(String id){
         mRepository.getCourseKnobbleDetailsLogin(id);
     }
+
+    public void updateLearnLastLog(String courseId) {
+        mRepository.updateLearnLog(courseId);
+    }
 }

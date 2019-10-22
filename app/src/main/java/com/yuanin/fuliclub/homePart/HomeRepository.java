@@ -27,6 +27,7 @@ public class HomeRepository extends BaseRepository {
     public static String EVENT_KEY_COURSE_MY_LIST = null;
     public static String EVENT_KEY_COURSE_LIST_HOMEPAGE = null;
     public static String EVENT_KEY_COURSE_LIST_JINJIE_HOMEPAGE = null;
+    public static String EVENT_KEY_COURSE_LOG_UPDATE = null;
 
     public HomeRepository() {
         if (EVENT_KEY_COURSE_LIST == null) {
@@ -46,6 +47,9 @@ public class HomeRepository extends BaseRepository {
         }
         if (EVENT_KEY_COURSE_LIST_JINJIE_HOMEPAGE == null) {
             EVENT_KEY_COURSE_LIST_JINJIE_HOMEPAGE = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_COURSE_LOG_UPDATE == null) {
+            EVENT_KEY_COURSE_LOG_UPDATE = StringUtil.getEventKey();
         }
     }
 
@@ -166,6 +170,8 @@ public class HomeRepository extends BaseRepository {
                     }
                 }));
     }
+
+
 
     public void getMyCourseList(String page, String limit){
         addDisposable(apiService.getMyCourseList(page, limit)

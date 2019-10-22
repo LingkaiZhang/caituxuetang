@@ -20,20 +20,19 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mvvm.base.AbsLifecycleActivity;
-import com.yhao.floatwindow.FloatWindow;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.adapter.ViewPagerFragmentAdapter;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.base.ReturnResult2;
 import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
+import com.yuanin.fuliclub.coursePart.bean.CourseInfo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
+import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
-import com.yuanin.fuliclub.minePart.MyRepository;
-import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.util.DensityUtil;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.util.ViewPagerUtils;
-
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -54,11 +53,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel> {
+public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewModel> {
     @BindView(R.id.ivBack)
     ImageView ivBack;
-    @BindView(R.id.ivShare)
-    ImageView ivShare;
+    @BindView(R.id.classInfo)
+    TextView classInfo;
     @BindView(R.id.ivItemCourseImage)
     ImageView ivItemCourseImage;
     @BindView(R.id.ivCourseBg)
@@ -87,15 +86,15 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
 */
 
     private List<Fragment> fragmentList;
-    private static final String[] CHANNELS = new String[]{"课程介绍", "课程目录"};
+    private static final String[] CHANNELS = new String[]{"课程学习", "课程笔记"};
     private List<String> mDataList = Arrays.asList(CHANNELS);
 
-    private WeakReference<CourseDetailsActivity> weakReference;
+    private WeakReference<CourseDetailsLoginActivity> weakReference;
     private CourseIntroFragment courseIntroduceFragment;
     private CourseDetailListFragment courseDetailListFragment;
     private String courseId;
     private CourseDetailsVo courseDetails;
-    private Context mContext = CourseDetailsActivity.this;
+    private Context mContext = CourseDetailsLoginActivity.this;
 
     @Override
     protected int getScreenMode() {
@@ -104,7 +103,7 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_course_details;
+        return R.layout.activity_course_details_buyed;
     }
 
     @Override
@@ -155,7 +154,7 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
     protected void dataObserver() {
         super.dataObserver();
 
-        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_DETAILS, ReturnResult.class).observe(this, returnResult -> {
+        /*registerSubscriber(CourseRepository.EVENT_KEY_COURSE_DETAILS, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     courseDetails = (CourseDetailsVo) returnResult.getData();
@@ -167,9 +166,22 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                     ToastUtils.showToast(returnResult.getMessage());
                 }
             }
+        });*/
+
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN, ReturnResult2.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    List<CourseKnobbleInfoVo> knobbleInfoVoList = (List<CourseKnobbleInfoVo>) returnResult.getData();
+                    CourseInfo course = returnResult.getCourse();
+                    setCourseInfo2(course);
+
+                } else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
         });
 
-        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_DETAILS_LOGIN, ReturnResult.class).observe(this, returnResult -> {
+        /*registerSubscriber(CourseRepository.EVENT_KEY_COURSE_DETAILS_LOGIN, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     courseDetails = (CourseDetailsVo) returnResult.getData();
@@ -180,7 +192,7 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                     ToastUtils.showToast(returnResult.getMessage());
                 }
             }
-        });
+        });*/
 
 
         registerSubscriber(CourseRepository.EVENT_KEY_COURSE_START_TIME_LIST, ReturnResult.class).observe(this, returnResult -> {
@@ -208,6 +220,37 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                 }
             }
         });
+    }
+
+    private void setCourseInfo2(CourseInfo course) {
+
+        tvCourseName.setText(course.getCourseName());
+        tvItemCourseSlogan.setText(course.getCourseTitle());
+
+        //设置图片圆角角度
+        RoundedCorners roundedCorners = new RoundedCorners(DensityUtil.dip2px(mContext, 8));
+        //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+        RequestOptions options = RequestOptions
+                .bitmapTransform(roundedCorners)
+                .override(300, 300)
+                .placeholder(R.mipmap.item_course);
+
+        Glide.with(mContext).load(course.getSmallPicture())
+                .apply(options)
+                .into(ivItemCourseImage);
+
+        //设置图片圆角角度
+        RoundedCorners roundedCorners2 = new RoundedCorners(DensityUtil.dip2px(mContext, 8));
+        //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+        RequestOptions options2 = RequestOptions
+                .bitmapTransform(roundedCorners)
+                .override(300, 300)
+                .placeholder(R.mipmap.course_bg);
+
+        Glide.with(mContext).load(course.get_$Background262())
+                .apply(options2)
+                .into(ivCourseBg);
+
     }
 
     private void setCourseInfo(CourseDetailsVo courseDetails) {
@@ -303,10 +346,10 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
         List<TabIndicatorEntity> list = ViewPagerUtils.getTabIndicator(2);
         // 3个fragment界面封装
         fragmentList = new ArrayList<Fragment>();
-        courseIntroduceFragment = new CourseIntroFragment();
-        fragmentList.add(courseIntroduceFragment);
         courseDetailListFragment = new CourseDetailListFragment();
         fragmentList.add(courseDetailListFragment);
+        courseIntroduceFragment = new CourseIntroFragment();
+        fragmentList.add(courseIntroduceFragment);
         // 设置ViewPager适配器
         ViewPagerFragmentAdapter viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getSupportFragmentManager(), list, fragmentList);
         mViewPager.setAdapter(viewPagerFragmentAdapter);
@@ -319,14 +362,18 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.ivBack, R.id.ivShare, R.id.tvBuyButton})
+
+
+
+    @OnClick({R.id.ivBack, R.id.classInfo, R.id.tvBuyButton})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivBack:
                 finish();
                 break;
-            case R.id.ivShare:
-                Toast.makeText(CourseDetailsActivity.this, "点击分享课程", Toast.LENGTH_SHORT).show();
+            case R.id.classInfo:
+                //Toast.makeText(CourseDetailsLoginActivity.this, "点击分享课程", Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.tvBuyButton:
 

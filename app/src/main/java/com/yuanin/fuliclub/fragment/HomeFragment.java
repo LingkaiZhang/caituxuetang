@@ -26,6 +26,7 @@ import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.homePart.itemView.BannerView;
 import com.yuanin.fuliclub.learnPart.CourseDetailsActivity;
+import com.yuanin.fuliclub.learnPart.CourseDetailsLoginActivity;
 import com.yuanin.fuliclub.minePart.MyRepository;
 import com.yuanin.fuliclub.minePart.bean.UpdateFileCallbackEntity;
 import com.yuanin.fuliclub.util.AdapterPool;
@@ -78,7 +79,7 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
 
                     mItems.add(new BottomBackgroundVo());
 
-                    mViewModel.getHomePageCourseListjinjie(1,2,3);
+                    mViewModel.getHomePageCourseListjinjie(2,1,3);
 
                 }else {
                     ToastUtils.showToast(returnResult.getMessage());
@@ -154,9 +155,17 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
     @Override
     public void onItemClick(View view, int position, Object o) {
         if (o instanceof CourseInfoVo) {
-            Intent intent = new Intent(getActivity(), CourseDetailsActivity.class);
-            intent.putExtra("courseId", String.valueOf(((CourseInfoVo) o).getId()));
-            startActivity(intent);
+
+            if (((CourseInfoVo) o).getIsBuy() == 0){
+                Intent intent = new Intent(getActivity(), CourseDetailsActivity.class);
+                intent.putExtra("courseId", String.valueOf(((CourseInfoVo) o).getId()));
+                startActivity(intent);
+            }else if (((CourseInfoVo) o).getIsBuy() == 1) {
+                Intent intent = new Intent(getActivity(), CourseDetailsLoginActivity.class);
+                intent.putExtra("courseId", String.valueOf(((CourseInfoVo) o).getId()));
+                startActivity(intent);
+            }
+
         } else if (o instanceof TypeVo) {
             if (((TypeVo) o).title.equals("小白入门")){
                 Intent intent = new Intent(getActivity(), RookieCourseListActivity.class);
