@@ -11,13 +11,14 @@ import com.adapter.listener.OnItemClickListener;
 import com.yuanin.fuliclub.base.BaseListFragment;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.base.ReturnResult2;
+import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.ToastUtils;
-import com.yuanin.fuliclub.view.StaticMembers;
+
 
 import java.util.List;
 
@@ -107,7 +108,10 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
                 }
             }
         });
+
     }
+
+
 
     private void addItems() {
         if (isRefresh) {

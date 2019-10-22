@@ -24,8 +24,10 @@ import com.yhao.floatwindow.FloatWindow;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.adapter.ViewPagerFragmentAdapter;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.base.ReturnResult2;
 import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
+import com.yuanin.fuliclub.coursePart.bean.CourseInfo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.minePart.MyRepository;
@@ -144,6 +146,12 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
 
         }
 
+        if (StaticMembers.IS_NEED_LOGIN) {
+            mViewModel.getCoursrKonbbleList(courseId);
+        } else {
+            mViewModel.getCoursrKonbbleListLogin(courseId);
+        }
+
 
         //手动控制
         //FloatWindow.get().hide();
@@ -162,6 +170,19 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                     setCourseInfo(courseDetails);
                     courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
                     courseDetailListFragment.setDatas(courseId);
+
+                } else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
+        });
+
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN, ReturnResult2.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    List<CourseKnobbleInfoVo> knobbleInfoVoList = (List<CourseKnobbleInfoVo>) returnResult.getData();
+                    CourseInfo course = returnResult.getCourse();
+                    setCourseInfo2(course);
 
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
@@ -208,6 +229,38 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                 }
             }
         });
+    }
+
+    private void setCourseInfo2(CourseInfo course) {
+
+        tvCourseName.setText(course.getCourseName());
+        tvItemCourseSlogan.setText(course.getCourseTitle());
+
+        //设置图片圆角角度
+        RoundedCorners roundedCorners = new RoundedCorners(DensityUtil.dip2px(mContext, 8));
+        //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+        RequestOptions options = RequestOptions
+                .bitmapTransform(roundedCorners)
+                .override(300, 300)
+                .placeholder(R.mipmap.item_course);
+
+        Glide.with(mContext).load(course.getSmallPicture())
+                .apply(options)
+                .into(ivItemCourseImage);
+
+        //设置图片圆角角度
+        RoundedCorners roundedCorners2 = new RoundedCorners(DensityUtil.dip2px(mContext, 8));
+        //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+        RequestOptions options2 = RequestOptions
+                .bitmapTransform(roundedCorners)
+                .override(300, 300)
+                .placeholder(R.mipmap.course_bg);
+
+        Glide.with(mContext).load(course.get_$Background68())
+                .apply(options2)
+                .into(ivCourseBg);
+
+
     }
 
     private void setCourseInfo(CourseDetailsVo courseDetails) {

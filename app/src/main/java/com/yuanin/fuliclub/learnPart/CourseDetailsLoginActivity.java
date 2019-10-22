@@ -30,6 +30,7 @@ import com.yuanin.fuliclub.coursePart.bean.CourseInfo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
+import com.yuanin.fuliclub.util.DateUtil;
 import com.yuanin.fuliclub.util.DensityUtil;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.util.ViewPagerUtils;
@@ -143,6 +144,12 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
 
         }
 
+        if (StaticMembers.IS_NEED_LOGIN) {
+            mViewModel.getCoursrKonbbleList(courseId);
+        } else {
+            mViewModel.getCoursrKonbbleListLogin(courseId);
+        }
+
 
         //手动控制
         //FloatWindow.get().hide();
@@ -154,11 +161,11 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
     protected void dataObserver() {
         super.dataObserver();
 
-        /*registerSubscriber(CourseRepository.EVENT_KEY_COURSE_DETAILS, ReturnResult.class).observe(this, returnResult -> {
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_DETAILS, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     courseDetails = (CourseDetailsVo) returnResult.getData();
-                    setCourseInfo(courseDetails);
+                    //setCourseInfo(courseDetails);
                     courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
                     courseDetailListFragment.setDatas(courseId);
 
@@ -166,7 +173,7 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
                     ToastUtils.showToast(returnResult.getMessage());
                 }
             }
-        });*/
+        });
 
         registerSubscriber(CourseRepository.EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN, ReturnResult2.class).observe(this, returnResult -> {
             if (returnResult != null) {
@@ -181,18 +188,18 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
             }
         });
 
-        /*registerSubscriber(CourseRepository.EVENT_KEY_COURSE_DETAILS_LOGIN, ReturnResult.class).observe(this, returnResult -> {
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_DETAILS_LOGIN, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     courseDetails = (CourseDetailsVo) returnResult.getData();
-                    setCourseInfo(courseDetails);
+                    //setCourseInfo(courseDetails);
                     courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
                     courseDetailListFragment.setDatas(courseId);
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
                 }
             }
-        });*/
+        });
 
 
         registerSubscriber(CourseRepository.EVENT_KEY_COURSE_START_TIME_LIST, ReturnResult.class).observe(this, returnResult -> {
@@ -247,9 +254,14 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
                 .override(300, 300)
                 .placeholder(R.mipmap.course_bg);
 
-        Glide.with(mContext).load(course.get_$Background262())
+        Glide.with(mContext).load(course.get_$Background68())
                 .apply(options2)
                 .into(ivCourseBg);
+
+        tvCourseTime.setText("训练营有效期：" + DateUtil.timeStamp2Date(String.valueOf(course.getStartDate()),"yyyy-MM-dd") + "~" +
+                DateUtil.timeStamp2Date(String.valueOf(course.getEndDate()),"yyyy-MM-dd"));
+        tvCourseTime.setVisibility(View.VISIBLE);
+
 
     }
 

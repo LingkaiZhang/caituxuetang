@@ -14,16 +14,22 @@ public class CourseInfo {
 
     /**
      * courseTitle : 实操跟练，通俗易懂
-     * smallPicture : https://fuliketang-test-pub2.oss-cn-shanghai.aliyuncs.com/e4b1f45399d24b5b8aa1c1414c99f0f4.png
+     * smallPicture : https://fuliketang-prod-pub.oss-cn-shanghai.aliyuncs.com/955aee2af21443f9a365358ed815f8aa.png
      * courseName : 小白训练营
-     * background; : https://fuliketang-test-pub2.oss-cn-shanghai.aliyuncs.com/965f4cf2691a4541b7a6b8ff33671723.png
+     * endDate : 1571932800000
+     * periodsId : 36
+     * startDate : 1571673600000
+     * background; : https://fuliketang-prod-pub.oss-cn-shanghai.aliyuncs.com/c1d2091090034e4dabe11f2e0884fa37.png
      */
 
     private String courseTitle;
     private String smallPicture;
     private String courseName;
+    private long endDate;
+    private int periodsId;
+    private long startDate;
     @SerializedName("background;")
-    private String _$Background262; // FIXME check this code
+    private String _$Background68; // FIXME check this code
 
     public String getCourseTitle() {
         return courseTitle;
@@ -49,11 +55,35 @@ public class CourseInfo {
         this.courseName = courseName;
     }
 
-    public String get_$Background262() {
-        return _$Background262;
+    public long getEndDate() {
+        return endDate;
     }
 
-    public void set_$Background262(String _$Background262) {
-        this._$Background262 = _$Background262;
+    public void setEndDate(long endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getPeriodsId() {
+        return periodsId;
+    }
+
+    public void setPeriodsId(int periodsId) {
+        this.periodsId = periodsId;
+    }
+
+    public long getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(long startDate) {
+        this.startDate = startDate;
+    }
+
+    public String get_$Background68() {
+        return _$Background68;
+    }
+
+    public void set_$Background68(String _$Background68) {
+        this._$Background68 = _$Background68;
     }
 }

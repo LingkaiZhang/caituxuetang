@@ -5,6 +5,7 @@ import com.mvvm.stateview.StateConstants;
 import com.yuanin.fuliclub.base.BaseRepository;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.base.ReturnResult2;
+import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
@@ -13,7 +14,7 @@ import com.yuanin.fuliclub.coursePart.bean.WeChatOrderVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.util.StringUtil;
-import com.yuanin.fuliclub.view.StaticMembers;
+
 
 import java.util.List;
 
