@@ -18,6 +18,7 @@ import com.mvvm.base.BaseFragment;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.BaseListFragment;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.MyCourseListVo;
 import com.yuanin.fuliclub.event.OnClickKefuEvent;
@@ -149,7 +150,17 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
 
     @Override
     protected void getRemoteData() {
-        mViewModel.getLastLearnInfo();
+
+        if (StaticMembers.IS_NEED_LOGIN) {
+            addItems();
+            mItems.add(0,new LastLearnVo());
+            setData();
+
+        } else {
+            mViewModel.getLastLearnInfo();
+        }
+
+
     }
 
     private void addItems() {

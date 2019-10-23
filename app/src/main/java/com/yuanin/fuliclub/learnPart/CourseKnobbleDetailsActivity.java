@@ -140,7 +140,7 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
                     setKnobbleDetails(detailsInfoVo);
 
                     //TODO 设置数据
-                    detailsInfoVo.setMp3Url("https://fuliketang-test-pub2.oss-cn-shanghai.aliyuncs.com/a1e7d4d2df3b47cf8b219e1c236d313d.mp3");
+                   // detailsInfoVo.setMp3Url("https://fuliketang-test-pub2.oss-cn-shanghai.aliyuncs.com/a1e7d4d2df3b47cf8b219e1c236d313d.mp3");
                     playListManager.play(detailsInfoVo);
 
                     currentSong = this.playListManager.getPlayData();

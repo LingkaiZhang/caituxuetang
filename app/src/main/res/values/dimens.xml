@@ -12,4 +12,7 @@
     <dimen name="small_margin">16dp</dimen>
     <dimen name="line">1dp</dimen>
     <dimen name="long_button_corners">44dp</dimen>
+    <dimen name="play_controller_margin">15dp</dimen>
+    <dimen name="notification_height">64dp</dimen>
+    <dimen name="button_padding">10dp</dimen>
 </resources>

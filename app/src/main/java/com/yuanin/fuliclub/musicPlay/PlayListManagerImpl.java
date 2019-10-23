@@ -66,7 +66,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     private static final long DEFAULT_SAVE_PROGRESS_TIME = 1000;
 
     private final MusicPlayerManager musicPlayer;
-//    private final FloatingLayoutManager floatingLayoutManager;
+    //    private final FloatingLayoutManager floatingLayoutManager;
 //    private final DownloadManager downloadManager;
     private List<KnobbleDetailsInfoVo> datum = new LinkedList<>();
 
@@ -97,7 +97,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
 
         init();
         initMediaSession();
-      //  initNotificationReceiver();
+        initNotificationReceiver();
 
 //        floatingLayoutManager=MusicPlayerService.getFloatingLayoutManager(context);
 //        floatingLayoutManager.setOnFloatingListener(this);
@@ -105,33 +105,24 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     }
 
 
-//    private void initNotificationReceiver() {
-//        notificationMusicReceiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                if (Consts.ACTION_LIKE.equals(intent.getAction())) {
-//
-//                }else if (Consts.ACTION_PREVIOUS.equals(intent.getAction())) {
-//                    play(previous());
-//                }else if (Consts.ACTION_PLAY.equals(intent.getAction())) {
-//                    playOrPause();
-//                }else if (Consts.ACTION_NEXT.equals(intent.getAction())) {
-//                    play(next());
-//                }else if (Consts.ACTION_LYRIC.equals(intent.getAction())) {
-//                    showOrHideGlobalLyric();
-//                }
-//            }
-//        };
-//
-//
-//        IntentFilter intentFilter = new IntentFilter();
-//        intentFilter.addAction(Consts.ACTION_LIKE);
-//        intentFilter.addAction(Consts.ACTION_PREVIOUS);
-//        intentFilter.addAction(Consts.ACTION_PLAY);
-//        intentFilter.addAction(Consts.ACTION_NEXT);
-//        intentFilter.addAction(Consts.ACTION_LYRIC);
-//        context.registerReceiver(notificationMusicReceiver,intentFilter);
-//    }
+    private void initNotificationReceiver() {
+        notificationMusicReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                if (Consts.ACTION_PLAY.equals(intent.getAction())) {
+                    playOrPause();
+                }
+            }
+        };
+
+
+        IntentFilter intentFilter = new IntentFilter();
+
+        intentFilter.addAction(Consts.ACTION_PLAY);
+
+        context.registerReceiver(notificationMusicReceiver, intentFilter);
+    }
 
     private void playOrPause() {
         if (musicPlayer.isPlaying()) {
@@ -151,7 +142,6 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
 //            floatingLayoutManager.show();
 //        }
 //    }
-
     private void initMediaSession() {
         mediaSession = new MediaSessionCompat(context, TAG);
 
@@ -245,11 +235,11 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     @Override
     public void setPlayList(List<KnobbleDetailsInfoVo> datum) {
         //将原来数据在PlayList的标志去掉，并保持到数据库
-       // DataUtil.changePlayListFlag(this.datum,false);
+        // DataUtil.changePlayListFlag(this.datum,false);
         saveAll(this.datum);
         this.datum.clear();
         //将当前传递进来的数据更改为在PlayList标志，并添加到集合
-        this.datum.addAll(DataUtil.changePlayListFlag(datum,true));
+        this.datum.addAll(DataUtil.changePlayListFlag(datum, true));
         //在这里要保存数据
         saveAll(this.datum);
     }
@@ -305,30 +295,31 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     }
 
 
-     @Override
-     public void delete(KnobbleDetailsInfoVo song) {
-         if (song.equals(currentSong)) {
-             //如果删除的是当前播放歌曲，应该停止当前播放，并播放下一首音乐
-             pause();
+    @Override
+    public void delete(KnobbleDetailsInfoVo song) {
+        if (song.equals(currentSong)) {
+            //如果删除的是当前播放歌曲，应该停止当前播放，并播放下一首音乐
+            pause();
 
-             KnobbleDetailsInfoVo next = next();
-             //只有获取的下一个条目不是自己才进行播放
-             //因为自己要删除
-             if (next.equals(currentSong)) {
-                 //没有歌曲可以播放了
-                 currentSong = null;
-             } else {
-                 play(next);
-             }
+            KnobbleDetailsInfoVo next = next();
+            //只有获取的下一个条目不是自己才进行播放
+            //因为自己要删除
+            if (next.equals(currentSong)) {
+                //没有歌曲可以播放了
+                currentSong = null;
+            } else {
+                play(next);
+            }
 
-             datum.remove(song);
-         } else {
-             //如果删除的不是正在播放的，就直接删除
-             datum.remove(song);
-         }
+            datum.remove(song);
+        } else {
+            //如果删除的不是正在播放的，就直接删除
+            datum.remove(song);
+        }
 
-         orm.deleteSong(song);
-     }
+        orm.deleteSong(song);
+    }
+
     @Override
     public KnobbleDetailsInfoVo getPlayData() {
         return currentSong;
@@ -460,10 +451,10 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     @Override
     public void onPaused(KnobbleDetailsInfoVo data) {
         //设置状态，当前播放位置，播放速度
-        if (currentSong!=null) {
+        if (currentSong != null) {
             stateBuilder.setState(PlaybackStateCompat.STATE_PAUSED, getPlayList().indexOf(currentSong), 1.0f);
             mediaSession.setPlaybackState(stateBuilder.build());
-//            NotificationUtil.showMusicNotification(context,currentSong,false);
+            NotificationUtil.showMusicNotification(context,currentSong,false);
 //            floatingLayoutManager.onPaused(data);
 //
 //            WidgetUtil.onPaused(context);
@@ -474,7 +465,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     public void onPlaying(KnobbleDetailsInfoVo data) {
         stateBuilder.setState(PlaybackStateCompat.STATE_PLAYING, getPlayList().indexOf(currentSong), 1.0f);
         mediaSession.setPlaybackState(stateBuilder.build());
-//        NotificationUtil.showMusicNotification(context,currentSong,true);
+        NotificationUtil.showMusicNotification(context,currentSong,true);
 //        floatingLayoutManager.onPlaying(data);
 //
 //        WidgetUtil.onPlaying(context);
@@ -483,7 +474,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     @Override
     public void onPrepared(MediaPlayer mediaPlayer, final KnobbleDetailsInfoVo data) {
         data.setDuration(mediaPlayer.getDuration());
-        orm.saveSong(data,sp.getUserId());
+        orm.saveSong(data, sp.getUserId());
 
 //        //获取歌词
 //        Api.getInstance().songsDetail(data.getId())
@@ -508,7 +499,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
 
         updateFloatingLayoutInfo();
 
-    //    WidgetUtil.onPrepared(context,data);
+        //    WidgetUtil.onPrepared(context,data);
     }
 
     private void updateAndroidMediaInfo() {
@@ -556,7 +547,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     public void destroy() {
         if (notificationMusicReceiver != null) {
             context.unregisterReceiver(notificationMusicReceiver);
-            notificationMusicReceiver=null;
+            notificationMusicReceiver = null;
         }
     }
 
@@ -566,7 +557,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
         if (index != -1) {
             //先移除原来的歌曲，可能存在于列表
             datum.remove(song);
-            datum.add(index+1,song);
+            datum.add(index + 1, song);
         } else {
             throw new IllegalArgumentException("Can't find current song!");
 
@@ -641,7 +632,6 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
         }
 
     }
-
 
 
 }

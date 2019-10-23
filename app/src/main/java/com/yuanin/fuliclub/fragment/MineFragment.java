@@ -124,10 +124,13 @@ public class MineFragment extends BaseFragment {
                 .subscribeWith(new RxSubscriber<ReturnResult<UserInfoEntity>>() {
                     @Override
                     public void onSuccess(ReturnResult<UserInfoEntity> stringReturnResult) {
+
                         UserInfoEntity userInfoEntity = stringReturnResult.getData();
-                        tvUserName.setText(userInfoEntity.getNickName());
-                        tvUserNo.setText("学号：" + userInfoEntity.getMobile());
-                        setUserHeadImage(userInfoEntity.getProfilePictureLink());
+                        if (userInfoEntity != null) {
+                            tvUserName.setText(userInfoEntity.getNickName());
+                            tvUserNo.setText("学号：" + userInfoEntity.getMobile());
+                            setUserHeadImage(userInfoEntity.getProfilePictureLink());
+                        }
 
                     }
 

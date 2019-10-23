@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion Integer.valueOf(compile_sdk_version)
-    buildToolsVersion build_tools_version
     defaultConfig {
         applicationId "com.yuanin.fuliclub"
         minSdkVersion Integer.valueOf(min_sdk_version)

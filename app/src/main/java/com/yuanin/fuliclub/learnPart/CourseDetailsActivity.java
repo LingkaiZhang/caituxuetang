@@ -190,6 +190,19 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
             }
         });
 
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_KNOBBLE_LIST, ReturnResult2.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    List<CourseKnobbleInfoVo> knobbleInfoVoList = (List<CourseKnobbleInfoVo>) returnResult.getData();
+                    CourseInfo course = returnResult.getCourse();
+                    setCourseInfo2(course);
+
+                } else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
+        });
+
         registerSubscriber(CourseRepository.EVENT_KEY_COURSE_DETAILS_LOGIN, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {

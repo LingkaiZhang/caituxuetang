@@ -79,6 +79,8 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
                     List<CourseKnobbleInfoVo> knobbleInfoVoList = (List<CourseKnobbleInfoVo>) returnResult.getData();
                     if (knobbleInfoVoList.size() > 0) {
                         addItems();
+                        mItems.clear();
+
                         mItems.addAll(knobbleInfoVoList);
                         mItems.add(new BottomBackgroundVo());
 
@@ -97,7 +99,7 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
                     List<CourseKnobbleInfoVo> knobbleInfoVoList = (List<CourseKnobbleInfoVo>) returnResult.getData();
                     if (knobbleInfoVoList.size() > 0) {
                         addItems();
-                        mItems.clear();
+
                         mItems.addAll(knobbleInfoVoList);
                         mItems.add(new BottomBackgroundVo());
 
