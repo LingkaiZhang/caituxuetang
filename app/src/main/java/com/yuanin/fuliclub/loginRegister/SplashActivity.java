@@ -35,7 +35,7 @@ public class SplashActivity extends BaseActivity {
         loadManager.showSuccess();
 
         //渐变展示启动屏
-        AlphaAnimation alphaAnimation = new AlphaAnimation(0.3f, 1.0f);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.5f, 1.0f);
         alphaAnimation.setDuration(2000);
         alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
