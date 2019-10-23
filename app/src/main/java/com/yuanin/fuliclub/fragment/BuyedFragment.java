@@ -28,6 +28,7 @@ import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.learnPart.CourseDetailsActivity;
+import com.yuanin.fuliclub.learnPart.CourseDetailsLoginActivity;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
@@ -179,7 +180,7 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
     @Override
     public void onItemClick(View view, int position, Object o) {
         if (o instanceof MyCourseListVo.MyCourseInfoVo) {
-            Intent intent = new Intent(getActivity(), CourseDetailsActivity.class);
+            Intent intent = new Intent(getActivity(), CourseDetailsLoginActivity.class);
             intent.putExtra("courseId", String.valueOf(((MyCourseListVo.MyCourseInfoVo) o).getId()));
             startActivity(intent);
         }

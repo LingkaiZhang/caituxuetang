@@ -14,6 +14,7 @@ public class ParamsKeys {
     public static final String LOGIN_TOKEN = "Login_Key_Token";
     public static final String LOGIN_MBOILE = "Login_Mobile";
 
+    public static final String TYPE = "type";
 }
 
 

@@ -75,6 +75,20 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
                     mItems.add(new CategoryVo("列表"));
 
                     mViewModel.getHomePageCourseList(1, indexpage , pageSize);
+                } else{
+                    addItems();
+
+                    List<BannerVo> data = new ArrayList();
+                    for (int i = 0; i < 3; i++) {
+                        BannerVo banner = new BannerVo();
+                        banner.setPicture("http://img0.imgtn.bdimg.com/it/u=1022109268,3759531978&fm=26&gp=0.jpg");
+                        data.add(banner);
+                    }
+
+                    mItems.add(new BannerListVo(data));
+                    mItems.add(new CategoryVo("列表"));
+
+                    mViewModel.getHomePageCourseList(1, indexpage , pageSize);
                 }
             }
         });

@@ -124,36 +124,7 @@ public class BannerView extends RelativeLayout {
         points.getChildAt(0).setBackgroundResource(selectRes);
         //监听图片轮播，改变指示器状态
         viewPager.clearOnPageChangeListeners();
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
 
-            @Override
-            public void onPageSelected(int pos) {
-                pos = pos % pointSize;
-                currentPos = pos;
-                for (int i = 0; i < points.getChildCount(); i++) {
-                    points.getChildAt(i).setBackgroundResource(unSelcetRes);
-                }
-                points.getChildAt(pos).setBackgroundResource(selectRes);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                switch (state) {
-                    case ViewPager.SCROLL_STATE_IDLE:
-                        if (isStopScroll) {
-                            startScroll();
-                        }
-                        break;
-                    case ViewPager.SCROLL_STATE_DRAGGING:
-                        stopScroll();
-                        compositeSubscription.clear();
-                        break;
-                }
-            }
-        });
         bannerAdapter = new BannerAdapter(imageViewList, pointSize);
         viewPager.setAdapter(bannerAdapter);
         bannerAdapter.notifyDataSetChanged();
@@ -174,7 +145,40 @@ public class BannerView extends RelativeLayout {
             //图片开始轮播
             startScroll();
             points.setVisibility(VISIBLE);
+
+            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                }
+
+                @Override
+                public void onPageSelected(int pos) {
+                    pos = pos % pointSize;
+                    currentPos = pos;
+                    for (int i = 0; i < points.getChildCount(); i++) {
+                        points.getChildAt(i).setBackgroundResource(unSelcetRes);
+                    }
+                    points.getChildAt(pos).setBackgroundResource(selectRes);
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+                    switch (state) {
+                        case ViewPager.SCROLL_STATE_IDLE:
+                            if (isStopScroll) {
+                                startScroll();
+                            }
+                            break;
+                        case ViewPager.SCROLL_STATE_DRAGGING:
+                            stopScroll();
+                            compositeSubscription.clear();
+                            break;
+                    }
+                }
+            });
+
         } else {
+            stopScroll();
             points.setVisibility(GONE);
         }
     }

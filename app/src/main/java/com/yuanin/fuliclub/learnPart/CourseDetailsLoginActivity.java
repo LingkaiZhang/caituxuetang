@@ -283,8 +283,8 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
                 .apply(options2)
                 .into(ivCourseBg);
 
-        tvCourseTime.setText("训练营有效期：" + DateUtil.timeStamp2Date(String.valueOf(course.getStartDate()),"yyyy-MM-dd") + "~" +
-                DateUtil.timeStamp2Date(String.valueOf(course.getEndDate()),"yyyy-MM-dd"));
+        tvCourseTime.setText("训练营有效期：" + DateUtil.timeStamp2Date(String.valueOf(course.getStartDate()/1000),"yyyy-MM-dd") + "~" +
+                DateUtil.timeStamp2Date(String.valueOf(course.getEndDate()/1000),"yyyy-MM-dd"));
         tvCourseTime.setVisibility(View.VISIBLE);
 
 
@@ -409,10 +409,17 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
                 break;
             case R.id.classInfo:
                 //Toast.makeText(CourseDetailsLoginActivity.this, "点击分享课程", Toast.LENGTH_SHORT).show();
+                if (classInfoVo.getIn() == 2) {
+                    PopupWindow classWaiting = PopupWindowUtils.createClassWaiting(popuClassWaiting, mContext);
+                    classWaiting.showAsDropDown(clMain, Gravity.CENTER, 0, 0);
 
+                } else if (classInfoVo.getIn() == 1) {
+                    ClassInfoVo.Teacher teacher = classInfoVo.getTeacher();
+                    PopupWindow ContactUsPop = PopupWindowUtils.createClassnfoPop(popuClassInfo, mContext,
+                            teacher.getTitle(), teacher.getWx_number(),teacher.getWx_url());
+                    ContactUsPop.showAtLocation(clMain, Gravity.CENTER, 0, 0);
+                }
 
-                PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popuClassInfo, mContext);
-                ContactUsPop.showAtLocation(clMain, Gravity.CENTER, 0, 0);
                 break;
             case R.id.tvBuyButton:
 
