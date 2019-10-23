@@ -8,6 +8,7 @@ import com.yuanin.fuliclub.base.BaseRepository;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.loginRegister.BooleanTest;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
+import com.yuanin.fuliclub.minePart.bean.MyMessageListVo;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
 import com.yuanin.fuliclub.minePart.bean.MyOrderListVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
@@ -183,10 +184,10 @@ public class MyRepository extends BaseRepository {
     public void getMessageList(String pageNum) {
         addDisposable(apiService.getMessageList(pageNum, "15")
                 .compose(RxSchedulers.io_main())
-                .subscribeWith(new RxSubscriber<ReturnResult<List<MyMessageVo>>>() {
+                .subscribeWith(new RxSubscriber<ReturnResult<MyMessageListVo>>() {
 
                     @Override
-                    public void onSuccess(ReturnResult<List<MyMessageVo>> messageVoReturnResult) {
+                    public void onSuccess(ReturnResult<MyMessageListVo> messageVoReturnResult) {
                         postData(EVENT_KEY_MESSAGE_LIST, messageVoReturnResult);
                         postState(StateConstants.SUCCESS_STATE);
                     }

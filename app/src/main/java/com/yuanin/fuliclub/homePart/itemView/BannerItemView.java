@@ -45,7 +45,7 @@ public class BannerItemView extends AbsItemHolder<BannerListVo, BannerItemView.V
             for (int i = 0; i < bannerAdListVo.data.size(); i++) {
                 ImageView mImageView = new ImageView(mContext);
                 mImageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                Glide.with(mContext).load(bannerAdListVo.data.get(i).getImgUrl() == null ? bannerAdListVo.data.get(i).getImgUrl() : bannerAdListVo.data.get(i).getImgUrl()).centerCrop().into(mImageView);
+                Glide.with(mContext).load(bannerAdListVo.data.get(i).getPicture() == null ? bannerAdListVo.data.get(i).getPicture() : bannerAdListVo.data.get(i).getPicture()).centerCrop().into(mImageView);
                 imageViewList.add(mImageView);
             }
             return imageViewList;

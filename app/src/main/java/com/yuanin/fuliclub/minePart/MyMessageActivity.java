@@ -16,6 +16,7 @@ import com.next.easytitlebar.view.EasyTitleBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.minePart.bean.MyMessageListVo;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.util.AdapterPool;
@@ -112,9 +113,10 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     loadManager.showSuccess();
-                    List<MyMessageVo> myMessageVoList = (List<MyMessageVo>) returnResult.getData();
+                    MyMessageListVo myMessageVoList = (MyMessageListVo) returnResult.getData();
+                    List<MyMessageVo> data = myMessageVoList.getData();
 
-                    setUiData(myMessageVoList);
+                    setUiData(data);
 
                     ToastUtils.showToast(returnResult.getMessage());
                 } else {

@@ -93,5 +93,9 @@ public class URL {
     //课程小节详情
     public static final String COURSE_KNOBBLE_DETAILS = "/course/ct/courseChild/queryChildDetail/{id}";
     public static final String COURSE_KNOBBLE_DETAILS_lOGIN = "/course/ct/courseChild/queryChildDetailWithToken/{id}";
+    //用户分班信息
+    public static final String COURSE_USER_CLASS_INFO = "/orders/per/classDetail";
+    //首页banner
+    public static final String HOME_BANNER = "/course/banner/queryBanner";
 }
 

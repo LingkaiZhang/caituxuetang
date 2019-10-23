@@ -6,12 +6,16 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +29,7 @@ import com.yuanin.fuliclub.adapter.ViewPagerFragmentAdapter;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.base.ReturnResult2;
 import com.yuanin.fuliclub.config.StaticMembers;
+import com.yuanin.fuliclub.coursePart.bean.ClassInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseInfo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
@@ -32,6 +37,7 @@ import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.util.DateUtil;
 import com.yuanin.fuliclub.util.DensityUtil;
+import com.yuanin.fuliclub.util.PopupWindowUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.util.ViewPagerUtils;
 
@@ -81,6 +87,8 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
     TextView tvCourseTime;
     @BindView(R.id.rl_price_info)
     RelativeLayout rl_price_info;
+    @BindView(R.id.clMain)
+    ConstraintLayout clMain;
 
    /* @BindView(R.id.titleBar)
     EasyTitleBar titleBar;
@@ -96,6 +104,9 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
     private String courseId;
     private CourseDetailsVo courseDetails;
     private Context mContext = CourseDetailsLoginActivity.this;
+    private View popuClassInfo;
+    private View popuClassWaiting;
+    private ClassInfoVo classInfoVo;
 
     @Override
     protected int getScreenMode() {
@@ -154,6 +165,8 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
         //手动控制
         //FloatWindow.get().hide();
 
+        popuClassInfo = View.inflate(this, R.layout.popupwindow_class_info, null);
+        popuClassWaiting = View.inflate(this, R.layout.popupwindow_class_waiting, null);
     }
 
 
@@ -182,6 +195,18 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
                     CourseInfo course = returnResult.getCourse();
                     setCourseInfo2(course);
 
+                    mViewModel.getUserClassInfo(course.getPeriodsId());
+
+                } else {
+                    ToastUtils.showToast(returnResult.getMessage());
+                }
+            }
+        });
+
+        registerSubscriber(CourseRepository.EVENT_KEY_COURSE_CLASS_INFO, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    classInfoVo = (ClassInfoVo) returnResult.getData();
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
                 }
@@ -376,7 +401,6 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
 
 
 
-
     @OnClick({R.id.ivBack, R.id.classInfo, R.id.tvBuyButton})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -386,6 +410,9 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
             case R.id.classInfo:
                 //Toast.makeText(CourseDetailsLoginActivity.this, "点击分享课程", Toast.LENGTH_SHORT).show();
 
+
+                PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popuClassInfo, mContext);
+                ContactUsPop.showAtLocation(clMain, Gravity.CENTER, 0, 0);
                 break;
             case R.id.tvBuyButton:
 

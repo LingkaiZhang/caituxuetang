@@ -38,4 +38,9 @@ public class HomeViewModel extends AbsViewModel<HomeRepository> {
     public void getMyCourseList(String pageIndex, String limit) {
         mRepository.getMyCourseList(pageIndex, limit);
     }
+
+    public void getBannerList() {
+        mRepository.getBannerList();
+
+    }
 }

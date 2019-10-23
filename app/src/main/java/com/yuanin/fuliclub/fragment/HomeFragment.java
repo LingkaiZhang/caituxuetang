@@ -64,6 +64,21 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
     @Override
     protected void dataObserver() {
 
+        registerSubscriber(HomeRepository.EVENT_KEY_HOME_BANNER_LIST, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    List<BannerVo> bannerVos = (List<BannerVo>) returnResult.getData();
+
+                    addItems();
+
+                    mItems.add(new BannerListVo(bannerVos));
+                    mItems.add(new CategoryVo("列表"));
+
+                    mViewModel.getHomePageCourseList(1, indexpage , pageSize);
+                }
+            }
+        });
+
 
         registerSubscriber(HomeRepository.EVENT_KEY_COURSE_LIST_HOMEPAGE, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
@@ -71,7 +86,7 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
                     CourseListVo courseListVo = (CourseListVo) returnResult.getData();
                     List<CourseInfoVo> courseInfoVos = courseListVo.getList();
 
-                    addItems();
+                    //addItems();
 
                     mItems.add(new TypeVo("小白入门"));
 
@@ -132,7 +147,7 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
     protected void getRemoteData() {
         //mViewModel.getHomeListData();
         //addItems();
-        mViewModel.getHomePageCourseList(1, indexpage , pageSize);
+        mViewModel.getBannerList();
     }
 
     private void addItems() {
@@ -140,15 +155,15 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
             mItems.clear();
         }
 
-        List<BannerVo> data = new ArrayList();
-        for (int i = 0; i < 3; i++) {
-            BannerVo banner = new BannerVo();
-            banner.setImgUrl("http://img0.imgtn.bdimg.com/it/u=1022109268,3759531978&fm=26&gp=0.jpg");
-            data.add(banner);
-        }
-
-        mItems.add(new BannerListVo(data));
-        mItems.add(new CategoryVo("列表"));
+//        List<BannerVo> data = new ArrayList();
+//        for (int i = 0; i < 3; i++) {
+//            BannerVo banner = new BannerVo();
+//            banner.setImgUrl("http://img0.imgtn.bdimg.com/it/u=1022109268,3759531978&fm=26&gp=0.jpg");
+//            data.add(banner);
+//        }
+//
+//        mItems.add(new BannerListVo(data));
+//        mItems.add(new CategoryVo("列表"));
 
     }
 

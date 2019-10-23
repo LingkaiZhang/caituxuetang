@@ -56,4 +56,8 @@ public class CourseViewModel extends AbsViewModel<CourseRepository> {
     public void updateLearnLastLog(String courseId) {
         mRepository.updateLearnLog(courseId);
     }
+
+    public void getUserClassInfo(int periodsId) {
+        mRepository.getUserClassInfo(periodsId);
+    }
 }

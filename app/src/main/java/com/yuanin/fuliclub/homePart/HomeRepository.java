@@ -6,10 +6,13 @@ import com.yuanin.fuliclub.base.BaseRepository;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.bean.MyCourseListVo;
+import com.yuanin.fuliclub.homePart.banner.BannerVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.util.StringUtil;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import nl.qbusict.cupboard.annotation.Ignore;
@@ -28,6 +31,7 @@ public class HomeRepository extends BaseRepository {
     public static String EVENT_KEY_COURSE_LIST_HOMEPAGE = null;
     public static String EVENT_KEY_COURSE_LIST_JINJIE_HOMEPAGE = null;
     public static String EVENT_KEY_COURSE_LOG_UPDATE = null;
+    public static String EVENT_KEY_HOME_BANNER_LIST = null;
 
     public HomeRepository() {
         if (EVENT_KEY_COURSE_LIST == null) {
@@ -50,6 +54,9 @@ public class HomeRepository extends BaseRepository {
         }
         if (EVENT_KEY_COURSE_LOG_UPDATE == null) {
             EVENT_KEY_COURSE_LOG_UPDATE = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_HOME_BANNER_LIST == null) {
+            EVENT_KEY_HOME_BANNER_LIST = StringUtil.getEventKey();
         }
     }
 
@@ -188,5 +195,22 @@ public class HomeRepository extends BaseRepository {
 
                     }
                 }));
+    }
+
+    public void getBannerList() {
+        addDisposable(apiService.getBannerInfo()
+            .compose(RxSchedulers.io_main())
+            .subscribeWith(new RxSubscriber<ReturnResult<List<BannerVo>>>() {
+                @Override
+                public void onSuccess(ReturnResult<List<BannerVo>> bannerVoReturnResult) {
+                    postData(EVENT_KEY_HOME_BANNER_LIST, bannerVoReturnResult);
+                    postState(StateConstants.SUCCESS_STATE);
+                }
+
+                @Override
+                public void onFailure(String msg, int code) {
+
+                }
+            }));
     }
 }

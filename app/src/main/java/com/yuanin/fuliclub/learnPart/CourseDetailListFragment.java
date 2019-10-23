@@ -97,6 +97,7 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
                     List<CourseKnobbleInfoVo> knobbleInfoVoList = (List<CourseKnobbleInfoVo>) returnResult.getData();
                     if (knobbleInfoVoList.size() > 0) {
                         addItems();
+                        mItems.clear();
                         mItems.addAll(knobbleInfoVoList);
                         mItems.add(new BottomBackgroundVo());
 
@@ -133,10 +134,24 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
 
     public void setDatas(String courseId) {
         this.courseId = courseId;
+        setQuestData();
+    }
+
+    public void setQuestData(){
+
         if (StaticMembers.IS_NEED_LOGIN) {
             mViewModel.getCoursrKonbbleList(courseId);
         } else {
             mViewModel.getCoursrKonbbleListLogin(courseId);
+        }
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+
         }
     }
 }

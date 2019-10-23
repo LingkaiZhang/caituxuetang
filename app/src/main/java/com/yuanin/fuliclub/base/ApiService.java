@@ -1,16 +1,20 @@
 package com.yuanin.fuliclub.base;
 
 import com.yuanin.fuliclub.config.URL;
+import com.yuanin.fuliclub.coursePart.bean.ClassInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
 import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.MyCourseListVo;
 import com.yuanin.fuliclub.coursePart.bean.WeChatOrderVo;
+import com.yuanin.fuliclub.homePart.banner.BannerInfoVo;
+import com.yuanin.fuliclub.homePart.banner.BannerVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleInfoVo;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
+import com.yuanin.fuliclub.minePart.bean.MyMessageListVo;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
 import com.yuanin.fuliclub.minePart.bean.MyOrderListVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
@@ -91,7 +95,7 @@ public interface ApiService {
 
     @POST(URL.USER_MESSAGE_LIST)
     @FormUrlEncoded
-    Flowable<ReturnResult<List<MyMessageVo>>> getMessageList(@Field("pageNum") String pageNum, @Field("pageSize") String pageSize);
+    Flowable<ReturnResult<MyMessageListVo>> getMessageList(@Field("pageNum") String pageNum, @Field("pageSize") String pageSize);
 
     @POST(URL.MESSAGE_STATUS_UPDATE)
     @FormUrlEncoded
@@ -148,4 +152,10 @@ public interface ApiService {
 
     @GET(URL.COURSE_KNOBBLE_DETAILS_lOGIN)
     Flowable<ReturnResult<KnobbleDetailsInfoVo>> getCourseKnobbleDetailsLogin(@Path("id") String id, @Query("token") String token);
+
+    @GET(URL.COURSE_USER_CLASS_INFO)
+    Flowable<ReturnResult<ClassInfoVo>> getUserClassInfo(@Query("periodsId") int periodsId);
+
+    @GET(URL.HOME_BANNER)
+    Flowable<ReturnResult<List<BannerVo>>> getBannerInfo();
 }

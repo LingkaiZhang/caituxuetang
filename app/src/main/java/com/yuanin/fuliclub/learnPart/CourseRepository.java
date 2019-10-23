@@ -6,6 +6,7 @@ import com.yuanin.fuliclub.base.BaseRepository;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.base.ReturnResult2;
 import com.yuanin.fuliclub.config.StaticMembers;
+import com.yuanin.fuliclub.coursePart.bean.ClassInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseStartTimeListVo;
@@ -37,6 +38,7 @@ public class CourseRepository extends BaseRepository {
     public static String EVENT_KEY_KNOBBLE_DETAILS = null;
     public static String EVENT_KEY_KNOBBLE_DETAILS_LOGIN = null;
     public static String EVENT_KEY_COURSE_LOG_UPDATE = null;
+    public static String EVENT_KEY_COURSE_CLASS_INFO = null;
 
     public CourseRepository() {
         if (EVENT_KEY_COURSE_DETAILS == null) {
@@ -68,6 +70,9 @@ public class CourseRepository extends BaseRepository {
         }
         if (EVENT_KEY_COURSE_LOG_UPDATE == null) {
             EVENT_KEY_COURSE_LOG_UPDATE = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_COURSE_CLASS_INFO == null) {
+            EVENT_KEY_COURSE_CLASS_INFO = StringUtil.getEventKey();
         }
     }
 
@@ -239,6 +244,23 @@ public class CourseRepository extends BaseRepository {
                     @Override
                     public void onSuccess(ReturnResult<KnobbleDetailsInfoVo> knobbleDetailsInfoVoReturnResult) {
                         postData(EVENT_KEY_KNOBBLE_DETAILS_LOGIN, knobbleDetailsInfoVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void getUserClassInfo(int periodsId) {
+        addDisposable(apiService.getUserClassInfo(periodsId)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<ClassInfoVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<ClassInfoVo> classInfoVoReturnResult) {
+                        postData(EVENT_KEY_COURSE_CLASS_INFO, classInfoVoReturnResult);
                         postState(StateConstants.SUCCESS_STATE);
                     }
 
