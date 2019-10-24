@@ -123,7 +123,7 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
                             WXPayManager.toPay((Activity) mContext, weChatOrderVo.getAppid(), weChatOrderVo.getPartnerid(),
                                     weChatOrderVo.getPrepayid(), weChatOrderVo.getNonceStr(), weChatOrderVo.getTimeStamp(),
                                     weChatOrderVo.getPackageValue(),
-                                    weChatOrderVo.getSign());
+                                    weChatOrderVo.getSign(), courseId);
                         }
                     }
 

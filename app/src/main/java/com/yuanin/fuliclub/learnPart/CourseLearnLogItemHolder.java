@@ -59,7 +59,7 @@ public class CourseLearnLogItemHolder extends AbsItemHolder<MyCourseListVo.MyCou
         holder.tvItemCourseSlogan.setText(courseListBean.getCourseTitle());
         holder.tvItemCourseProgress.setText("已完成" + courseListBean.getSum() + "/" + courseListBean.getFinished());
 
-        String date = DateUtil.timeStamp2Date(String.valueOf(courseListBean.getEndDate()), "yyyy-MM-dd");
+        String date = DateUtil.timeStamp2Date(String.valueOf(courseListBean.getEndDate()/1000), "yyyy-MM-dd");
         holder.tvitemCourseFinishTime.setText("训练营至 " + date);
     }
 

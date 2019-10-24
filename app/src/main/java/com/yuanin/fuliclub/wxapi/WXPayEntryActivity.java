@@ -7,11 +7,15 @@ import android.os.Bundle;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.modelpay.PayResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
 import com.yuanin.fuliclub.base.App;
 
+import com.yuanin.fuliclub.coursePart.CourseInfoVo;
+import com.yuanin.fuliclub.learnPart.CourseDetailsLoginActivity;
 import com.yuanin.fuliclub.util.LogUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 
@@ -56,6 +60,11 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             if (resp.errCode == 0) {
                 ToastUtils.showToast("支付成功!");
                 //TODO 跳转购买记录
+                PayResp payReq = (PayResp) resp;
+                String courseId = payReq.extData;
+                Intent intent = new Intent(this, CourseDetailsLoginActivity.class);
+                intent.putExtra("courseId", courseId);
+                startActivity(intent);
 
             } else if (resp.errCode == -2) {
                 ToastUtils.showToast("您已取消付款!");

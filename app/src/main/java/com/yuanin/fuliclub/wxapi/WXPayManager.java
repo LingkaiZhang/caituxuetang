@@ -42,7 +42,8 @@ public class WXPayManager {
                              final String noncestr,
                              final String timestamp,
                              final String packageValue,
-                             final String sign) {
+                             final String sign,
+                             final String courseId) {
 
         // 在主线程中执行
         activity.runOnUiThread(new Runnable() {
@@ -72,6 +73,7 @@ public class WXPayManager {
                 req.timeStamp		= timestamp;
                 req.packageValue	= packageValue;
                 req.sign			= sign;
+                req.extData         = courseId;
 
 
                 Toast.makeText(activity, "正在调起支付", Toast.LENGTH_SHORT).show();

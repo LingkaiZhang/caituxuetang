@@ -37,6 +37,7 @@ import com.yhao.floatwindow.Screen;
 import com.yhao.floatwindow.ViewStateListener;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.config.AppConst;
+import com.yuanin.fuliclub.config.ParamsKeys;
 import com.yuanin.fuliclub.config.URL;
 import com.yuanin.fuliclub.learnPart.CourseDetailsActivity;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleDetailsActivity;
@@ -96,6 +97,9 @@ public class App extends Application implements ComponentCallbacks2 {
         registToWX();
 
         mInstance = this;
+
+        App.initBooleanData(this);
+
         new HttpHelper.Builder(this)
                 .initOkHttp()
                 .createRetrofit(URL.BASE_URL)
@@ -114,6 +118,21 @@ public class App extends Application implements ComponentCallbacks2 {
         init();
 
 
+    }
+
+    public static void initBooleanData(Context context) {
+        //是否储存登录信息
+        String userid = AppUtils.getFromSharedPreferences(context, ParamsKeys.LOGIN_FILE, ParamsKeys.LOGIN_USERID);
+        if (userid.length() > 0) {
+            String mobile = AppUtils.getFromSharedPreferences(context, ParamsKeys.LOGIN_FILE, ParamsKeys.LOGIN_MBOILE);
+            String token = AppUtils.getFromSharedPreferences(context, ParamsKeys.LOGIN_FILE, ParamsKeys.LOGIN_TOKEN);
+            StaticMembers.IS_NEED_LOGIN = false;
+            StaticMembers.USER_ID = userid;
+            StaticMembers.MOBILE = mobile;
+            StaticMembers.TOKEN = token;
+        } else {
+            StaticMembers.IS_NEED_LOGIN = true;
+        }
     }
 
     private void init() {

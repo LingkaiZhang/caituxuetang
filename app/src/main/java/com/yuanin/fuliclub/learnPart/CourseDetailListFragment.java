@@ -150,11 +150,13 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
                     Intent intent = new Intent(getActivity(), CourseKnobbleDetailsActivity.class);
                     intent.putExtra("courseKnobbleId", ((CourseKnobbleInfoVo) o).getId());
                     startActivity(intent);
-                } else if(courseIsBuy){
+                } /*else if(courseIsBuy){
+
+                    mViewModel.updateLearnLastLog(courseId);
                     Intent intent = new Intent(getActivity(), CourseKnobbleDetailsActivity.class);
                     intent.putExtra("courseKnobbleId", ((CourseKnobbleInfoVo) o).getId());
                     startActivity(intent);
-                } else {
+                } */else {
                     ToastUtils.showToast("您还没有权限阅读该内容。");
                 }
             }

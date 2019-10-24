@@ -1,6 +1,8 @@
 package com.yuanin.fuliclub.loginRegister;
 
+import android.Manifest;
 import android.content.Intent;
+import android.support.v4.util.Consumer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.animation.AlphaAnimation;
@@ -8,6 +10,7 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import com.mvvm.base.BaseActivity;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.yuanin.fuliclub.MainActivity;
 import com.yuanin.fuliclub.R;
 
@@ -55,6 +58,15 @@ public class SplashActivity extends BaseActivity {
         });
 
         appLogo.setAnimation(alphaAnimation);
+
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        rxPermission();
     }
 
     private void redirectTO() {
@@ -63,5 +75,17 @@ public class SplashActivity extends BaseActivity {
         finish();
     }
 
-
+    private void rxPermission() {
+        // Must be done during an initialization phase like onCreate
+        final RxPermissions rxPermissions = new RxPermissions(SplashActivity.this);
+        rxPermissions
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(granted -> {
+                    if (granted) { // Always true pre-M
+                        // I can control the camera now
+                    } else {
+                        // Oups permission denied
+                    }
+                });
+    }
 }

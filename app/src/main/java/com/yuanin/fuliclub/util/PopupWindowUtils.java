@@ -178,7 +178,7 @@ public class PopupWindowUtils {
 
         //一定要sd卡目陆，不然其他的应用不能读取
 
-        File destFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath().concat("/caituxutang"),"share.jpg");
+        File destFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath().concat("/caituxutang"),System.currentTimeMillis() + "share.jpg");
         if (!destFile.getParentFile().exists()) {
             destFile.getParentFile().mkdirs();
         }
