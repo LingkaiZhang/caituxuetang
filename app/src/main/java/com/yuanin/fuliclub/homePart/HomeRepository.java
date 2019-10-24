@@ -9,6 +9,7 @@ import com.yuanin.fuliclub.coursePart.bean.MyCourseListVo;
 import com.yuanin.fuliclub.homePart.banner.BannerVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
+import com.yuanin.fuliclub.minePart.bean.KeFuInfoVo;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.util.StringUtil;
 
@@ -32,6 +33,7 @@ public class HomeRepository extends BaseRepository {
     public static String EVENT_KEY_COURSE_LIST_JINJIE_HOMEPAGE = null;
     public static String EVENT_KEY_COURSE_LOG_UPDATE = null;
     public static String EVENT_KEY_HOME_BANNER_LIST = null;
+    public static String EVENT_KEY_GET_KEFU_INFO = null;
 
     public HomeRepository() {
         if (EVENT_KEY_COURSE_LIST == null) {
@@ -57,6 +59,9 @@ public class HomeRepository extends BaseRepository {
         }
         if (EVENT_KEY_HOME_BANNER_LIST == null) {
             EVENT_KEY_HOME_BANNER_LIST = StringUtil.getEventKey();
+        }
+        if (EVENT_KEY_GET_KEFU_INFO == null) {
+            EVENT_KEY_GET_KEFU_INFO = StringUtil.getEventKey();
         }
     }
 
@@ -212,5 +217,22 @@ public class HomeRepository extends BaseRepository {
 
                 }
             }));
+    }
+
+    public void getKeFuInfo() {
+        addDisposable(apiService.getKefuInfo()
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<KeFuInfoVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<KeFuInfoVo> keFuInfoVoReturnResult) {
+                        postData(EVENT_KEY_GET_KEFU_INFO, keFuInfoVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
     }
 }

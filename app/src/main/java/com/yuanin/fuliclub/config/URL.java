@@ -65,6 +65,8 @@ public class URL {
     //标记消息为已读或删除
     public static final String MESSAGE_STATUS_UPDATE = URL.MODULE_ORDER + "per/newUpdate";
 
+    public static final String KEFU_INFO = URL.MODULE_ORDER + "per/keFuDetail";
+
     //课程列表
     public static final String COURSE_LIST = "/course/ct/course/queryListByType/{typeId}";
     public static final String COURSE_LIST_LOGIN = "/course/ct/course/queryListWithToken/{typeId}";

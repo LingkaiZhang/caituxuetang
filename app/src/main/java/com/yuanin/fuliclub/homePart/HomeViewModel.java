@@ -43,4 +43,8 @@ public class HomeViewModel extends AbsViewModel<HomeRepository> {
         mRepository.getBannerList();
 
     }
+
+    public void getKefuInfo() {
+        mRepository.getKeFuInfo();
+    }
 }

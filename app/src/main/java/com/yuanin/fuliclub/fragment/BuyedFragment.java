@@ -2,7 +2,6 @@ package com.yuanin.fuliclub.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -14,22 +13,19 @@ import android.widget.PopupWindow;
 
 import com.adapter.adapter.DelegateAdapter;
 import com.adapter.listener.OnItemClickListener;
-import com.mvvm.base.BaseFragment;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.BaseListFragment;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.config.StaticMembers;
-import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.MyCourseListVo;
 import com.yuanin.fuliclub.event.OnClickKefuEvent;
 import com.yuanin.fuliclub.homePart.HomeRepository;
 import com.yuanin.fuliclub.homePart.HomeViewModel;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
-import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
-import com.yuanin.fuliclub.learnPart.CourseDetailsActivity;
 import com.yuanin.fuliclub.learnPart.CourseDetailsLoginActivity;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
+import com.yuanin.fuliclub.minePart.bean.KeFuInfoVo;
 import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
@@ -54,6 +50,7 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
 
 
     private View popupWindowContactUs;
+    private KeFuInfoVo kefuInfo;
 
     public static BuyedFragment newInstance() {
         
@@ -81,14 +78,22 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void logoutSuccessEvent(OnClickKefuEvent event) {
-        PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popupWindowContactUs, getActivity());
+    public void ClickKefuEvent(OnClickKefuEvent event) {
+        PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popupWindowContactUs, getActivity(), kefuInfo.getName(), kefuInfo.getWxNumber(), kefuInfo.getWxUrl());
         ContactUsPop.showAtLocation(clMain, Gravity.CENTER, 0, 0);
     }
 
     @Override
     protected void dataObserver() {
         super.dataObserver();
+
+        registerSubscriber(HomeRepository.EVENT_KEY_GET_KEFU_INFO,ReturnResult.class).observe(this, returnResult ->{
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    kefuInfo = (KeFuInfoVo) returnResult.getData();
+                }
+            }
+        } );
 
         registerSubscriber(HomeRepository.EVENT_KEY_COURSE_LAST_LEARN, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
@@ -151,6 +156,8 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
 
     @Override
     protected void getRemoteData() {
+
+        mViewModel.getKefuInfo();
 
         if (StaticMembers.IS_NEED_LOGIN) {
             addItems();

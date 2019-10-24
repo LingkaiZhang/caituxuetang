@@ -141,11 +141,18 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
 
                     //TODO 设置数据
                    // detailsInfoVo.setMp3Url("https://fuliketang-test-pub2.oss-cn-shanghai.aliyuncs.com/a1e7d4d2df3b47cf8b219e1c236d313d.mp3");
-                    playListManager.play(detailsInfoVo);
-
                     currentSong = this.playListManager.getPlayData();
+                    if (currentSong != null) {
+                        if (detailsInfoVo.getId().equals(currentSong.getId())) {
+                            setInitData(currentSong);
+                        } else {
+                            playListManager.play(detailsInfoVo);
+                        }
+                    } else {
+                        playListManager.play(detailsInfoVo);
+                    }
 
-                    setInitData(currentSong);
+                    //setInitData(currentSong);
 
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
@@ -221,12 +228,12 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
 
     @Override
     public void onPaused(KnobbleDetailsInfoVo data) {
-        ivPlayControl.setImageResource(R.drawable.selector_music_pause);
+        ivPlayControl.setImageResource(R.drawable.selector_music_play);
     }
 
     @Override
     public void onPlaying(KnobbleDetailsInfoVo data) {
-        ivPlayControl.setImageResource(R.drawable.selector_music_play);
+        ivPlayControl.setImageResource(R.drawable.selector_music_pause);
         currentSong = data;
     }
 

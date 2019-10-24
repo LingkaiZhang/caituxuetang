@@ -87,7 +87,7 @@
                     android:layout_height="170dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="12dp"
-                    android:background="@mipmap/kefu_wechat">
+                    android:src="@mipmap/kefu_wechat">
 
                 </ImageView>
                 

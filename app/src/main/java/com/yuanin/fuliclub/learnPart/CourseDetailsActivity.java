@@ -305,14 +305,12 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                 .into(ivCourseBg);
 
 
-
-
         if (courseDetails.getIsBuy() == 0) {
             //未购买
             rl_price_info.setVisibility(View.VISIBLE);
             tvCourseTime.setVisibility(View.GONE);
-            tvCoursePrice.setText(String.valueOf(courseDetails.getCostPrice()));
-            tvOriginalPrice.setText("¥" + courseDetails.getRulingPrice());
+            tvCoursePrice.setText(String.valueOf(courseDetails.getRulingPrice()));
+            tvOriginalPrice.setText("¥" + courseDetails.getCostPrice());
             tvOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
         } else if (courseDetails.getIsBuy() == 1) {

@@ -31,6 +31,7 @@ import com.yuanin.fuliclub.minePart.MyAccountActivity;
 import com.yuanin.fuliclub.minePart.MyMessageActivity;
 import com.yuanin.fuliclub.minePart.OrderDetaailsActivity;
 import com.yuanin.fuliclub.minePart.OrderListActivity;
+import com.yuanin.fuliclub.minePart.bean.KeFuInfoVo;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.minePart.bean.UserInfoEntity;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
@@ -79,6 +80,7 @@ public class MineFragment extends BaseFragment {
 
     protected ApiService apiService;
     private Flowable<ReturnResult<UserInfoEntity>> userInfo;
+    private KeFuInfoVo keFuInfo;
 
     public static MineFragment newInstance() {
 
@@ -100,6 +102,26 @@ public class MineFragment extends BaseFragment {
         if (null == apiService) {
             apiService = HttpHelper.getInstance().create(ApiService.class);
         }
+
+        requestKefuInfo();
+    }
+
+    private void requestKefuInfo() {
+        Flowable<ReturnResult<KeFuInfoVo>> kefuInfo = apiService.getKefuInfo();
+        kefuInfo.compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<KeFuInfoVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<KeFuInfoVo> keFuInfoVoReturnResult) {
+                        if (keFuInfoVoReturnResult.isSuccess()) {
+                            keFuInfo = keFuInfoVoReturnResult.getData();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                });
     }
 
     @Override
@@ -184,7 +206,7 @@ public class MineFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), AboutOursActivity.class));
                 break;
             case R.id.ivKefu:
-                PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popupWindowContactUs, getActivity());
+                PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popupWindowContactUs, getActivity(), keFuInfo.getName(),keFuInfo.getWxNumber(),keFuInfo.getWxUrl());
                 ContactUsPop.showAtLocation(clMain, Gravity.CENTER, 0, 0);
                 break;
         }
