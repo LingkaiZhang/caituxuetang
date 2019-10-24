@@ -67,11 +67,11 @@ public interface ApiService {
 
     @POST(URL.LOGIN_WECHAT)
     @FormUrlEncoded
-    Flowable<ReturnResult<LoginSuccessEntity>> sendWeChatCodeToLogin(@Field("code") String code);
+    Flowable<ReturnResult<LoginSuccessEntity>> sendWeChatCodeToLogin(@Field("code") String code,@Field("appId") String appId);
 
     @POST(URL.BIND_WECHAT)
     @FormUrlEncoded
-    Flowable<ReturnResult<String>> bindWechat(@Field("code") String code);
+    Flowable<ReturnResult<String>> bindWechat(@Field("code") String code,@Field("appId") String appId);
 
 
     @POST(URL.USER_CAPACITY)

@@ -27,6 +27,16 @@ public class CourseKnobbleInfoVo {
     private String mp3Url;
     private int mp3Time;
 
+    private boolean isBuyed;
+
+    public boolean isBuyed() {
+        return isBuyed;
+    }
+
+    public void setBuyed(boolean buyed) {
+        isBuyed = buyed;
+    }
+
     public int getId() {
         return id;
     }

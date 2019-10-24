@@ -12,6 +12,7 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
 import com.yuanin.fuliclub.base.App;
 
+import com.yuanin.fuliclub.util.LogUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 
 
@@ -50,6 +51,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp resp) {
+        LogUtils.d("wechat", resp.toString());
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (resp.errCode == 0) {
                 ToastUtils.showToast("支付成功!");

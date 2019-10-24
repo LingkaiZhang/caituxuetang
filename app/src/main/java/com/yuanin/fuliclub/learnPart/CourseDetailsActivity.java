@@ -169,7 +169,7 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                     courseDetails = (CourseDetailsVo) returnResult.getData();
                     setCourseInfo(courseDetails);
                     courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
-                    courseDetailListFragment.setDatas(courseId);
+                    courseDetailListFragment.setDatas(courseId, false);
 
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
@@ -209,7 +209,7 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                     courseDetails = (CourseDetailsVo) returnResult.getData();
                     setCourseInfo(courseDetails);
                     courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
-                    courseDetailListFragment.setDatas(courseId);
+                    courseDetailListFragment.setDatas(courseId, false);
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
                 }

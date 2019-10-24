@@ -181,7 +181,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @SuppressLint("CheckResult")
     private void sendCodeToLogin(String wxCode) {
-        weChatCodeToLogin = apiService.sendWeChatCodeToLogin(wxCode);
+        weChatCodeToLogin = apiService.sendWeChatCodeToLogin(wxCode, "android");
         weChatCodeToLogin.compose(RxSchedulers.io_main())
                 .subscribeWith(new RxSubscriber<ReturnResult<LoginSuccessEntity>>() {
                     @Override
@@ -223,7 +223,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @SuppressLint("CheckResult")
     private void sendCodeBindWeChat(String code) {
-        bindWechat = apiService.bindWechat(code);
+        bindWechat = apiService.bindWechat(code, "android");
         bindWechat.compose(RxSchedulers.io_main())
                 .subscribeWith(new RxSubscriber<ReturnResult<String>>() {
                     @Override

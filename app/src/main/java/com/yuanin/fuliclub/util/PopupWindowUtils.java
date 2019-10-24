@@ -14,6 +14,9 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.config.ParamsKeys;
 import com.yuanin.fuliclub.config.ParamsValues;
@@ -94,6 +97,19 @@ public class PopupWindowUtils {
         tvClassName.setText(className);
 
         ImageView rlQRcode = popView.findViewById(R.id.rlQRcode);
+
+        //设置图片圆角角度
+        RoundedCorners roundedCorners = new RoundedCorners(DensityUtil.dip2px(context, 8));
+        //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
+        RequestOptions options = RequestOptions
+                .bitmapTransform(roundedCorners)
+                .override(300, 300)
+                .placeholder(R.mipmap.item_course);
+
+        Glide.with(context).load(QRcode)
+                .apply(options)
+                .into(rlQRcode);
+
         LinearLayout llKefu = popView.findViewById(R.id.llKefu);
         tvCopy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +145,7 @@ public class PopupWindowUtils {
         TextView tvCopy = popView.findViewById(R.id.tvCopy);
         TextView tvKefuWeChatNo = popView.findViewById(R.id.tvKefuWeChatNo);
         ImageView rlQRcode = popView.findViewById(R.id.rlQRcode);
+
         LinearLayout llKefu = popView.findViewById(R.id.llKefu);
         tvCopy.setOnClickListener(new View.OnClickListener() {
             @Override

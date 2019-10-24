@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="@dimen/notification_height"
-        android:layout_height="64dp"
+        android:layout_height="@dimen/notification_height"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher"/>
 
@@ -29,11 +29,12 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="这是歌曲名称"
+            android:textSize="14sp"
             android:textColor="@color/common_text_3" />
 
         <TextView
             android:layout_marginTop="@dimen/item_icon_padding"
-            android:textSize="10sp"
+            android:textSize="12sp"
             android:id="@+id/tv_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

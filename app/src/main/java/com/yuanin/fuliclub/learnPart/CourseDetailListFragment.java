@@ -16,6 +16,7 @@ import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
+import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.ToastUtils;
 
@@ -32,6 +33,7 @@ import java.util.List;
 public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> implements OnItemClickListener {
 
     private String courseId;
+    private boolean courseIsBuy;
 
     public static CourseDetailListFragment newInstance() {
 
@@ -77,7 +79,14 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     List<CourseKnobbleInfoVo> knobbleInfoVoList = (List<CourseKnobbleInfoVo>) returnResult.getData();
+
+
                     if (knobbleInfoVoList.size() > 0) {
+
+                        for (int i = 0; i < knobbleInfoVoList.size(); i++) {
+                            knobbleInfoVoList.get(i).setBuyed(courseIsBuy);
+                        }
+
                         addItems();
                         mItems.clear();
 
@@ -98,6 +107,11 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
                 if (returnResult.isSuccess()) {
                     List<CourseKnobbleInfoVo> knobbleInfoVoList = (List<CourseKnobbleInfoVo>) returnResult.getData();
                     if (knobbleInfoVoList.size() > 0) {
+
+                        for (int i = 0; i < knobbleInfoVoList.size(); i++) {
+                            knobbleInfoVoList.get(i).setBuyed(courseIsBuy);
+                        }
+
                         addItems();
 
                         mItems.addAll(knobbleInfoVoList);
@@ -126,16 +140,32 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
     public void onItemClick(View view, int position, Object o) {
         if (o instanceof CourseKnobbleInfoVo) {
 
-            mViewModel.updateLearnLastLog(courseId);
+            if (StaticMembers.IS_NEED_LOGIN) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            } else {
+                if (((CourseKnobbleInfoVo) o).getTryOut() == 0) {
+                    mViewModel.updateLearnLastLog(courseId);
 
-            Intent intent = new Intent(getActivity(), CourseKnobbleDetailsActivity.class);
-            intent.putExtra("courseKnobbleId", ((CourseKnobbleInfoVo) o).getId());
-            startActivity(intent);
+                    Intent intent = new Intent(getActivity(), CourseKnobbleDetailsActivity.class);
+                    intent.putExtra("courseKnobbleId", ((CourseKnobbleInfoVo) o).getId());
+                    startActivity(intent);
+                } else if(courseIsBuy){
+                    Intent intent = new Intent(getActivity(), CourseKnobbleDetailsActivity.class);
+                    intent.putExtra("courseKnobbleId", ((CourseKnobbleInfoVo) o).getId());
+                    startActivity(intent);
+                } else {
+                    ToastUtils.showToast("您还没有权限阅读该内容。");
+                }
+            }
+
+
         }
     }
 
-    public void setDatas(String courseId) {
+    public void setDatas(String courseId, boolean courseIsBuy) {
         this.courseId = courseId;
+        this.courseIsBuy = courseIsBuy;
         setQuestData();
     }
 

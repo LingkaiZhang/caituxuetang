@@ -73,11 +73,11 @@ public class BannerItemView extends AbsItemHolder<BannerListVo, BannerItemView.V
 
                     if (bannerAdListVo.data.get(position).getIsBuy()== 0) {
                         Intent intent = new Intent(mContext, CourseDetailsActivity.class);
-                        intent.putExtra("courseId", bannerAdListVo.data.get(position).getCourseId());
+                        intent.putExtra("courseId", String.valueOf(bannerAdListVo.data.get(position).getCourseId()));
                         mContext.startActivity(intent);
                     } else if (bannerAdListVo.data.get(position).getIsBuy()== 1) {
                         Intent intent = new Intent(mContext, CourseDetailsLoginActivity.class);
-                        intent.putExtra("courseId", bannerAdListVo.data.get(position).getCourseId());
+                        intent.putExtra("courseId", String.valueOf(bannerAdListVo.data.get(position).getCourseId()));
                         mContext.startActivity(intent);
                     }
                 }

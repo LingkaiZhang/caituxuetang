@@ -39,7 +39,12 @@ public class CourseKnobbleItemHolder extends AbsItemHolder<CourseKnobbleInfoVo, 
 
         holder.tvKnobbleName.setText(courseListBean.getClassHourName());
         if (courseListBean.getTryOut() == 0) {
-            holder.tvTryLearn.setVisibility(View.VISIBLE);
+
+            if (courseListBean.isBuyed()) {
+                holder.tvTryLearn.setVisibility(View.GONE);
+            } else {
+                holder.tvTryLearn.setVisibility(View.VISIBLE);
+            }
             holder.ivPlay.setVisibility(View.VISIBLE);
             holder.ivLock.setVisibility(View.GONE);
         } else if (courseListBean.getTryOut() == 1) {
@@ -47,7 +52,6 @@ public class CourseKnobbleItemHolder extends AbsItemHolder<CourseKnobbleInfoVo, 
             holder.ivPlay.setVisibility(View.GONE);
             holder.ivLock.setVisibility(View.VISIBLE);
         }
-
 
     }
 

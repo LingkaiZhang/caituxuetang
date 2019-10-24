@@ -54,7 +54,7 @@ public class NotificationUtil {
                 //这个布局的根View的尺寸不能引用dimen文件，要写死
                 //设置标准通知数据
                 RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification_music_play);
-                contentView.setImageViewBitmap(R.id.iv_icon, BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
+                //contentView.setImageViewBitmap(R.id.iv_icon, BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
                 contentView.setTextViewText(R.id.tv_title, knobbleDetailsInfoVo.getClassHourName());
                 contentView.setTextViewText(R.id.tv_info, knobbleDetailsInfoVo.getCourseName());
                 int playResId = isPlaying ? R.mipmap.ic_music_notification_pause : R.mipmap.ic_music_notification_play;
