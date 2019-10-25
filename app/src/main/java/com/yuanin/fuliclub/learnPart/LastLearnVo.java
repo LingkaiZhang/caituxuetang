@@ -31,6 +31,16 @@ public class LastLearnVo {
     private long updateTime;
     private int isBuy;
 
+    private boolean unReadMessage;
+
+    public boolean isUnReadMessage() {
+        return unReadMessage;
+    }
+
+    public void setUnReadMessage(boolean unReadMessage) {
+        this.unReadMessage = unReadMessage;
+    }
+
     public int getId() {
         return id;
     }

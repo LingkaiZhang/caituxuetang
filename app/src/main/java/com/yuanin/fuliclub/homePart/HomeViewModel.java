@@ -35,6 +35,10 @@ public class HomeViewModel extends AbsViewModel<HomeRepository> {
         mRepository.getLastLearnInfo();
     }
 
+    public void getMessageList(String pageNum) {
+        mRepository.getMessageList(pageNum);
+    }
+
     public void getMyCourseList(String pageIndex, String limit) {
         mRepository.getMyCourseList(pageIndex, limit);
     }

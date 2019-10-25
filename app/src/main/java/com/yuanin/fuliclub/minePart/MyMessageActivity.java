@@ -121,14 +121,6 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
                     MyMessageListVo myMessageVoList = (MyMessageListVo) returnResult.getData();
                     List<MyMessageVo> data = myMessageVoList.getData();
 
-                    if (data.size() > 0) {
-                        refreshLayout.setVisibility(View.VISIBLE);
-                        ll_empty_mesage.setVisibility(View.GONE);
-                    } else {
-                        refreshLayout.setVisibility(View.GONE);
-                        ll_empty_mesage.setVisibility(View.VISIBLE);
-                    }
-
                     setUiData(data);
 
                     //ToastUtils.showToast(returnResult.getMessage());
@@ -141,6 +133,15 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
     }
 
     protected void setData() {
+
+        if (mItems.size() > 0) {
+            refreshLayout.setVisibility(View.VISIBLE);
+            ll_empty_mesage.setVisibility(View.GONE);
+        } else {
+            refreshLayout.setVisibility(View.GONE);
+            ll_empty_mesage.setVisibility(View.VISIBLE);
+        }
+
         adapter.setDatas(mItems);
         adapter.notifyDataSetChanged();
         if (isRefresh) {
@@ -205,7 +206,7 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
         if (object != null) {
             if (object instanceof MyMessageVo) {
 
-                mViewModel.upDateMessageStatus(String.valueOf(((MyMessageVo) object).getId()), "1");
+                mViewModel.upDateMessageStatus(String.valueOf(((MyMessageVo) object).getId()), "2");
 
                 Intent intent = new Intent(this, CourseDetailsLoginActivity.class);
                 intent.putExtra("courseId", String.valueOf(((MyMessageVo) object).getCourseId()));

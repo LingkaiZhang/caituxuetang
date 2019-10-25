@@ -32,6 +32,7 @@ import com.yuanin.fuliclub.minePart.MyMessageActivity;
 import com.yuanin.fuliclub.minePart.OrderDetaailsActivity;
 import com.yuanin.fuliclub.minePart.OrderListActivity;
 import com.yuanin.fuliclub.minePart.bean.KeFuInfoVo;
+import com.yuanin.fuliclub.minePart.bean.MyMessageListVo;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.minePart.bean.UserInfoEntity;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
@@ -74,6 +75,8 @@ public class MineFragment extends BaseFragment {
     ConstraintLayout clMain;
     @BindView(R.id.llUserInfo)
     LinearLayout llUserInfo;
+    @BindView(R.id.unReadMessage)
+    View unReadMessage;
 
 
     private View popupWindowContactUs;
@@ -136,7 +139,31 @@ public class MineFragment extends BaseFragment {
             llUserInfo.setVisibility(View.VISIBLE);
             // 请求用户数据
             requsetData();
+            //请求有无未读消息
+            requestMessage();
         }
+    }
+
+    @SuppressLint("CheckResult")
+    private void requestMessage() {
+        apiService.getMessageList("1", "3").compose(RxSchedulers.io_main()).subscribeWith(new RxSubscriber<ReturnResult<MyMessageListVo>>() {
+            @Override
+            public void onSuccess(ReturnResult<MyMessageListVo> myMessageListVoReturnResult) {
+                if (myMessageListVoReturnResult.isSuccess()) {
+                    MyMessageListVo data = myMessageListVoReturnResult.getData();
+                    if (data.getNumber() == 0 ){
+                        unReadMessage.setVisibility(View.GONE);
+                    } else {
+                        unReadMessage.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(String msg, int code) {
+
+            }
+        });
     }
 
     @SuppressLint("CheckResult")
@@ -150,7 +177,7 @@ public class MineFragment extends BaseFragment {
                         UserInfoEntity userInfoEntity = stringReturnResult.getData();
                         if (userInfoEntity != null) {
                             tvUserName.setText(userInfoEntity.getNickName());
-                            tvUserNo.setText("学号：" + userInfoEntity.getMobile());
+                            tvUserNo.setText("学号：" + userInfoEntity.getUid());
                             setUserHeadImage(userInfoEntity.getProfilePictureLink());
                         }
 

@@ -33,6 +33,15 @@
             android:layout_marginBottom="32dp"
             android:src="@mipmap/combined_nation" />
 
+        <View
+            android:id="@+id/unReadMessage"
+            android:layout_width="5dp"
+            android:layout_height="5dp"
+            android:background="@drawable/shape_dit_point"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="54dp"/>
+
         <ImageView
             android:id="@+id/ivKefu"
             android:layout_width="24dp"

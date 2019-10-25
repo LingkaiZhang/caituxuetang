@@ -70,7 +70,6 @@ public class OrderListActivity extends AbsLifecycleActivity<MyViewModel> impleme
 
         weakReference = new WeakReference<>(this);
 
-        loadManager.showSuccess();
         titleBar.setBackImageRes(R.drawable.black);
         titleBar.getBackLayout().setOnClickListener(v -> finish());
 
@@ -102,14 +101,6 @@ public class OrderListActivity extends AbsLifecycleActivity<MyViewModel> impleme
                     if (myOrderListVo != null) {
                         List<OrderDetailsInfoVo> orderDetailsInfoVos = myOrderListVo.getList();
 
-                        if (orderDetailsInfoVos.size() > 0){
-                            refreshLayout.setVisibility(View.VISIBLE);
-                            ll_empty_order.setVisibility(View.GONE);
-                        } else {
-                            refreshLayout.setVisibility(View.GONE);
-                            ll_empty_order.setVisibility(View.VISIBLE);
-                        }
-
                         setUiData(orderDetailsInfoVos);
                     }
 
@@ -137,6 +128,14 @@ public class OrderListActivity extends AbsLifecycleActivity<MyViewModel> impleme
 
 
     protected void setData() {
+        if (mItems.size() > 0){
+            refreshLayout.setVisibility(View.VISIBLE);
+            ll_empty_order.setVisibility(View.GONE);
+        } else {
+            refreshLayout.setVisibility(View.GONE);
+            ll_empty_order.setVisibility(View.VISIBLE);
+        }
+
         adapter.setDatas(mItems);
         adapter.notifyDataSetChanged();
         if (isRefresh) {

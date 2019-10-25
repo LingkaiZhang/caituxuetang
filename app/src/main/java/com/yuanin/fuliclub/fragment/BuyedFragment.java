@@ -25,7 +25,9 @@ import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.learnPart.CourseDetailsLoginActivity;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
+import com.yuanin.fuliclub.minePart.MyViewModel;
 import com.yuanin.fuliclub.minePart.bean.KeFuInfoVo;
+import com.yuanin.fuliclub.minePart.bean.MyMessageListVo;
 import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
@@ -51,6 +53,8 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
 
     private View popupWindowContactUs;
     private KeFuInfoVo kefuInfo;
+
+    private boolean unReadMessage;
 
     public static BuyedFragment newInstance() {
         
@@ -87,6 +91,19 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
     protected void dataObserver() {
         super.dataObserver();
 
+        registerSubscriber(HomeRepository.EVENT_KEY_MESSAGE_INFO, ReturnResult.class).observe(this, returnResult -> {
+            if (returnResult != null) {
+                if (returnResult.isSuccess()) {
+                    MyMessageListVo data = (MyMessageListVo) returnResult.getData();
+                    if (data.getNumber() == 0) {
+                        unReadMessage = false;
+                    } else {
+                        unReadMessage = true;
+                    }
+                }
+            }
+        });
+
         registerSubscriber(HomeRepository.EVENT_KEY_GET_KEFU_INFO,ReturnResult.class).observe(this, returnResult ->{
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
@@ -99,6 +116,7 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     LastLearnVo lastLearnVo = (LastLearnVo) returnResult.getData();
+                    lastLearnVo.setUnReadMessage(unReadMessage);
                     addItems();
                     mItems.add(0,lastLearnVo);
 
@@ -165,6 +183,7 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
             setData();
 
         } else {
+            mViewModel.getMessageList("1");
             mViewModel.getLastLearnInfo();
         }
 
