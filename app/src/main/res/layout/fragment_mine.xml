@@ -137,7 +137,8 @@
         style="@style/mine_item_style"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rl_mine_order">
+        app:layout_constraintTop_toBottomOf="@id/rl_mine_order"
+        android:visibility="gone">
 
         <ImageView
             style="@style/mine_item_right_arrow"

@@ -15,9 +15,13 @@ import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.yuanin.fuliclub.base.App;
 
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
+import com.yuanin.fuliclub.event.OnClickKefuEvent;
+import com.yuanin.fuliclub.event.WechatPayUnusualeEvent;
 import com.yuanin.fuliclub.learnPart.CourseDetailsLoginActivity;
 import com.yuanin.fuliclub.util.LogUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -68,9 +72,17 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
             } else if (resp.errCode == -2) {
                 ToastUtils.showToast("您已取消付款!");
+
+                //发送支付异常消息
+                EventBus.getDefault().post(new WechatPayUnusualeEvent());
+
                 finish();
             } else {
                 ToastUtils.showToast("参数错误!");
+
+                //发送支付异常消息
+                EventBus.getDefault().post(new WechatPayUnusualeEvent());
+
                 finish();
             }
         } else {

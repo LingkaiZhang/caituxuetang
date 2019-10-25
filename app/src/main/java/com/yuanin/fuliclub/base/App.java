@@ -104,6 +104,7 @@ public class App extends Application implements ComponentCallbacks2 {
                 .initOkHttp()
                 .createRetrofit(URL.BASE_URL)
                 .build();
+
         new LoadState.Builder()
                 .register(new ErrorState())
                 .register(new LoadingState())

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/bg"
+    android:id="@+id/clMain"
     tools:context=".learnPart.OrderPayActivity">
 
     <com.next.easytitlebar.view.EasyTitleBar

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.adapter.adapter.DelegateAdapter;
 import com.adapter.adapter.ItemData;
@@ -41,6 +42,8 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
     RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.ll_empty_mesage)
+    LinearLayout ll_empty_mesage;
 
     private WeakReference<MyMessageActivity> weakReference;
     private ItemData mItems;
@@ -71,7 +74,7 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
 
         weakReference = new WeakReference<>(this);
 
-        loadManager.showSuccess();
+//        loadManager.showSuccess();
         titleBar.setBackImageRes(R.drawable.black);
         titleBar.getBackLayout().setOnClickListener(v -> finish());
 
@@ -118,9 +121,17 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
                     MyMessageListVo myMessageVoList = (MyMessageListVo) returnResult.getData();
                     List<MyMessageVo> data = myMessageVoList.getData();
 
+                    if (data.size() > 0) {
+                        refreshLayout.setVisibility(View.VISIBLE);
+                        ll_empty_mesage.setVisibility(View.GONE);
+                    } else {
+                        refreshLayout.setVisibility(View.GONE);
+                        ll_empty_mesage.setVisibility(View.VISIBLE);
+                    }
+
                     setUiData(data);
 
-                    ToastUtils.showToast(returnResult.getMessage());
+                    //ToastUtils.showToast(returnResult.getMessage());
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
                 }
@@ -193,6 +204,9 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
     public void onItemClick(View view, int position, Object object) {
         if (object != null) {
             if (object instanceof MyMessageVo) {
+
+                mViewModel.upDateMessageStatus(String.valueOf(((MyMessageVo) object).getId()), "1");
+
                 Intent intent = new Intent(this, CourseDetailsLoginActivity.class);
                 intent.putExtra("courseId", String.valueOf(((MyMessageVo) object).getCourseId()));
                 startActivity(intent);

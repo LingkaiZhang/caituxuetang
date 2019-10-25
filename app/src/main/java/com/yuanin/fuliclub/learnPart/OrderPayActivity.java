@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,9 +30,16 @@ import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.coursePart.bean.AliPayOrderVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
 import com.yuanin.fuliclub.coursePart.bean.WeChatOrderVo;
+import com.yuanin.fuliclub.event.PayUnusualeEvent;
+import com.yuanin.fuliclub.event.WechatPayUnusualeEvent;
 import com.yuanin.fuliclub.util.DensityUtil;
+import com.yuanin.fuliclub.util.PopupWindowUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.wxapi.WXPayManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Map;
 
@@ -75,12 +85,15 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
     View vi2;
     @BindView(R.id.btnPay)
     Button btnPay;
+    @BindView(R.id.clMain)
+    ConstraintLayout clMain;
 
     private String courseId;
     private String periodsId;
     private Context mContext = OrderPayActivity.this;
     private String PayType = "weChatPay";
     private CourseOrderCreatVo orderDate;
+    private View popuPayAbnormal;
 
     private static final int SDK_PAY_FLAG = 1;
 
@@ -103,6 +116,8 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
             } else {
                 // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                 Toast.makeText(OrderPayActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
+                PopupWindow payAbnormal = PopupWindowUtils.createPayAbnormal(popuPayAbnormal, OrderPayActivity.this);
+                payAbnormal.showAtLocation(clMain, Gravity.CENTER, 0, 0);
             }
         };
     };
@@ -132,6 +147,35 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
             mViewModel.createCourseOrder(courseId, periodsId);
         }
 
+        popuPayAbnormal = View.inflate(this, R.layout.popupwindow_pay_abnormal, null);
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void weChatPayUnsuale(WechatPayUnusualeEvent wechatPayUnusualeEvent){
+        PopupWindow payAbnormal = PopupWindowUtils.createPayAbnormal(popuPayAbnormal, OrderPayActivity.this);
+        payAbnormal.showAtLocation(clMain, Gravity.CENTER, 0, 0);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void payAbnormal(PayUnusualeEvent payUnusualeEvent){
+        if (PayType.equals("weChatPay")) {
+            //微信统一下单
+            mViewModel.createWeChatOrder(orderDate.getOrderNo(), orderDate.getProductType(),
+                    orderDate.getProductId(), orderDate.getProductName(), orderDate.getPrice(), orderDate.getKey());
+
+        } else if (PayType.equals("aliPay")) {
+            //支付宝支付
+            mViewModel.createAliPayOrder(orderDate.getOrderNo(), orderDate.getProductType(),
+                    orderDate.getProductId(), orderDate.getProductName(), orderDate.getPrice(), orderDate.getKey());
+        }
     }
 
     @Override

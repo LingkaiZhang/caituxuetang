@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.adapter.adapter.DelegateAdapter;
 import com.adapter.adapter.ItemData;
@@ -40,6 +41,8 @@ public class OrderListActivity extends AbsLifecycleActivity<MyViewModel> impleme
     RecyclerView mRecyclerView;
     @BindView(R.id.refresh_layout)
     SmartRefreshLayout refreshLayout;
+    @BindView(R.id.ll_empty_order)
+    LinearLayout ll_empty_order;
 
     private WeakReference<OrderListActivity> weakReference;
     private ItemData mItems;
@@ -98,6 +101,15 @@ public class OrderListActivity extends AbsLifecycleActivity<MyViewModel> impleme
                     MyOrderListVo myOrderListVo = (MyOrderListVo) returnResult.getData();
                     if (myOrderListVo != null) {
                         List<OrderDetailsInfoVo> orderDetailsInfoVos = myOrderListVo.getList();
+
+                        if (orderDetailsInfoVos.size() > 0){
+                            refreshLayout.setVisibility(View.VISIBLE);
+                            ll_empty_order.setVisibility(View.GONE);
+                        } else {
+                            refreshLayout.setVisibility(View.GONE);
+                            ll_empty_order.setVisibility(View.VISIBLE);
+                        }
+
                         setUiData(orderDetailsInfoVos);
                     }
 

@@ -28,8 +28,7 @@ public class CourseInfo {
     private long endDate;
     private int periodsId;
     private long startDate;
-    @SerializedName("background;")
-    private String _$Background68; // FIXME check this code
+    private String background; // FIXME check this code
 
     public String getCourseTitle() {
         return courseTitle;
@@ -80,10 +79,10 @@ public class CourseInfo {
     }
 
     public String get_$Background68() {
-        return _$Background68;
+        return background;
     }
 
     public void set_$Background68(String _$Background68) {
-        this._$Background68 = _$Background68;
+        this.background = background;
     }
 }

@@ -17,6 +17,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.yuanin.fuliclub.R;
+import com.yuanin.fuliclub.event.PayUnusualeEvent;
+import com.yuanin.fuliclub.event.WechatPayUnusualeEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 
@@ -51,7 +55,9 @@ public class PopupWindowUtils {
             @Override
             public void onClick(View v) {
                 //TODO 跳转去支付页面
-
+                //发送支付异常消息
+                EventBus.getDefault().post(new PayUnusualeEvent());
+                mPop.dismiss();
             }
         });
 
@@ -116,7 +122,6 @@ public class PopupWindowUtils {
             public boolean onLongClick(View v) {
 
                 shareImage(llKefu,context);
-
                 return false;
             }
         });

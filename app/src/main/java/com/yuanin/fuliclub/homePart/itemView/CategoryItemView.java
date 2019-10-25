@@ -35,7 +35,7 @@ public class CategoryItemView extends AbsItemHolder<CategoryVo, CategoryItemView
     public CategoryItemView(Context context) {
         super(context);
         tvNames = new String[]{"小白", "进阶", "直播", "FM"};
-        tvIcons = new int[]{R.drawable.xiaobai, R.drawable.jinjie, R.drawable.zhibo, R.drawable.fm};
+        tvIcons = new int[]{R.mipmap.xiaobai, R.mipmap.jinjie, R.mipmap.zhibo, R.mipmap.fm};
         initData();
         adapter = new HomeCategoryAdapter(mContext, list, 0);
     }

@@ -108,7 +108,7 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
 
                     mItems.add(new BottomBackgroundVo());
 
-                    mViewModel.getHomePageCourseListjinjie(2,1,3);
+                    mViewModel.getHomePageCourseListjinjie(2,1,10);
 
                 }else {
                     ToastUtils.showToast(returnResult.getMessage());
@@ -153,7 +153,6 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
 
     @Override
     protected void onStateRefresh() {
-
     }
 
 
