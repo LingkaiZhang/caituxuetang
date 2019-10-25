@@ -56,7 +56,7 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
     protected boolean isLoadMore = false;
 
     protected boolean isRefresh = false;
-    private ArrayList<RookieCourseListActivity> myMessageVos;
+
 
 
 
@@ -67,7 +67,7 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_my_message;
+        return R.layout.activity_course_list;
     }
 
     @Override
@@ -97,7 +97,7 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
             myMessageVos.add(new MyMessageVo());
         }
         setUiData(myMessageVos);*/
-        mViewModel.getCourseList(1,1,5);
+        mViewModel.getCourseList(1,1,15);
 
 
     }
@@ -174,13 +174,13 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
     @Override
     public void onRefresh(boolean isRefresh) {
         this.isRefresh = isRefresh;
-        mViewModel.getCourseList(1,1,3);
+        mViewModel.getCourseList(1,1,15);
     }
 
     @Override
     public void onLoadMore(boolean isLoadMore, int pageIndex) {
         this.isLoadMore = isLoadMore;
-        mViewModel.getCourseList(1,pageIndex, 3);
+        mViewModel.getCourseList(1,pageIndex, 15);
     }
 
 

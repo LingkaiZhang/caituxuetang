@@ -78,6 +78,8 @@ public class URL {
     //课程小结列表
     public static final String COURSE_KNOBBLE_LIST = "/course/ct/courseChild/queryChild/{parentId}";
     public static final String COURSE_KNOBBLE_LIST_LOGIN = "/course/ct/courseChild/queryChildWithToken/{parentId}";
+    //笔记列表
+    public static final String COURSE_KNOBBLE_NOTE_LIST = "/course/ct/work/queryNotes/{courseId}";
 
     //创建订单
     public static final String COURSE_CREATE_ORDER = URL.MODULE_ORDER + "CtcreateOrder";
@@ -101,5 +103,6 @@ public class URL {
     public static final String COURSE_USER_CLASS_INFO = "/orders/per/classDetail";
     //首页banner
     public static final String HOME_BANNER = "/course/banner/queryBanner";
+
 }
 

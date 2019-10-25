@@ -46,7 +46,7 @@ public class OrderDetailsInfoVo implements Serializable {
     private int productId;
     private String productName;
     private long beginTime;
-    private int price;
+    private String price;
     private String payWay;
     private int orderStatus;
     private int validStatus;
@@ -121,11 +121,11 @@ public class OrderDetailsInfoVo implements Serializable {
         this.beginTime = beginTime;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

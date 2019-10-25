@@ -13,6 +13,7 @@ import com.yuanin.fuliclub.homePart.banner.BannerInfoVo;
 import com.yuanin.fuliclub.homePart.banner.BannerVo;
 import com.yuanin.fuliclub.homePart.banner.CourseListVo;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleInfoVo;
+import com.yuanin.fuliclub.learnPart.CourseKnobbleNoteInfoVo;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
 import com.yuanin.fuliclub.minePart.bean.KeFuInfoVo;
@@ -112,6 +113,9 @@ public interface ApiService {
 
     @GET(URL.COURSE_DETAILS)
     Flowable<ReturnResult<CourseDetailsVo>> getCourseDetails(@Path("id") String id);
+
+    @GET(URL.COURSE_KNOBBLE_NOTE_LIST)
+    Flowable<ReturnResult<List<CourseKnobbleNoteInfoVo>>> getCourseKnobbleNoteList(@Path("courseId") String courseId);
 
     @GET(URL.COURSE_DETAILS_LOGIN)
     Flowable<ReturnResult<CourseDetailsVo>> getCourseDetailsLogin(@Path("id") String id, @Query("token") String token);

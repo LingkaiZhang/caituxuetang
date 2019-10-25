@@ -81,6 +81,8 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
     TextView tv1;
     @BindView(R.id.tvPayMoney)
     TextView tvPayMoney;
+    @BindView(R.id.tvOrangPrice)
+    TextView tvOrangPrice;
     @BindView(R.id.vi2)
     View vi2;
     @BindView(R.id.btnPay)
@@ -121,6 +123,7 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
             }
         };
     };
+    private String costPrice;
 
     @Override
     protected int getScreenMode() {
@@ -142,6 +145,7 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
         Intent intent = getIntent();
         courseId = intent.getStringExtra("courseId");
         periodsId = intent.getStringExtra("periodsId");
+        costPrice = intent.getStringExtra("yuanjia");
         if (!TextUtils.isEmpty(courseId) && !TextUtils.isEmpty(periodsId)) {
             //创建订单
             mViewModel.createCourseOrder(courseId, periodsId);
@@ -254,6 +258,7 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
 
         tvOrderPrice.setText("需支付：" + orderDate.getPrice() + "元");
         tvPayMoney.setText("￥" + orderDate.getPrice());
+        tvOrangPrice.setText("原价：" + costPrice);
 
 
         //设置图片圆角角度

@@ -54,7 +54,7 @@ public class AdvanceCourseListActivity extends AbsLifecycleActivity<HomeViewMode
     protected boolean isLoadMore = false;
 
     protected boolean isRefresh = false;
-    private ArrayList<AdvanceCourseListActivity> myMessageVos;
+
 
 
 
@@ -65,7 +65,7 @@ public class AdvanceCourseListActivity extends AbsLifecycleActivity<HomeViewMode
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_my_message;
+        return R.layout.activity_course_list;
     }
 
     @Override
@@ -95,7 +95,7 @@ public class AdvanceCourseListActivity extends AbsLifecycleActivity<HomeViewMode
             myMessageVos.add(new MyMessageVo());
         }
         setUiData(myMessageVos);*/
-        mViewModel.getCourseListjinjie(2,1,5);
+        mViewModel.getCourseListjinjie(2,1,15);
 
 
     }
@@ -171,13 +171,13 @@ public class AdvanceCourseListActivity extends AbsLifecycleActivity<HomeViewMode
     @Override
     public void onRefresh(boolean isRefresh) {
         this.isRefresh = isRefresh;
-        mViewModel.getCourseListjinjie(2,1,3);
+        mViewModel.getCourseListjinjie(2,1,15);
     }
 
     @Override
     public void onLoadMore(boolean isLoadMore, int pageIndex) {
         this.isLoadMore = isLoadMore;
-        mViewModel.getCourseListjinjie(2,pageIndex, 10);
+        mViewModel.getCourseListjinjie(2,pageIndex, 15);
     }
 
 

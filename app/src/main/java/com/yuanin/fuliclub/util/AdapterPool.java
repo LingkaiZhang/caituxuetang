@@ -14,12 +14,16 @@ import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.homePart.itemView.BannerItemView;
 import com.yuanin.fuliclub.homePart.itemView.BottomBackgroundItemView;
 import com.yuanin.fuliclub.homePart.itemView.CategoryItemView;
+import com.yuanin.fuliclub.homePart.itemView.EmptyNoteListItemView;
 import com.yuanin.fuliclub.homePart.itemView.TypeItemView;
 import com.yuanin.fuliclub.homePart.itemView.TypeItemView2;
 import com.yuanin.fuliclub.learnPart.CourseIntroImageItemHolder;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleInfoVo;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleItemHolder;
+import com.yuanin.fuliclub.learnPart.CourseKnobbleNoteInfoVo;
+import com.yuanin.fuliclub.learnPart.CourseKnobbleNoteItemHolder;
 import com.yuanin.fuliclub.learnPart.CourseLearnLogItemHolder;
+import com.yuanin.fuliclub.learnPart.EmptyNoteListVo;
 import com.yuanin.fuliclub.learnPart.LastLearnItemView;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
 import com.yuanin.fuliclub.minePart.MyMessageListHolder;
@@ -93,6 +97,16 @@ public class AdapterPool {
                 ;
 
     }
+
+    public DelegateAdapter.Builder getCourseDetailNoteListFragmentAdapter(Context context) {
+        return new DelegateAdapter.Builder<>()
+                .bind(CourseKnobbleNoteInfoVo.class, new CourseKnobbleNoteItemHolder(context))
+                .bind(BottomBackgroundVo.class, new BottomBackgroundItemView(context))
+                .bind(EmptyNoteListVo.class, new EmptyNoteListItemView(context))
+                ;
+
+    }
+
 
     public DelegateAdapter.Builder getCourseIntroImageListFragmentAdapter(Context context) {
         return new DelegateAdapter.Builder<>()

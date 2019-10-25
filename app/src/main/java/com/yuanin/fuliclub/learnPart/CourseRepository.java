@@ -41,6 +41,7 @@ public class CourseRepository extends BaseRepository {
     public static String EVENT_KEY_KNOBBLE_DETAILS_LOGIN = null;
     public static String EVENT_KEY_COURSE_LOG_UPDATE = null;
     public static String EVENT_KEY_COURSE_CLASS_INFO = null;
+    public static String EVENT_KEY_COURSE_NOTE_LIST = null;
 
     public CourseRepository() {
         if (EVENT_KEY_COURSE_DETAILS == null) {
@@ -78,6 +79,9 @@ public class CourseRepository extends BaseRepository {
         }
         if ( EVENT_KEY_ALIPAY_CREATE_ORDER == null) {
             EVENT_KEY_ALIPAY_CREATE_ORDER = StringUtil.getEventKey();
+        }
+        if ( EVENT_KEY_COURSE_NOTE_LIST == null) {
+            EVENT_KEY_COURSE_NOTE_LIST = StringUtil.getEventKey();
         }
     }
 
@@ -284,6 +288,25 @@ public class CourseRepository extends BaseRepository {
                     public void onSuccess(ReturnResult<AliPayOrderVo> aliPayOrderVoReturnResult) {
                         postData(EVENT_KEY_ALIPAY_CREATE_ORDER, aliPayOrderVoReturnResult);
                         postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void getCoursrKonbbleNoteList(String courseId) {
+        addDisposable(apiService.getCourseKnobbleNoteList(courseId)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<List<CourseKnobbleNoteInfoVo>>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<List<CourseKnobbleNoteInfoVo>> listReturnResult) {
+
+                        postData(EVENT_KEY_COURSE_NOTE_LIST, listReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+
                     }
 
                     @Override

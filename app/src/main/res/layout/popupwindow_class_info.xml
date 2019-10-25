@@ -71,7 +71,7 @@
                         android:id="@+id/tvKefuWeChat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="班级微信："
+                        android:text="班主任微信："
                         android:textSize="14sp"
                         android:textColor="@color/color_333333"
                         android:layout_marginLeft="24dp"

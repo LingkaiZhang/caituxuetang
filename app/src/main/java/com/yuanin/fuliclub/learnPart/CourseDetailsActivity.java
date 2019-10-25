@@ -152,12 +152,31 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
             mViewModel.getCoursrKonbbleListLogin(courseId);
         }
 
-
         //手动控制
         //FloatWindow.get().hide();
 
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        courseId = getIntent().getStringExtra("courseId");
+        if (!TextUtils.isEmpty(courseId)) {
+            if (StaticMembers.IS_NEED_LOGIN) {
+                mViewModel.getCourseDetails(courseId);
+            } else {
+                mViewModel.getCourseDetailsLogin(courseId);
+            }
+
+        }
+
+        if (StaticMembers.IS_NEED_LOGIN) {
+            mViewModel.getCoursrKonbbleList(courseId);
+        } else {
+            mViewModel.getCoursrKonbbleListLogin(courseId);
+        }
+    }
 
     @Override
     protected void dataObserver() {
@@ -230,6 +249,7 @@ public class CourseDetailsActivity extends AbsLifecycleActivity<CourseViewModel>
                                 Intent intent = new Intent(mContext, OrderPayActivity.class);
                                 intent.putExtra("courseId", courseId);
                                 intent.putExtra("periodsId", String.valueOf(time.getId()));
+                                intent.putExtra("yuanjia", String.valueOf(courseDetails.getCostPrice()));
                                 startActivity(intent);
                             }
                         });

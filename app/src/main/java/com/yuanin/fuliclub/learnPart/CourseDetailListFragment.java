@@ -113,6 +113,7 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
                         }
 
                         addItems();
+                        mItems.clear();
 
                         mItems.addAll(knobbleInfoVoList);
                         mItems.add(new BottomBackgroundVo());

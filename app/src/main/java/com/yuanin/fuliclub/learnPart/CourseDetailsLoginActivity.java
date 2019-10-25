@@ -99,7 +99,6 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
     private List<String> mDataList = Arrays.asList(CHANNELS);
 
     private WeakReference<CourseDetailsLoginActivity> weakReference;
-    private CourseIntroFragment courseIntroduceFragment;
     private CourseDetailListFragment courseDetailListFragment;
     private String courseId;
     private CourseDetailsVo courseDetails;
@@ -107,6 +106,7 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
     private View popuClassInfo;
     private View popuClassWaiting;
     private ClassInfoVo classInfoVo;
+    private CourseDetailNoteListFragment courseDetailNoteListFragment;
 
     @Override
     protected int getScreenMode() {
@@ -179,7 +179,7 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
                 if (returnResult.isSuccess()) {
                     courseDetails = (CourseDetailsVo) returnResult.getData();
                     //setCourseInfo(courseDetails);
-                    courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
+                    courseDetailNoteListFragment.setDatas(courseId);
                     courseDetailListFragment.setDatas(courseId, true);
 
                 } else {
@@ -218,7 +218,7 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
                 if (returnResult.isSuccess()) {
                     courseDetails = (CourseDetailsVo) returnResult.getData();
                     //setCourseInfo(courseDetails);
-                    courseIntroduceFragment.setIntroImageList(courseDetails.getCourseDetailUrls());
+                    courseDetailNoteListFragment.setDatas(courseId);
                     courseDetailListFragment.setDatas(courseId , true);
                 } else {
                     ToastUtils.showToast(returnResult.getMessage());
@@ -385,8 +385,8 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
         fragmentList = new ArrayList<Fragment>();
         courseDetailListFragment = new CourseDetailListFragment();
         fragmentList.add(courseDetailListFragment);
-        courseIntroduceFragment = new CourseIntroFragment();
-        fragmentList.add(courseIntroduceFragment);
+        courseDetailNoteListFragment = new CourseDetailNoteListFragment();
+        fragmentList.add(courseDetailNoteListFragment);
         // 设置ViewPager适配器
         ViewPagerFragmentAdapter viewPagerFragmentAdapter = new ViewPagerFragmentAdapter(getSupportFragmentManager(), list, fragmentList);
         mViewPager.setAdapter(viewPagerFragmentAdapter);

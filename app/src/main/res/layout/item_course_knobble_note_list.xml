@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="145dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="28dp"
+    android:paddingRight="28dp"
+    android:layout_marginBottom="8dp">
+
+    <TextView
+        android:id="@+id/tvNoteTitle"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:text="第一课 三个锦囊，帮我们避免理财雷区" />
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#13979797"
+        android:layout_below="@id/tvNoteTitle"/>
+
+    <TextView
+        android:id="@+id/tvNoteContact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line1"
+        android:layout_marginTop="12dp"
+        android:textSize="14sp"
+        android:textColor="@color/color_666666"
+        android:lineHeight="25dp"
+        android:lines="2"
+        android:text="app上线后，一般公司都希望跟踪app在市场上的使用情况。包括新增用户、活跃用户、渠道信息、错误信息等，还有例如商城类的app，需要跟踪用户最喜欢浏览哪种类型的店铺或商品。"/>
+
+    <TextView
+        android:id="@+id/tvNoteTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2019-08-28 09:00"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="17dp"/>
+
+</RelativeLayout>
