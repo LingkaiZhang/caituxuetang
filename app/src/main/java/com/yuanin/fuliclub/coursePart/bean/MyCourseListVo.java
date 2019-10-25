@@ -230,9 +230,18 @@ public class MyCourseListVo {
         private String smallPicture;
         private String courseName;
         private long endDate;
+        private long startDate;
         private int finished;
         private int sum;
         private int id;
+
+        public long getStartDate() {
+            return startDate;
+        }
+
+        public void setStartDate(long startDate) {
+            this.startDate = startDate;
+        }
 
         public String getCourseTitle() {
             return courseTitle;

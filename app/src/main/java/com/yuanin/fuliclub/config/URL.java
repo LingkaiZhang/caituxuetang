@@ -85,6 +85,8 @@ public class URL {
     public static final String COURSE_ORDER_LIST = URL.MODULE_ORDER + "QueyOrderNoList";
     //微信下单
     public static final String WECHAT_CREATE_ORDER = URL.MODULE_PAY + "weiXinCtAppPay";
+    //支付宝下单
+    public static final String ALIPAY_CREATE_ORDER = URL.MODULE_PAY + "aLiPay";
     //更新上次学到记录
     public static final String COURSE_UPDATE_LAST_LEARN = "/course/ct/course/joinCourse";
     //上次学习

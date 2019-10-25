@@ -1,6 +1,7 @@
 package com.yuanin.fuliclub.base;
 
 import com.yuanin.fuliclub.config.URL;
+import com.yuanin.fuliclub.coursePart.bean.AliPayOrderVo;
 import com.yuanin.fuliclub.coursePart.bean.ClassInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
@@ -133,6 +134,12 @@ public interface ApiService {
     @FormUrlEncoded
     Flowable<ReturnResult<WeChatOrderVo>> weChatCreateOrder(@Field("orderNo") String orderNo, @Field("productType") String productType,
                 @Field("productId") String productId, @Field("price") String price, @Field("productName") String productName,
+                                                            @Field("key") String key);
+
+    @POST(URL.ALIPAY_CREATE_ORDER)
+    @FormUrlEncoded
+    Flowable<ReturnResult<AliPayOrderVo>> aliPayCreateOrder(@Field("orderNo") String orderNo, @Field("productType") String productType,
+                                                            @Field("productId") String productId, @Field("price") String price, @Field("productName") String productName,
                                                             @Field("key") String key);
 
     @GET(URL.COURSE_LAST_LEARN)

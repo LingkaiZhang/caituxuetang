@@ -10,6 +10,7 @@ import com.adapter.holder.AbsHolder;
 import com.adapter.holder.AbsItemHolder;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
+import com.yuanin.fuliclub.util.DateUtil;
 
 /**
  * description ： TODO:类的作用
@@ -35,24 +36,25 @@ public class MyMessageListHolder extends AbsItemHolder<MyMessageVo, MyMessageLis
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull MyMessageVo bookAd) {
-//        holder.bookName.setText(bookAd.title);
-//        holder.pressName.setText(bookAd.publishing_name);
-//        holder.price.setText("￥" + bookAd.price);
-//        Glide.with(mContext).load(bookAd.img.l.url).placeholder(R.color.black_e8e8e8).into(holder.bookImg);
+        holder.tvMessageTitle.setText(bookAd.getTitle());
+        holder.tvMessageTime.setText(DateUtil.timeStamp2Date(String.valueOf(bookAd.getCreateDate()/1000),null));
+        holder.tvMessageAbstract.setText(bookAd.getContent());
+
     }
 
 
     static class ViewHolder extends AbsHolder {
 
-        private TextView bookName, pressName, price;
-        private ImageView bookImg;
+        private TextView tvMessageTitle, tvMessageTime, tvMessageAbstract;
+
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-//            pressName = getViewById(R.id.press_name);
-//            bookName = getViewById(R.id.book_name);
-//            price = getViewById(R.id.price);
-//            bookImg = getViewById(R.id.book_img);
+
+            tvMessageTitle = getViewById(R.id.tvMessageTitle);
+            tvMessageTime = getViewById(R.id.tvMessageTime);
+            tvMessageAbstract = getViewById(R.id.tvMessageAbstract);
+
 
         }
     }

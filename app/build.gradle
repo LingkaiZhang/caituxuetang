@@ -75,4 +75,5 @@ dependencies {
     //拼图滑块验证码
     implementation 'com.luozm.captcha:captcha:1.1.2'
     implementation files('libs/lite-orm-1.9.2.jar')
+    implementation files('libs/alipaySdk-20180601.jar')
 }

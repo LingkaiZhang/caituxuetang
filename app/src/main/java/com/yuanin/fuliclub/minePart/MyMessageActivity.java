@@ -16,6 +16,8 @@ import com.next.easytitlebar.view.EasyTitleBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.learnPart.CourseDetailsLoginActivity;
+import com.yuanin.fuliclub.learnPart.OrderPayActivity;
 import com.yuanin.fuliclub.minePart.bean.MyMessageListVo;
 import com.yuanin.fuliclub.minePart.bean.MyMessageVo;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
@@ -160,11 +162,13 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
 
     @Override
     public void onRefresh(boolean isRefresh) {
+        this.isRefresh = isRefresh;
         mViewModel.getMessageList("1");
     }
 
     @Override
     public void onLoadMore(boolean isLoadMore, int pageIndex) {
+        this.isLoadMore = isLoadMore;
         mViewModel.getMessageList(String.valueOf(pageIndex));
     }
 
@@ -189,9 +193,9 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
     public void onItemClick(View view, int position, Object object) {
         if (object != null) {
             if (object instanceof MyMessageVo) {
-//                Intent intent = new Intent(activity, VideoDetailsActivity.class);
-//                intent.putExtra(Constants.COURSE_ID, ((CourseInfoVo) object).courseid);
-//                activity.startActivity(intent);
+                Intent intent = new Intent(this, CourseDetailsLoginActivity.class);
+                intent.putExtra("courseId", String.valueOf(((MyMessageVo) object).getCourseId()));
+                startActivity(intent);
             }
         }
     }

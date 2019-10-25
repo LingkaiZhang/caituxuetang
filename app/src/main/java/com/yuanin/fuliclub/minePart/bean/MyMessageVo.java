@@ -6,27 +6,26 @@ package com.yuanin.fuliclub.minePart.bean;
  * date : 2019/9/26 16:23
  */
 public class MyMessageVo {
+
     /**
-     * content : 您购买的《JAVA》将于明天开课啦！,赶紧加入班级群，跟着班班一起学习吧~
+     * content : 您购买的《保险实战课》还有3天就要开课啦！,     				赶紧加入班级群，跟着班班一起学习吧~
+     * courseId : 35
+     * createDate : 1571909407000
      * deleted : 0
      * id : 1
      * status : 0
-     * createDate :
-     * title : 《JAVA》将于明天开课啦！
-     * userId : 1
+     * title : 《保险实战课》还有3天就要开课啦！
+     * userId : 1780012
      */
 
     private String content;
+    private int courseId;
+    private long createDate;
     private int deleted;
     private int id;
     private int status;
-    private String createDate;
     private String title;
     private int userId;
-
-    public MyMessageVo() {
-    }
-
 
     public String getContent() {
         return content;
@@ -34,6 +33,22 @@ public class MyMessageVo {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
+    }
+
+    public long getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(long createDate) {
+        this.createDate = createDate;
     }
 
     public int getDeleted() {
@@ -58,14 +73,6 @@ public class MyMessageVo {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
     }
 
     public String getTitle() {

@@ -6,6 +6,7 @@ import com.yuanin.fuliclub.base.BaseRepository;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.base.ReturnResult2;
 import com.yuanin.fuliclub.config.StaticMembers;
+import com.yuanin.fuliclub.coursePart.bean.AliPayOrderVo;
 import com.yuanin.fuliclub.coursePart.bean.ClassInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
@@ -35,6 +36,7 @@ public class CourseRepository extends BaseRepository {
     public static String EVENT_KEY_COURSE_KNOBBLE_LIST_LOGIN = null;
     public static String EVENT_KEY_COURSE_CREATE_ORDER = null;
     public static String EVENT_KEY_WECHAT_CREATE_ORDER = null;
+    public static String EVENT_KEY_ALIPAY_CREATE_ORDER = null;
     public static String EVENT_KEY_KNOBBLE_DETAILS = null;
     public static String EVENT_KEY_KNOBBLE_DETAILS_LOGIN = null;
     public static String EVENT_KEY_COURSE_LOG_UPDATE = null;
@@ -73,6 +75,9 @@ public class CourseRepository extends BaseRepository {
         }
         if (EVENT_KEY_COURSE_CLASS_INFO == null) {
             EVENT_KEY_COURSE_CLASS_INFO = StringUtil.getEventKey();
+        }
+        if ( EVENT_KEY_ALIPAY_CREATE_ORDER == null) {
+            EVENT_KEY_ALIPAY_CREATE_ORDER = StringUtil.getEventKey();
         }
     }
 
@@ -261,6 +266,23 @@ public class CourseRepository extends BaseRepository {
                     @Override
                     public void onSuccess(ReturnResult<ClassInfoVo> classInfoVoReturnResult) {
                         postData(EVENT_KEY_COURSE_CLASS_INFO, classInfoVoReturnResult);
+                        postState(StateConstants.SUCCESS_STATE);
+                    }
+
+                    @Override
+                    public void onFailure(String msg, int code) {
+
+                    }
+                }));
+    }
+
+    public void createAliPayOrder(String orderNo, int productType, String productId, String productName, String price, String key) {
+        addDisposable(apiService.aliPayCreateOrder(orderNo,String.valueOf(productType),productId,price,productName,key)
+                .compose(RxSchedulers.io_main())
+                .subscribeWith(new RxSubscriber<ReturnResult<AliPayOrderVo>>() {
+                    @Override
+                    public void onSuccess(ReturnResult<AliPayOrderVo> aliPayOrderVoReturnResult) {
+                        postData(EVENT_KEY_ALIPAY_CREATE_ORDER, aliPayOrderVoReturnResult);
                         postState(StateConstants.SUCCESS_STATE);
                     }
 

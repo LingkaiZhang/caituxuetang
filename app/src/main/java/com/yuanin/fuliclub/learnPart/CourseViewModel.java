@@ -60,4 +60,8 @@ public class CourseViewModel extends AbsViewModel<CourseRepository> {
     public void getUserClassInfo(int periodsId) {
         mRepository.getUserClassInfo(periodsId);
     }
+
+    public void createAliPayOrder(String orderNo, int productType, String productId, String productName, String price, String key) {
+        mRepository.createAliPayOrder(orderNo, productType,productId,productName,price,key);
+    }
 }
