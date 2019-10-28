@@ -95,7 +95,7 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
 */
 
     private List<Fragment> fragmentList;
-    private static final String[] CHANNELS = new String[]{"课程学习", "课程笔记"};
+    private static final String[] CHANNELS = new String[]{"课程目录", "课程笔记"};
     private List<String> mDataList = Arrays.asList(CHANNELS);
 
     private WeakReference<CourseDetailsLoginActivity> weakReference;

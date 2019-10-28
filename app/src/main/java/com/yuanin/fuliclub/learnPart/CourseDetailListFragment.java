@@ -11,6 +11,7 @@ import com.adapter.listener.OnItemClickListener;
 import com.yuanin.fuliclub.base.BaseListFragment;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.base.ReturnResult2;
+import com.yuanin.fuliclub.config.ParamsValues;
 import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseDetailsVo;
@@ -150,6 +151,7 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
 
                     Intent intent = new Intent(getActivity(), CourseKnobbleDetailsActivity.class);
                     intent.putExtra("courseKnobbleId", ((CourseKnobbleInfoVo) o).getId());
+                    intent.putExtra(ParamsValues.COURSE_IS_BUYED, courseIsBuy);
                     startActivity(intent);
                 } /*else if(courseIsBuy){
 

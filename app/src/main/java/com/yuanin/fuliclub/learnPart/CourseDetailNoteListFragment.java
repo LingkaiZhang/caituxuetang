@@ -81,7 +81,7 @@ public class CourseDetailNoteListFragment extends BaseListFragment<CourseViewMod
                         mItems.clear();
 
                         mItems.addAll(courseKnobbleNoteInfoVos);
-                        mItems.add(new BottomBackgroundVo());
+                        //mItems.add(new BottomBackgroundVo());
 
                     } else {
                         addItems();

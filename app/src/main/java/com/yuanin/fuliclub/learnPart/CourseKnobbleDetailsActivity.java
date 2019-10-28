@@ -1,5 +1,6 @@
 package com.yuanin.fuliclub.learnPart;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -16,9 +17,12 @@ import com.mvvm.base.AbsLifecycleActivity;
 import com.next.easytitlebar.view.EasyTitleBar;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.config.ParamsKeys;
+import com.yuanin.fuliclub.config.ParamsValues;
 import com.yuanin.fuliclub.coursePart.KnobbleDetailsListAdapter;
 import com.yuanin.fuliclub.coursePart.SelectPlaySpeedDialogFragment;
 import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
+import com.yuanin.fuliclub.homePart.WebViewActivity;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.musicPlay.MusicPlayerManager;
 import com.yuanin.fuliclub.musicPlay.MusicPlayerService;
@@ -74,6 +78,7 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     private KnobbleDetailsInfoVo currentSong;
 
     private WeakReference<CourseKnobbleDetailsActivity> weakReference;
+    private boolean isBuy;
 
 
     @Override
@@ -97,6 +102,7 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
         titleBar.getBackLayout().setOnClickListener(v -> finish());
 
         int courseKnobbleId = getIntent().getIntExtra("courseKnobbleId", 0);
+        isBuy = getIntent().getBooleanExtra(ParamsValues.COURSE_IS_BUYED, false);
         mViewModel.getCourseKnobbleDetailsLogin(String.valueOf(courseKnobbleId));
 
         sp = SharedPreferencesUtil.getInstance(getApplicationContext());
@@ -147,9 +153,11 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
                             setInitData(currentSong);
                         } else {
                             playListManager.play(detailsInfoVo);
+                            playOrPause();
                         }
                     } else {
                         playListManager.play(detailsInfoVo);
+                        playOrPause();
                     }
 
                     //setInitData(currentSong);
@@ -172,8 +180,23 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llWriteNote:
+                if (isBuy) {
+                    Intent intent = new Intent(this, WebViewActivity.class);
+                    intent.putExtra(ParamsKeys.TYPE, ParamsValues.NOTE);
+                    intent.putExtra(ParamsKeys.KNOBBLE_MLID, detailsInfoVo.getId());
+                    startActivity(intent);
+                } else {
+                    ToastUtils.showToast("请先购买该课程。");
+                }
+
                 break;
             case R.id.llDoHomeWork:
+                Intent intent2 = new Intent(this, WebViewActivity.class);
+                intent2.putExtra(ParamsKeys.TYPE, ParamsValues.WORK);
+                intent2.putExtra(ParamsKeys.IS_WORK, String.valueOf(detailsInfoVo.getIsWork()));
+                intent2.putExtra(ParamsKeys.KNOBBLE_MLID, detailsInfoVo.getId());
+                startActivity(intent2);
+
                 break;
             case R.id.iv_play_control:
                 playOrPause();

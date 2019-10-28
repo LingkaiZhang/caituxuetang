@@ -16,11 +16,14 @@ import com.yuanin.fuliclub.R;
 
 import com.yuanin.fuliclub.config.ParamsKeys;
 import com.yuanin.fuliclub.config.ParamsValues;
+import com.yuanin.fuliclub.config.StaticMembers;
+import com.yuanin.fuliclub.config.URL;
 import com.yuanin.fuliclub.view.ObservableWebView;
 
 import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
+import retrofit2.http.Url;
 
 
 public class WebViewActivity extends AbsLifecycleActivity<HomeViewModel> {
@@ -60,6 +63,15 @@ public class WebViewActivity extends AbsLifecycleActivity<HomeViewModel> {
         if (type.equals(ParamsValues.BANNER)) {
             String banner_url = getIntent().getStringExtra("banner_url");
             initWebViewTitle(banner_url);
+        } else if (type.equals(ParamsValues.NOTE)) {
+            String mlid = getIntent().getStringExtra(ParamsKeys.KNOBBLE_MLID);
+            String url_note = URL.NET_URL_H5 + "editor_diary_ios.html?id=" + mlid + "&token=" + StaticMembers.TOKEN;
+            initWebViewTitle(url_note);
+        } else if (type.equals(ParamsValues.WORK)) {
+            String mlid = getIntent().getStringExtra(ParamsKeys.KNOBBLE_MLID);
+            String isWork = getIntent().getStringExtra(ParamsKeys.IS_WORK);
+            String url_work = URL.NET_URL_H5 + "task_ios.html?id=" + mlid + "&token=" + StaticMembers.TOKEN + "&isWork=" + isWork;
+            initWebViewTitle(url_work);
         }
     }
 

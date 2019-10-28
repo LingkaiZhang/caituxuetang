@@ -15,6 +15,8 @@ public class ParamsKeys {
     public static final String LOGIN_MBOILE = "Login_Mobile";
 
     public static final String TYPE = "type";
+    public static final String KNOBBLE_MLID = "MLid";
+    public static final String IS_WORK = "isWork";
 }
 
 

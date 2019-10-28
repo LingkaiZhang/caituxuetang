@@ -153,7 +153,7 @@ public class PopupWindowUtils {
                 .override(300, 300)
                 .placeholder(R.mipmap.item_course);
 
-        Glide.with(context).load(rlQRcode)
+        Glide.with(context).load(wxUrl)
                 .apply(options)
                 .into(rlQRcode);
 

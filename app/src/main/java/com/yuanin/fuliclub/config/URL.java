@@ -10,10 +10,10 @@ public class URL {
 
     //正式
     public static final String BASE_URL = "https://open.caituketang.com";
-    //public static final String NET_URL_H5 = "https://m.caituketang.com";
+    public static final String NET_URL_H5 = "http://proh5.caituketang.com/";
     //测试
     //public static final String BASE_URL = "https://open.yuanin.com";
-    public static final String NET_URL_H5 = "https://m.yuanin.com";
+    //public static final String NET_URL_H5 = "https://m.yuanin.com";
 
     /**
      * 网络请求模块参数
