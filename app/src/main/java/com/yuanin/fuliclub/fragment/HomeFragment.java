@@ -163,6 +163,7 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
         mViewModel.getBannerList();
     }
 
+
     private void addItems() {
         if (isRefresh) {
             mItems.clear();
@@ -179,6 +180,8 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
 //        mItems.add(new CategoryVo("列表"));
 
     }
+
+
 
     @Override
     public void onItemClick(View view, int position, Object o) {

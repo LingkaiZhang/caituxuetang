@@ -22,7 +22,7 @@ public class CourseKnobbleNoteInfoVo {
     private int childId;
     private String name;
     private String analyzes;
-    private String updateTime;
+    private long updateTime;
 
     public int getId() {
         return id;
@@ -56,11 +56,11 @@ public class CourseKnobbleNoteInfoVo {
         this.analyzes = analyzes;
     }
 
-    public String getUpdateTime() {
+    public long getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(String updateTime) {
+    public void setUpdateTime(long updateTime) {
         this.updateTime = updateTime;
     }
 }

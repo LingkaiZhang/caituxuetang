@@ -38,7 +38,7 @@ public class CourseKnobbleNoteItemHolder extends AbsItemHolder<CourseKnobbleNote
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull final CourseKnobbleNoteInfoVo noteInfoListBean) {
         holder.tvNoteTitle.setText(noteInfoListBean.getName());
         holder.tvNoteContact.setText(noteInfoListBean.getAnalyzes());
-        holder.tvNoteTime.setText(noteInfoListBean.getUpdateTime());
+        holder.tvNoteTime.setText(DateUtil.timeStamp2Date(String.valueOf(noteInfoListBean.getUpdateTime()/1000), null));
     }
 
 
@@ -52,7 +52,6 @@ public class CourseKnobbleNoteItemHolder extends AbsItemHolder<CourseKnobbleNote
             tvNoteTitle = getViewById(R.id.tvNoteTitle);
             tvNoteContact = getViewById(R.id.tvNoteContact);
             tvNoteTime = getViewById(R.id.tvNoteTime);
-
 
         }
     }

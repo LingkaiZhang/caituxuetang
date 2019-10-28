@@ -44,7 +44,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="18dp"
-                android:src="@mipmap/course_share" />
+                android:src="@mipmap/course_share"
+                android:visibility="gone"/>
 
             <ImageView
                 android:id="@+id/ivItemCourseImage"

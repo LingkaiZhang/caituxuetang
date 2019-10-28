@@ -11,7 +11,10 @@ import com.adapter.listener.OnItemClickListener;
 import com.yuanin.fuliclub.base.BaseListFragment;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.base.ReturnResult2;
+import com.yuanin.fuliclub.config.ParamsKeys;
+import com.yuanin.fuliclub.config.ParamsValues;
 import com.yuanin.fuliclub.config.StaticMembers;
+import com.yuanin.fuliclub.homePart.WebViewActivity;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.util.AdapterPool;
@@ -109,8 +112,11 @@ public class CourseDetailNoteListFragment extends BaseListFragment<CourseViewMod
 
     @Override
     public void onItemClick(View view, int position, Object o) {
-        if (o instanceof CourseKnobbleInfoVo) {
-
+        if (o instanceof CourseKnobbleNoteInfoVo) {
+            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+            intent.putExtra(ParamsKeys.TYPE, ParamsValues.NOTE);
+            intent.putExtra(ParamsKeys.KNOBBLE_MLID, String.valueOf(((CourseKnobbleNoteInfoVo) o).getChildId()));
+            startActivity(intent);
         }
     }
 
