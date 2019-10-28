@@ -39,6 +39,11 @@ public class MyMessageListHolder extends AbsItemHolder<MyMessageVo, MyMessageLis
         holder.tvMessageTitle.setText(bookAd.getTitle());
         holder.tvMessageTime.setText(DateUtil.timeStamp2Date(String.valueOf(bookAd.getCreateDate()/1000),null));
         holder.tvMessageAbstract.setText(bookAd.getContent());
+        if (bookAd.getStatus() == 0 ){
+            holder.ivUnReadMessage.setVisibility(View.VISIBLE);
+        } else if (bookAd.getStatus() == 1) {
+            holder.ivUnReadMessage.setVisibility(View.GONE);
+        }
 
     }
 
@@ -46,6 +51,7 @@ public class MyMessageListHolder extends AbsItemHolder<MyMessageVo, MyMessageLis
     static class ViewHolder extends AbsHolder {
 
         private TextView tvMessageTitle, tvMessageTime, tvMessageAbstract;
+        private ImageView ivUnReadMessage;
 
 
         ViewHolder(@NonNull View itemView) {
@@ -54,6 +60,7 @@ public class MyMessageListHolder extends AbsItemHolder<MyMessageVo, MyMessageLis
             tvMessageTitle = getViewById(R.id.tvMessageTitle);
             tvMessageTime = getViewById(R.id.tvMessageTime);
             tvMessageAbstract = getViewById(R.id.tvMessageAbstract);
+            ivUnReadMessage = getViewById(R.id.ivUnReadMessage);
 
 
         }

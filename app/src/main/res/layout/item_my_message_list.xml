@@ -12,13 +12,24 @@
     
     <TextView
         android:id="@+id/tvMessageTitle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="消息题目"
         android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:textColor="@color/color_666666"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/ivUnReadMessage"
+        android:layout_width="6dp"
+        android:layout_height="6dp"
+        app:layout_constraintLeft_toRightOf="@id/tvMessageTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/shape_dit_point"
+        android:visibility="gone"/>
     
     <TextView
         android:id="@+id/tvMessageTime"
