@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.yuanin.fuliclub.MainActivity;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
 
@@ -64,6 +65,13 @@ public class NotificationUtil {
                 PendingIntent playPendingIntent = PendingIntent.getBroadcast(context, Consts.ACTION_PLAY.hashCode(), new Intent(Consts.ACTION_PLAY), PendingIntent.FLAG_UPDATE_CURRENT);
                 contentView.setOnClickPendingIntent(R.id.iv_play, playPendingIntent);
 
+//                Intent intent = new Intent(context, MainActivity.class);
+//                intent.setAction(Consts.ACTION_MUSIC_PLAYER);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.putExtra("courseKnobbleId", knobbleDetailsInfoVo.getId());
+//                PendingIntent contentPendingIntent = PendingIntent.getActivity(context, Consts.ACTION_LYRIC.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
                 getNotificationManager(context);
 
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
@@ -71,6 +79,8 @@ public class NotificationUtil {
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setCustomContentView(contentView)
                         .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
+//                        .setContentIntent(contentPendingIntent);
+
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     NotificationChannel channel = new NotificationChannel("001", "my_channel", NotificationManager.IMPORTANCE_DEFAULT);

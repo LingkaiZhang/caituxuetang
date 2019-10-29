@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="83dp"
                 android:background="@drawable/shape_popup_bg_1"
-                android:text="请添加微信人工客服"
+                android:text="请关注微信公众号"
                 android:textSize="17sp"
                 android:gravity="center"
                 android:textColor="#774600"/>
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:gravity="center"
-                    android:text="人工客服"
+                    android:text="财兔学堂"
                     android:textColor="#774600"
                     android:textSize="18sp"
                     android:layout_marginTop="13dp"/>
@@ -52,7 +52,7 @@
                         android:id="@+id/tvKefuWeChat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="客服微信："
+                        android:text="微信公众号："
                         android:textSize="14sp"
                         android:textColor="@color/color_333333"
                         android:layout_marginLeft="24dp"

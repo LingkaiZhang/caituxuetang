@@ -193,6 +193,7 @@ public class BindPhoneActivity extends AbsLifecycleActivity<LoginRegisterViewMod
     @OnClick(R.id.btn_next_step)
     public void onViewClicked() {
         phoneNo = etPhone.getText().toString().trim();
+        smsCode = tvSmsCode.getText().toString().trim();
         if (TextUtils.isEmpty(smsCode) && smsCode.length() == 6) {
             ToastUtils.showToast("请输入正确位数的短信验证码");
             return;

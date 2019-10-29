@@ -10,4 +10,6 @@ package com.yuanin.fuliclub.musicPlay;
 public class Consts {
 
     public static final String ACTION_PLAY = "com.yuanin.fuliclub.ACTION_PLAY";
+    public static final String ACTION_MUSIC_PLAYER = "com.yuanin.fuliclub.ACTION_MUSIC_PLAYER";
+    public static final String ACTION_LYRIC = "com.yuanin.fuliclub.ACTION_LYRIC";
 }

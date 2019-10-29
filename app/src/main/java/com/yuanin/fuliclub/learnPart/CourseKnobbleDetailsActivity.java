@@ -113,6 +113,11 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
         playListManager.addPlayListListener(this);
         sbProgress.setOnSeekBarChangeListener(this);
 
+//        currentSong = this.playListManager.getPlayData();
+//        if (currentSong != null) {
+//            setInitData(currentSong);
+//        }
+
     }
 
     public void setInitData(KnobbleDetailsInfoVo data) {

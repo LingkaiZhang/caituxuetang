@@ -1,5 +1,6 @@
 package com.yuanin.fuliclub;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,9 @@ import com.yuanin.fuliclub.fragment.BuyedFragment;
 import com.yuanin.fuliclub.fragment.CourseFragment;
 import com.yuanin.fuliclub.fragment.HomeFragment;
 import com.yuanin.fuliclub.fragment.MineFragment;
+import com.yuanin.fuliclub.learnPart.CourseKnobbleDetailsActivity;
+import com.yuanin.fuliclub.learnPart.CourseKnobbleInfoVo;
+import com.yuanin.fuliclub.musicPlay.Consts;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,6 +69,22 @@ public class MainActivity extends BaseActivity {
                 .anim(Anim.ZoomIn)
                 .build();
     }
+
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//        super.onNewIntent(intent);
+//        processIntent(intent);
+//
+//    }
+//
+//    private void processIntent(Intent intent) {
+//        if (intent.getAction().equals(Consts.ACTION_MUSIC_PLAYER)) {
+//            String courseKnobbleId = getIntent().getStringExtra("courseKnobbleId");
+//            Intent intent1 = new Intent(this, CourseKnobbleDetailsActivity.class);
+//            intent1.putExtra("courseKnobbleId", Integer.valueOf(courseKnobbleId));
+//            startActivity(intent1);
+//        }
+//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

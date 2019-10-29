@@ -1,9 +1,11 @@
 package com.yuanin.fuliclub.homePart;
 
+import android.annotation.SuppressLint;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -129,6 +131,7 @@ public class WebViewActivity extends AbsLifecycleActivity<HomeViewModel> {
     }
 
     //显示页面title的webView
+    @SuppressLint("JavascriptInterface")
     private void initWebViewTitle(String url) {
         WebSettings settings = wvHref.getSettings();
         settings.setSupportZoom(true);          //支持缩放
@@ -180,6 +183,20 @@ public class WebViewActivity extends AbsLifecycleActivity<HomeViewModel> {
         });
         wvHref.loadUrl(url);
         //http://csapi.yuanin.com/html/showasset.php?productid=
+        wvHref.addJavascriptInterface( getHtmlObject(), "AndroidJs");
+    }
+
+    private Object getHtmlObject() {
+
+        Object htmlAndroid = new Object() {
+            @JavascriptInterface
+            public void HtmlcallJava(String code) {
+//                Toast.makeText(SinaPayActivity.this, "接受到调用 ", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        };
+
+        return htmlAndroid;
     }
 
 }
