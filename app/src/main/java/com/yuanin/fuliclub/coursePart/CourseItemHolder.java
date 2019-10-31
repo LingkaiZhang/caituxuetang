@@ -2,6 +2,10 @@ package com.yuanin.fuliclub.coursePart;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,8 +66,15 @@ public class CourseItemHolder extends AbsItemHolder<CourseInfoVo, CourseItemHold
 
         holder.ivItemCourseName.setText(courseListBean.getCourseName());
         holder.tvItemCourseSlogan.setText(courseListBean.getCourseTitle());
-        holder.tvItemCourseBought.setText(courseListBean.getBoughtNum() + "已购买");
-        holder.tvitemCoursePrice.setText("￥" + courseListBean.getCostPrice());
+
+        SpannableString span = new SpannableString(courseListBean.getBoughtNum() + " 已购买");
+        span.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.login_text_color_9b)),span.length()-3, span.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        holder.tvItemCourseBought.setMovementMethod(LinkMovementMethod.getInstance());
+        holder.tvItemCourseBought.setHighlightColor(mContext.getResources().getColor(R.color.coursr_item_buyed_num));
+        holder.tvItemCourseBought.setText(span);
+
+
+        holder.tvitemCoursePrice.setText(courseListBean.getRulingPrice() + "");
 
 
         //课程类型标记

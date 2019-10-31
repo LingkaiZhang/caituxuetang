@@ -2,6 +2,7 @@ package com.yuanin.fuliclub.learnPart;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
@@ -21,6 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.mvvm.base.AbsLifecycleActivity;
@@ -38,6 +41,7 @@ import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.util.DateUtil;
 import com.yuanin.fuliclub.util.DensityUtil;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
+import com.yuanin.fuliclub.util.RoundedCornersTransformation;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.util.ViewPagerUtils;
 
@@ -258,30 +262,39 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
 
         tvCourseName.setText(course.getCourseName());
         tvItemCourseSlogan.setText(course.getCourseTitle());
+// 圆角图片 new RoundedCornersTransformation 参数为 ：半径 , 外边距 , 圆角方向(ALL,BOTTOM,TOP,RIGHT,LEFT,BOTTOM_LEFT等等)
+        //顶部左边圆角
+        RoundedCornersTransformation transformation = new RoundedCornersTransformation
+                (8, 0, RoundedCornersTransformation.CornerType.BOTTOM_LEFT);
+        //顶部右边圆角
+        RoundedCornersTransformation transformation1 = new RoundedCornersTransformation
+                (8, 0, RoundedCornersTransformation.CornerType.BOTTOM_RIGHT);
 
-        //设置图片圆角角度
-        RoundedCorners roundedCorners = new RoundedCorners(DensityUtil.dip2px(mContext, 8));
-        //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
-        RequestOptions options = RequestOptions
-                .bitmapTransform(roundedCorners)
-                .override(300, 300)
-                .placeholder(R.mipmap.item_course);
+        //组合各种Transformation,
+        MultiTransformation<Bitmap> mation = new MultiTransformation<>
+                //Glide设置圆角图片后设置ImageVIew的scanType="centerCrop"无效解决办法,将new CenterCrop()添加至此
+                (new CenterCrop(), transformation, transformation1);
 
-        Glide.with(mContext).load(course.getSmallPicture())
-                .apply(options)
-                .into(ivItemCourseImage);
+        Glide.with(mContext)
+                .load(course.get_$Background68())
+                .override(300,300)
+                .placeholder(R.mipmap.course_bg)
+                //切圆形
+                .apply(RequestOptions.bitmapTransform(mation))
+                .into(ivCourseBg);
+
 
         //设置图片圆角角度
         RoundedCorners roundedCorners2 = new RoundedCorners(DensityUtil.dip2px(mContext, 8));
         //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
         RequestOptions options2 = RequestOptions
-                .bitmapTransform(roundedCorners)
+                .bitmapTransform(roundedCorners2)
                 .override(300, 300)
-                .placeholder(R.mipmap.course_bg);
+                .placeholder(R.mipmap.item_course);
 
-        Glide.with(mContext).load(course.get_$Background68())
+        Glide.with(mContext).load(course.getSmallPicture())
                 .apply(options2)
-                .into(ivCourseBg);
+                .into(ivItemCourseImage);
 
         tvCourseTime.setText("训练营有效期：" + DateUtil.timeStamp2Date(String.valueOf(course.getStartDate()/1000),"yyyy-MM-dd") + "~" +
                 DateUtil.timeStamp2Date(String.valueOf(course.getEndDate()/1000),"yyyy-MM-dd"));
@@ -294,29 +307,39 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
         tvCourseName.setText(courseDetails.getCourseName());
         tvItemCourseSlogan.setText(courseDetails.getCourseApplyCrowd());
 
-        //设置图片圆角角度
-        RoundedCorners roundedCorners = new RoundedCorners(DensityUtil.dip2px(mContext, 8));
-        //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
-        RequestOptions options = RequestOptions
-                .bitmapTransform(roundedCorners)
-                .override(300, 300)
-                .placeholder(R.mipmap.item_course);
+        // 圆角图片 new RoundedCornersTransformation 参数为 ：半径 , 外边距 , 圆角方向(ALL,BOTTOM,TOP,RIGHT,LEFT,BOTTOM_LEFT等等)
+        //顶部左边圆角
+        RoundedCornersTransformation transformation = new RoundedCornersTransformation
+                (8, 0, RoundedCornersTransformation.CornerType.BOTTOM_LEFT);
+        //顶部右边圆角
+        RoundedCornersTransformation transformation1 = new RoundedCornersTransformation
+                (8, 0, RoundedCornersTransformation.CornerType.BOTTOM_RIGHT);
 
-        Glide.with(mContext).load(courseDetails.getSmallPicture())
-                .apply(options)
-                .into(ivItemCourseImage);
+        //组合各种Transformation,
+        MultiTransformation<Bitmap> mation = new MultiTransformation<>
+                //Glide设置圆角图片后设置ImageVIew的scanType="centerCrop"无效解决办法,将new CenterCrop()添加至此
+                (new CenterCrop(), transformation, transformation1);
+
+        Glide.with(mContext)
+                .load(courseDetails.getBackground())
+                .override(300,300)
+                .placeholder(R.mipmap.course_bg)
+                //切圆形
+                .apply(RequestOptions.bitmapTransform(mation))
+                .into(ivCourseBg);
+
 
         //设置图片圆角角度
         RoundedCorners roundedCorners2 = new RoundedCorners(DensityUtil.dip2px(mContext, 8));
         //通过RequestOptions扩展功能,override:采样率,因为ImageView就这么大,可以压缩图片,降低内存消耗
         RequestOptions options2 = RequestOptions
-                .bitmapTransform(roundedCorners)
+                .bitmapTransform(roundedCorners2)
                 .override(300, 300)
-                .placeholder(R.mipmap.course_bg);
+                .placeholder(R.mipmap.item_course);
 
-        Glide.with(mContext).load(courseDetails.getBackground())
+        Glide.with(mContext).load(courseDetails.getSmallPicture())
                 .apply(options2)
-                .into(ivCourseBg);
+                .into(ivItemCourseImage);
 
 
 

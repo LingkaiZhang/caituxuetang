@@ -8,11 +8,11 @@
 
     <ImageView
         android:id="@+id/ivItemCourseImage"
-        android:layout_width="76dp"
+        android:layout_width="68dp"
         android:layout_height="@dimen/dp_98"
         android:src="@mipmap/item_course"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="25dp"
+        android:layout_marginLeft="24dp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="10dp"
         android:paddingBottom="10dp"/>
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:text="已完成 9/8"
         android:textSize="12sp"
-        android:textColor="#A58A78"
+        android:textColor="@color/color_ffca00"
         app:layout_constraintLeft_toRightOf="@id/ivItemCourseImage"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginLeft="15dp"

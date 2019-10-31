@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -27,11 +28,16 @@ import com.next.easytitlebar.view.EasyTitleBar;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.alipay.PayResult;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.config.ParamsKeys;
+import com.yuanin.fuliclub.config.ParamsValues;
+import com.yuanin.fuliclub.coursePart.BuyedSuccessActivity;
 import com.yuanin.fuliclub.coursePart.bean.AliPayOrderVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
 import com.yuanin.fuliclub.coursePart.bean.WeChatOrderVo;
 import com.yuanin.fuliclub.event.PayUnusualeEvent;
+import com.yuanin.fuliclub.event.WechatPaySuccessEvent;
 import com.yuanin.fuliclub.event.WechatPayUnusualeEvent;
+import com.yuanin.fuliclub.homePart.WebViewActivity;
 import com.yuanin.fuliclub.util.DensityUtil;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
@@ -89,6 +95,8 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
     Button btnPay;
     @BindView(R.id.clMain)
     ConstraintLayout clMain;
+    @BindView(R.id.cbChoose)
+    CheckBox cbChoose;
 
     private String courseId;
     private String periodsId;
@@ -111,8 +119,12 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
             if (TextUtils.equals(resultStatus, "9000")) {
                 // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                 Toast.makeText(OrderPayActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(OrderPayActivity.this, CourseDetailsLoginActivity.class);
+//                Intent intent = new Intent(OrderPayActivity.this, CourseDetailsLoginActivity.class);
+//                intent.putExtra("courseId", courseId);
+//                startActivity(intent);
+                Intent intent = new Intent(OrderPayActivity.this, BuyedSuccessActivity.class);
                 intent.putExtra("courseId", courseId);
+                intent.putExtra("courseName", orderDate.getProductName());
                 startActivity(intent);
 
             } else {
@@ -123,6 +135,7 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
             }
         };
     };
+
     private String costPrice;
 
     @Override
@@ -166,6 +179,14 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
     public void weChatPayUnsuale(WechatPayUnusualeEvent wechatPayUnusualeEvent){
         PopupWindow payAbnormal = PopupWindowUtils.createPayAbnormal(popuPayAbnormal, OrderPayActivity.this);
         payAbnormal.showAtLocation(clMain, Gravity.CENTER, 0, 0);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setPaySuccess(WechatPaySuccessEvent wechatPaySuccessEvent){
+        Intent intent = new Intent(this, BuyedSuccessActivity.class);
+        intent.putExtra("courseId", courseId);
+        intent.putExtra("courseName", orderDate.getProductName());
+        startActivity(intent);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -296,12 +317,16 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
                 PayType = "aliPay";
                 break;
             case R.id.tvUserProtocol:
+                Intent intent = new Intent(this, WebViewActivity.class);
+                intent.putExtra(ParamsKeys.TYPE, ParamsValues.USER_PROTOCOL);
+                startActivity(intent);
                 break;
             case R.id.btnPay:
 
                 if (orderDate == null) {
                     ToastUtils.showToast("订单数据为空。");
-
+                }else if( !cbChoose.isChecked()){
+                    ToastUtils.showToast("请先阅读并勾选课程声明。");
                 } else {
                     if (PayType.equals("weChatPay")) {
                         //微信统一下单
@@ -314,7 +339,6 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
                                 orderDate.getProductId(), orderDate.getProductName(), orderDate.getPrice(), orderDate.getKey());
                     }
                 }
-
 
                 break;
         }

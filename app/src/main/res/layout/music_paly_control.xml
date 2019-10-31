@@ -79,7 +79,10 @@
                     android:id="@+id/tvKnobbleName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="第一节 你也可以成为百万富翁"
+                    android:text="课程小节名称"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:maxEms="14"
                     android:textColor="#F7F7F8"
                     android:textSize="13sp"/>
 
@@ -87,7 +90,7 @@
                     android:id="@+id/tvCourseName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="基金训练营"
+                    android:text="课程名称"
                     android:textColor="#D8D8D8"
                     android:textSize="11sp"/>
 

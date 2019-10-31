@@ -36,6 +36,7 @@ import com.yuanin.fuliclub.minePart.bean.MyMessageListVo;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.minePart.bean.UserInfoEntity;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
+import com.yuanin.fuliclub.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,7 +107,7 @@ public class MineFragment extends BaseFragment {
             apiService = HttpHelper.getInstance().create(ApiService.class);
         }
 
-        requestKefuInfo();
+
     }
 
     private void requestKefuInfo() {
@@ -142,6 +143,7 @@ public class MineFragment extends BaseFragment {
             //请求有无未读消息
             requestMessage();
         }
+        requestKefuInfo();
     }
 
     @SuppressLint("CheckResult")
@@ -233,8 +235,13 @@ public class MineFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), AboutOursActivity.class));
                 break;
             case R.id.ivKefu:
-                PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popupWindowContactUs, getActivity(), keFuInfo.getName(),keFuInfo.getWxNumber(),keFuInfo.getWxUrl());
-                ContactUsPop.showAtLocation(clMain, Gravity.CENTER, 0, 0);
+                if (keFuInfo != null) {
+                    PopupWindow ContactUsPop = PopupWindowUtils.createContactUsPop(popupWindowContactUs, getActivity(), keFuInfo.getName(),keFuInfo.getWxNumber(),keFuInfo.getWxUrl());
+                    ContactUsPop.showAtLocation(clMain, Gravity.CENTER, 0, 0);
+                } else {
+                    ToastUtils.showToast("请登录后查看。");
+                }
+
                 break;
         }
     }

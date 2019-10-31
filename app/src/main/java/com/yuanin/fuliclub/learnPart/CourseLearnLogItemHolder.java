@@ -3,6 +3,10 @@ package com.yuanin.fuliclub.learnPart;
 import android.content.Context;
 import android.icu.util.TimeUnit;
 import android.support.annotation.NonNull;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,7 +61,13 @@ public class CourseLearnLogItemHolder extends AbsItemHolder<MyCourseListVo.MyCou
 
         holder.ivItemCourseName.setText(courseListBean.getCourseName());
         holder.tvItemCourseSlogan.setText(courseListBean.getCourseTitle());
-        holder.tvItemCourseProgress.setText("已完成" + courseListBean.getSum() + "/" + courseListBean.getFinished());
+
+        SpannableString span = new SpannableString("已完成 " + courseListBean.getFinished() + "/" + courseListBean.getSum() );
+        span.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.coursr_item_buyed_num)),0, 3, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        holder.tvItemCourseProgress.setMovementMethod(LinkMovementMethod.getInstance());
+        holder.tvItemCourseProgress.setHighlightColor(mContext.getResources().getColor(R.color.color_ffca00));
+        holder.tvItemCourseProgress.setText(span);
+
 
         String endDate = DateUtil.timeStamp2Date(String.valueOf(courseListBean.getEndDate()/1000), "yyyy-MM-dd");
         String startDate = DateUtil.timeStamp2Date(String.valueOf(courseListBean.getStartDate()/1000), "yyyy-MM-dd");

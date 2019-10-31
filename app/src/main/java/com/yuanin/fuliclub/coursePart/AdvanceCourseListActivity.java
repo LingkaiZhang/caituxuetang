@@ -199,7 +199,7 @@ public class AdvanceCourseListActivity extends AbsLifecycleActivity<HomeViewMode
 
     @Override
     public void onItemClick(View view, int position, Object object) {
-        if (object != null) {
+        if (object != null && object instanceof CourseInfoVo ) {
             if (((CourseInfoVo) object).getIsBuy() == 0){
                 Intent intent = new Intent(this, CourseDetailsActivity.class);
                 intent.putExtra("courseId", String.valueOf(((CourseInfoVo) object).getId()));

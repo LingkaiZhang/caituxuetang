@@ -148,8 +148,10 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager, MediaPlayer.O
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             if (player.isPlaying()) {
                 player.setPlaybackParams(player.getPlaybackParams().setSpeed(speed));
+                handler.obtainMessage(MSG_PLAYING).sendToTarget();
             } else {
                 player.setPlaybackParams(player.getPlaybackParams().setSpeed(speed));
+                handler.obtainMessage(MSG_PAUSE).sendToTarget();
                 player.pause();
             }
         } else {

@@ -1,6 +1,8 @@
 package com.yuanin.fuliclub;
 
+import android.Manifest;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,12 +13,14 @@ import android.widget.Toast;
 import com.hxb.easynavigition.constant.Anim;
 import com.hxb.easynavigition.view.EasyNavigitionBar;
 import com.mvvm.base.BaseActivity;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.yuanin.fuliclub.fragment.BuyedFragment;
 import com.yuanin.fuliclub.fragment.CourseFragment;
 import com.yuanin.fuliclub.fragment.HomeFragment;
 import com.yuanin.fuliclub.fragment.MineFragment;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleDetailsActivity;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleInfoVo;
+import com.yuanin.fuliclub.loginRegister.SplashActivity;
 import com.yuanin.fuliclub.musicPlay.Consts;
 
 import java.util.ArrayList;
@@ -64,6 +68,7 @@ public class MainActivity extends BaseActivity {
         navigitionBar.titleItems(tabText)
                 .normalIconItems(normalIcon)
                 .selectIconItems(selectIcon)
+                .selectTextColor(Color.parseColor("#ff9500"))
                 .fragmentList(fragments)
                 .fragmentManager(getSupportFragmentManager())
                 .anim(Anim.ZoomIn)
@@ -85,6 +90,28 @@ public class MainActivity extends BaseActivity {
 //            startActivity(intent1);
 //        }
 //    }
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        rxPermission();
+    }
+
+    private void rxPermission() {
+        // Must be done during an initialization phase like onCreate
+        final RxPermissions rxPermissions = new RxPermissions(MainActivity.this);
+        rxPermissions
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(granted -> {
+                    if (granted) { // Always true pre-M
+                        // I can control the camera now
+                    } else {
+                        // Oups permission denied
+                    }
+                });
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

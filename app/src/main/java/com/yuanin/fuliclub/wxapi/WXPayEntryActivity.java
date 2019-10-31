@@ -16,6 +16,7 @@ import com.yuanin.fuliclub.base.App;
 
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.event.OnClickKefuEvent;
+import com.yuanin.fuliclub.event.WechatPaySuccessEvent;
 import com.yuanin.fuliclub.event.WechatPayUnusualeEvent;
 import com.yuanin.fuliclub.learnPart.CourseDetailsLoginActivity;
 import com.yuanin.fuliclub.util.LogUtils;
@@ -63,12 +64,16 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             if (resp.errCode == 0) {
                 ToastUtils.showToast("支付成功!");
+
+                //发送支付成功消息
+                EventBus.getDefault().post(new WechatPaySuccessEvent());
+
                 //TODO 跳转购买记录
-                PayResp payReq = (PayResp) resp;
-                String courseId = payReq.extData;
-                Intent intent = new Intent(this, CourseDetailsLoginActivity.class);
-                intent.putExtra("courseId", courseId);
-                startActivity(intent);
+//                PayResp payReq = (PayResp) resp;
+//                String courseId = payReq.extData;
+//                Intent intent = new Intent(this, CourseDetailsLoginActivity.class);
+//                intent.putExtra("courseId", courseId);
+//                startActivity(intent);
 
             } else if (resp.errCode == -2) {
                 ToastUtils.showToast("您已取消付款!");

@@ -66,7 +66,7 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        rxPermission();
+       // rxPermission();
     }
 
     private void redirectTO() {
@@ -79,7 +79,7 @@ public class SplashActivity extends BaseActivity {
         // Must be done during an initialization phase like onCreate
         final RxPermissions rxPermissions = new RxPermissions(SplashActivity.this);
         rxPermissions
-                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_NOTIFICATION_POLICY)
                 .subscribe(granted -> {
                     if (granted) { // Always true pre-M
                         // I can control the camera now

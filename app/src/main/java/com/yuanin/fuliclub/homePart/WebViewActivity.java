@@ -74,6 +74,9 @@ public class WebViewActivity extends AbsLifecycleActivity<HomeViewModel> {
             String isWork = getIntent().getStringExtra(ParamsKeys.IS_WORK);
             String url_work = URL.NET_URL_H5 + "task_ios.html?id=" + mlid + "&token=" + StaticMembers.TOKEN + "&isWork=" + isWork;
             initWebViewTitle(url_work);
+        } else if (type.equals(ParamsValues.USER_PROTOCOL)) {
+            String user_protocol = URL.NET_URL_H5 + "Agreement.html";
+            initWebViewTitle(user_protocol);
         }
     }
 

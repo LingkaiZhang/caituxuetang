@@ -83,7 +83,7 @@ public class NotificationUtil {
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    NotificationChannel channel = new NotificationChannel("001", "my_channel", NotificationManager.IMPORTANCE_DEFAULT);
+                    NotificationChannel channel = new NotificationChannel("001", "播放", NotificationManager.IMPORTANCE_HIGH);
 //                    channel.enableLights(true);//是否在桌面icon右上角展示小红点
 //                    channel.setLightColor(Color.GREEN);//小红点颜色
 //                    channel.setShowBadge(false); //是否在久按桌面图标时显示此渠道的通知

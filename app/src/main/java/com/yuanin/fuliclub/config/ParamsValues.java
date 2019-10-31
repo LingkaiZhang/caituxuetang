@@ -14,5 +14,6 @@ public class ParamsValues {
     public static final String NOTE = "note";
     public static final String WORK = "work";
     public static final String COURSE_IS_BUYED = "course_is_buyed";
+    public static final String USER_PROTOCOL = "course_user_protorl";
 }
 

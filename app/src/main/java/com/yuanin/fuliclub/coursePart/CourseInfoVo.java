@@ -22,9 +22,12 @@ public class CourseInfoVo {
     private String courseTitle;
     private int boughtNum;
     private double costPrice;
+    private double rulingPrice;
     private String smallPicture;
     private int isBuy;
     private List<String> courseLabels;
+
+
 
     public int getId() {
         return id;
@@ -64,6 +67,14 @@ public class CourseInfoVo {
 
     public void setCostPrice(double costPrice) {
         this.costPrice = costPrice;
+    }
+
+    public double getRulingPrice() {
+        return rulingPrice;
+    }
+
+    public void setRulingPrice(double rulingPrice) {
+        this.rulingPrice = rulingPrice;
     }
 
     public String getSmallPicture() {

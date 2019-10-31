@@ -42,6 +42,7 @@
     <color name="gray_cancel_click">#ddd</color>
     <color name="text_light_gray">#999</color>
     <color name="text_orang_ff6500">#ff6500</color>
+    <color name="coursr_item_buyed_num">#A58A78</color>
 
 
 </resources>

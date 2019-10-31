@@ -202,14 +202,16 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
 
     @Override
     public void onItemClick(View view, int position, Object object) {
-        if (((CourseInfoVo) object).getIsBuy() == 0){
-            Intent intent = new Intent(this, CourseDetailsActivity.class);
-            intent.putExtra("courseId", String.valueOf(((CourseInfoVo) object).getId()));
-            startActivity(intent);
-        }else if (((CourseInfoVo) object).getIsBuy() == 1) {
-            Intent intent = new Intent(this, CourseDetailsLoginActivity.class);
-            intent.putExtra("courseId", String.valueOf(((CourseInfoVo) object).getId()));
-            startActivity(intent);
-        }
+       if (object != null && object instanceof CourseInfoVo) {
+           if (((CourseInfoVo) object).getIsBuy() == 0){
+               Intent intent = new Intent(this, CourseDetailsActivity.class);
+               intent.putExtra("courseId", String.valueOf(((CourseInfoVo) object).getId()));
+               startActivity(intent);
+           }else if (((CourseInfoVo) object).getIsBuy() == 1) {
+               Intent intent = new Intent(this, CourseDetailsLoginActivity.class);
+               intent.putExtra("courseId", String.valueOf(((CourseInfoVo) object).getId()));
+               startActivity(intent);
+           }
+       }
     }
 }
