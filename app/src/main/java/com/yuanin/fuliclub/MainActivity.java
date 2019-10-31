@@ -3,6 +3,9 @@ package com.yuanin.fuliclub;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +25,8 @@ import com.yuanin.fuliclub.learnPart.CourseKnobbleDetailsActivity;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleInfoVo;
 import com.yuanin.fuliclub.loginRegister.SplashActivity;
 import com.yuanin.fuliclub.musicPlay.Consts;
+import com.yuanin.fuliclub.musicPlay.NotificationUtil;
+import com.yuanin.fuliclub.view.GeneralDialog;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +46,7 @@ public class MainActivity extends BaseActivity {
     private int[] selectIcon = {R.mipmap.tab_home,R.mipmap.tab_study, R.mipmap.tab_my};
 
     private List<android.support.v4.app.Fragment> fragments = new ArrayList<>();
+    private GeneralDialog generalDialog;
 
     @Override
     protected int getScreenMode() {
@@ -97,6 +103,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         rxPermission();
+
+        checkNotify();
     }
 
     private void rxPermission() {
@@ -111,6 +119,40 @@ public class MainActivity extends BaseActivity {
                         // Oups permission denied
                     }
                 });
+
+
+    }
+
+    //通知栏权限
+    private void checkNotify(){
+        if(!NotificationUtil.checkNotifySetting(MainActivity.this)){
+            generalDialog = new GeneralDialog(this, false, "通知权限", "检测到您没有打开通知权限，为不影响使用，请去打开", "取消", "确定", new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    generalDialog.dismiss();
+                }
+            }, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent localIntent = new Intent();
+                    localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if (Build.VERSION.SDK_INT >= 9) {
+                        localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                        localIntent.setData(Uri.fromParts("package", MainActivity.this.getPackageName(), null));
+                    } else if (Build.VERSION.SDK_INT <= 8) {
+                        localIntent.setAction(Intent.ACTION_VIEW);
+
+                        localIntent.setClassName("com.android.settings",
+                                "com.android.settings.InstalledAppDetails");
+
+                        localIntent.putExtra("com.android.settings.ApplicationPkgName",
+                                MainActivity.this.getPackageName());
+                    }
+                    startActivity(localIntent);
+                    generalDialog.dismiss();
+                }
+            });
+        }
     }
 
     @Override

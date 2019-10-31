@@ -56,8 +56,6 @@ public class AdvanceCourseListActivity extends AbsLifecycleActivity<HomeViewMode
     protected boolean isRefresh = false;
 
 
-
-
     @Override
     protected int getScreenMode() {
         return 0;
@@ -95,9 +93,15 @@ public class AdvanceCourseListActivity extends AbsLifecycleActivity<HomeViewMode
             myMessageVos.add(new MyMessageVo());
         }
         setUiData(myMessageVos);*/
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         mViewModel.getCourseListjinjie(2,1,15);
-
-
     }
 
     protected void setUiData(Collection<?> data) {

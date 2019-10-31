@@ -11,6 +11,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.mvvm.base.AbsLifecycleActivity;
 import com.next.easytitlebar.view.EasyTitleBar;
@@ -20,7 +21,11 @@ import com.yuanin.fuliclub.config.ParamsKeys;
 import com.yuanin.fuliclub.config.ParamsValues;
 import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.config.URL;
+import com.yuanin.fuliclub.event.PaySuccessEvent;
+import com.yuanin.fuliclub.event.WorkCommitEvent;
 import com.yuanin.fuliclub.view.ObservableWebView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
 
@@ -67,12 +72,12 @@ public class WebViewActivity extends AbsLifecycleActivity<HomeViewModel> {
             initWebViewTitle(banner_url);
         } else if (type.equals(ParamsValues.NOTE)) {
             String mlid = getIntent().getStringExtra(ParamsKeys.KNOBBLE_MLID);
-            String url_note = URL.NET_URL_H5 + "editor_diary_ios.html?id=" + mlid + "&token=" + StaticMembers.TOKEN;
+            String url_note = URL.NET_URL_H5 + "editor_diary_android.html?id=" + mlid + "&token=" + StaticMembers.TOKEN;
             initWebViewTitle(url_note);
         } else if (type.equals(ParamsValues.WORK)) {
             String mlid = getIntent().getStringExtra(ParamsKeys.KNOBBLE_MLID);
             String isWork = getIntent().getStringExtra(ParamsKeys.IS_WORK);
-            String url_work = URL.NET_URL_H5 + "task_ios.html?id=" + mlid + "&token=" + StaticMembers.TOKEN + "&isWork=" + isWork;
+            String url_work = URL.NET_URL_H5 + "task_android.html?id=" + mlid + "&token=" + StaticMembers.TOKEN + "&isWork=" + isWork;
             initWebViewTitle(url_work);
         } else if (type.equals(ParamsValues.USER_PROTOCOL)) {
             String user_protocol = URL.NET_URL_H5 + "Agreement.html";
@@ -194,7 +199,12 @@ public class WebViewActivity extends AbsLifecycleActivity<HomeViewModel> {
         Object htmlAndroid = new Object() {
             @JavascriptInterface
             public void HtmlcallJava(String code) {
-//                Toast.makeText(SinaPayActivity.this, "接受到调用 ", Toast.LENGTH_SHORT).show();
+                //笔记是1 作业是2
+                //Toast.makeText(WebViewActivity.this, "接受到调用 ", Toast.LENGTH_SHORT).show();
+                if (code.equals("2")) {
+                    EventBus.getDefault().post(new WorkCommitEvent());
+                }
+
                 finish();
             }
         };

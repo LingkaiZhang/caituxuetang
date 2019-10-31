@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -22,6 +24,8 @@ import com.yuanin.fuliclub.config.ParamsValues;
 import com.yuanin.fuliclub.coursePart.KnobbleDetailsListAdapter;
 import com.yuanin.fuliclub.coursePart.SelectPlaySpeedDialogFragment;
 import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
+import com.yuanin.fuliclub.event.WechatPayUnusualeEvent;
+import com.yuanin.fuliclub.event.WorkCommitEvent;
 import com.yuanin.fuliclub.homePart.WebViewActivity;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.musicPlay.MusicPlayerManager;
@@ -33,8 +37,13 @@ import com.yuanin.fuliclub.musicPlay.PlayListManager;
 import com.yuanin.fuliclub.musicPlay.SharedPreferencesUtil;
 import com.yuanin.fuliclub.musicPlay.TimeUtil;
 import com.yuanin.fuliclub.util.AdapterPool;
+import com.yuanin.fuliclub.util.PopupWindowUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.view.ObservableWebView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.lang.ref.WeakReference;
 
@@ -113,11 +122,24 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
         playListManager.addPlayListListener(this);
         sbProgress.setOnSeekBarChangeListener(this);
 
+        EventBus.getDefault().register(this);
+
 //        currentSong = this.playListManager.getPlayData();
 //        if (currentSong != null) {
 //            setInitData(currentSong);
 //        }
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void workCommit(WorkCommitEvent workCommitEvent){
+        detailsInfoVo.setIsWork(1);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     public void setInitData(KnobbleDetailsInfoVo data) {

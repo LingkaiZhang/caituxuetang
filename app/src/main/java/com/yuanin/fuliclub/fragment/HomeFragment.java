@@ -14,8 +14,11 @@ import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.BaseListFragment;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.coursePart.AdvanceCourseListActivity;
+import com.yuanin.fuliclub.coursePart.BuyedSuccessActivity;
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.coursePart.RookieCourseListActivity;
+import com.yuanin.fuliclub.event.PaySuccessEvent;
+import com.yuanin.fuliclub.event.WechatPaySuccessEvent;
 import com.yuanin.fuliclub.homePart.HomeRepository;
 import com.yuanin.fuliclub.homePart.HomeViewModel;
 import com.yuanin.fuliclub.homePart.banner.BannerListVo;
@@ -31,6 +34,9 @@ import com.yuanin.fuliclub.minePart.MyRepository;
 import com.yuanin.fuliclub.minePart.bean.UpdateFileCallbackEntity;
 import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.ToastUtils;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,6 +159,12 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
 
     @Override
     protected void onStateRefresh() {
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setPaySuccess(PaySuccessEvent PaySuccessEvent){
+        getRemoteData();
     }
 
 

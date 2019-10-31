@@ -10,10 +10,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +27,10 @@ import com.bumptech.glide.request.transition.Transition;
 import com.yuanin.fuliclub.MainActivity;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
+import com.yuanin.fuliclub.util.AppUtils;
+import com.yuanin.fuliclub.view.GeneralDialog;
+
+import static android.provider.Settings.EXTRA_APP_PACKAGE;
 
 /**
  * <p>应用通知管理类</p>
@@ -45,7 +53,9 @@ public class NotificationUtil {
      * @param knobbleDetailsInfoVo
      * @param isPlaying
      */
-    public static void showMusicNotification(final Context context, final KnobbleDetailsInfoVo knobbleDetailsInfoVo, final boolean isPlaying){
+    public static void showMusicNotification(final Context context, final KnobbleDetailsInfoVo knobbleDetailsInfoVo, final boolean isPlaying) {
+
+
         RequestOptions options = new RequestOptions();
         options.centerCrop();
         Glide.with(context).asBitmap().load(R.mipmap.ic_launcher).apply(options).into(new SimpleTarget<Bitmap>() {
@@ -110,4 +120,11 @@ public class NotificationUtil {
             notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         }
     }
+
+    public static boolean checkNotifySetting(Context context) {
+        NotificationManagerCompat manager = NotificationManagerCompat.from(context);
+        // areNotificationsEnabled方法的有效性官方只最低支持到API 19，低于19的仍可调用此方法不过只会返回true，即默认为用户已经开启了通知。
+        return manager.areNotificationsEnabled();
+    }
+
 }

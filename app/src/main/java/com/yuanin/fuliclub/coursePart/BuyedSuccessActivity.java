@@ -57,7 +57,7 @@ public class BuyedSuccessActivity extends AbsLifecycleActivity<CourseViewModel> 
         courseId = intent.getStringExtra("courseId");
         courseName = intent.getStringExtra("courseName");
 
-        tvCourseName.setText( courseName );
+        tvCourseName.setText(" "+  courseName );
 
     }
 
@@ -78,6 +78,7 @@ public class BuyedSuccessActivity extends AbsLifecycleActivity<CourseViewModel> 
                 Intent intent = new Intent(this, CourseDetailsLoginActivity.class);
                 intent.putExtra("courseId", courseId);
                 startActivity(intent);
+                finish();
                 break;
         }
     }

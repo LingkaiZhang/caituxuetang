@@ -97,9 +97,13 @@ public class RookieCourseListActivity extends AbsLifecycleActivity<HomeViewModel
             myMessageVos.add(new MyMessageVo());
         }
         setUiData(myMessageVos);*/
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         mViewModel.getCourseList(1,1,15);
-
-
     }
 
     protected void setUiData(Collection<?> data) {

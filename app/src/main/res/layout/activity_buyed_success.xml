@@ -24,7 +24,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginTop="90dp"/>
 
     <LinearLayout
         android:id="@+id/ll2"
@@ -62,7 +62,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:layout_marginTop="60dp"
-        app:button_click_able="false"
+        app:button_click_able="true"
         app:color_normal="@color/btn_unable_click_gray"
         app:corner="20dp"
         app:text="@string/go_study"

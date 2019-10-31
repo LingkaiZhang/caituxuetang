@@ -50,7 +50,7 @@
             android:layout_toLeftOf="@id/ivMessage"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="32dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginRight="16dp"
             android:src="@mipmap/kefu" />
 
         <LinearLayout

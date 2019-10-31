@@ -34,6 +34,7 @@ import com.yuanin.fuliclub.coursePart.BuyedSuccessActivity;
 import com.yuanin.fuliclub.coursePart.bean.AliPayOrderVo;
 import com.yuanin.fuliclub.coursePart.bean.CourseOrderCreatVo;
 import com.yuanin.fuliclub.coursePart.bean.WeChatOrderVo;
+import com.yuanin.fuliclub.event.PaySuccessEvent;
 import com.yuanin.fuliclub.event.PayUnusualeEvent;
 import com.yuanin.fuliclub.event.WechatPaySuccessEvent;
 import com.yuanin.fuliclub.event.WechatPayUnusualeEvent;
@@ -127,6 +128,10 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
                 intent.putExtra("courseName", orderDate.getProductName());
                 startActivity(intent);
 
+                EventBus.getDefault().post(new PaySuccessEvent());
+
+                finish();
+
             } else {
                 // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                 Toast.makeText(OrderPayActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
@@ -187,6 +192,7 @@ public class OrderPayActivity extends AbsLifecycleActivity<CourseViewModel> {
         intent.putExtra("courseId", courseId);
         intent.putExtra("courseName", orderDate.getProductName());
         startActivity(intent);
+        finish();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

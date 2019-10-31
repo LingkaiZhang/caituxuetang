@@ -16,6 +16,7 @@ import com.yuanin.fuliclub.base.App;
 
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.event.OnClickKefuEvent;
+import com.yuanin.fuliclub.event.PaySuccessEvent;
 import com.yuanin.fuliclub.event.WechatPaySuccessEvent;
 import com.yuanin.fuliclub.event.WechatPayUnusualeEvent;
 import com.yuanin.fuliclub.learnPart.CourseDetailsLoginActivity;
@@ -67,6 +68,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
                 //发送支付成功消息
                 EventBus.getDefault().post(new WechatPaySuccessEvent());
+                EventBus.getDefault().post(new PaySuccessEvent());
 
                 //TODO 跳转购买记录
 //                PayResp payReq = (PayResp) resp;

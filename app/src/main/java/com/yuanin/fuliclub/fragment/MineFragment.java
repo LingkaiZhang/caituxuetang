@@ -110,6 +110,7 @@ public class MineFragment extends BaseFragment {
 
     }
 
+    @SuppressLint("CheckResult")
     private void requestKefuInfo() {
         Flowable<ReturnResult<KeFuInfoVo>> kefuInfo = apiService.getKefuInfo();
         kefuInfo.compose(RxSchedulers.io_main())

@@ -54,6 +54,9 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
     private View popupWindowContactUs;
     private KeFuInfoVo kefuInfo;
 
+    private boolean isFristLoad = true;
+
+
     private boolean unReadMessage;
 
     public static BuyedFragment newInstance() {
@@ -88,6 +91,14 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            onRefresh(true);
+        }
+    }
+
+    @Override
     protected void dataObserver() {
         super.dataObserver();
 
@@ -118,9 +129,16 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
                     LastLearnVo lastLearnVo = (LastLearnVo) returnResult.getData();
                     lastLearnVo.setUnReadMessage(unReadMessage);
                     addItems();
+
+                    mItems.clear();
+
                     mItems.add(0,lastLearnVo);
 
-                    mViewModel.getMyCourseList("1","15");
+                    if (isFristLoad) {
+                        isFristLoad = false;
+                    } else {
+                        mViewModel.getMyCourseList("1","15");
+                    }
 
                 }else {
                     ToastUtils.showToast(returnResult.getMessage());
@@ -134,6 +152,7 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
                     MyCourseListVo myCourseListVo = (MyCourseListVo) returnResult.getData();
                     List<MyCourseListVo.MyCourseInfoVo> list = myCourseListVo.getList();
                     if (list != null && list.size() > 0){
+
                         mItems.add(new TypeVo("我的课程"));
                         mItems.addAll(list);
                         mItems.add(new BottomBackgroundVo());

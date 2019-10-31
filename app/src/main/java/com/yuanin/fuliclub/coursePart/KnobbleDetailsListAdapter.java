@@ -17,8 +17,13 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.learnPart.CourseKnobbleDetailsActivity;
+import com.yuanin.fuliclub.util.BigView;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -49,18 +54,27 @@ public class KnobbleDetailsListAdapter extends RecyclerView.Adapter<KnobbleDetai
     @Override
     public void onBindViewHolder(@NonNull KnobbleDetailsListAdapter.MyViewHolder myViewHolder, int i) {
 
-
         Glide.with(mContext).load(childDetailList.get(i))
                 .downloadOnly(new SimpleTarget<File>() {
                     @Override
                     public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
                         // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
-                        Bitmap bitmap = BitmapFactory.decodeFile(resource.getAbsolutePath());
+                        Bitmap bitmap = BitmapFactory.decodeFile(resource.getAbsolutePath(),getBitmapOption(2));
                         // 显示处理好的Bitmap图片
                         myViewHolder.ivIntroImage.setImageBitmap(bitmap);
                     }
 
                 });
+
+    }
+
+
+    private BitmapFactory.Options getBitmapOption(int inSampleSize) {
+        System.gc();
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPurgeable = true;
+        options.inSampleSize = inSampleSize;
+        return options;
     }
 
     @Override
