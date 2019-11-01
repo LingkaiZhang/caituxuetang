@@ -2,11 +2,17 @@ package com.yuanin.fuliclub.homePart.itemView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.adapter.holder.AbsHolder;
 import com.adapter.holder.AbsItemHolder;
@@ -17,8 +23,6 @@ import com.yuanin.fuliclub.coursePart.AdvanceCourseListActivity;
 import com.yuanin.fuliclub.coursePart.RookieCourseListActivity;
 import com.yuanin.fuliclub.homePart.banner.CatagoryInfoVo;
 import com.yuanin.fuliclub.homePart.banner.CategoryVo;
-import com.yuanin.fuliclub.util.ToastUtils;
-import com.yuanin.fuliclub.view.bamtoast.etoast.EToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,10 +72,32 @@ public class CategoryItemView extends AbsItemHolder<CategoryVo, CategoryItemView
                 mContext.startActivity(intent);
 
             } else if (list.get(position).title.equals("直播")) {
-                EToast.makeText(mContext, "敬请期待...", false).show();
+
+//                Toast toast = Toast.makeText(mContext, "敬请期待...", Toast.LENGTH_SHORT);//实例化toast对象
+//                LinearLayout toast_layout = (LinearLayout) toast.getView();
+//                ImageView imageView = new ImageView(mContext);
+//                imageView.setBackgroundResource(R.mipmap.toast_n);
+//                //AnimationDrawable background = (AnimationDrawable) imageView.getBackground();
+//                //background.start();
+//                toast_layout.addView(imageView, 0);
+//                toast.setGravity(Gravity.CENTER, 0, 0);
+//                toast.show();
+
+                Toast toast = new Toast(mContext);
+                LinearLayout inflate = (LinearLayout) View.inflate(mContext, R.layout.toast_layout, null);
+                toast.setView(inflate);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
 
             } else if (list.get(position).title.equals("FM")) {
-                EToast.makeText(mContext, "敬请期待...", false).show();
+
+                Toast toast = new Toast(mContext);
+                LinearLayout inflate = (LinearLayout) View.inflate(mContext, R.layout.toast_layout, null);
+                toast.setView(inflate);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
             }
         });
     }

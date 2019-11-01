@@ -188,7 +188,9 @@ public class CourseDetailListFragment extends BaseListFragment<CourseViewModel> 
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-
+            if (mViewModel != null) {
+                setQuestData();
+            }
         }
     }
 }

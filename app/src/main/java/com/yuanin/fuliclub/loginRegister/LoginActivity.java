@@ -23,7 +23,6 @@ import com.yuanin.fuliclub.util.SharedPreferencesUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.view.ClearEditText;
 import com.yuanin.fuliclub.view.CountDownTextView;
-import com.yuanin.fuliclub.view.bamtoast.btoast.BToast;
 
 import java.lang.ref.WeakReference;
 

@@ -35,7 +35,7 @@ public class CourseOrderCreatVo {
     private String productInfo;
     private String price;
     private String key;
-    private String imageUrl;
+    private String imageurl;
     private Object orderTerm;
     private Object orderStatus;
     private int periodsId;
@@ -108,11 +108,11 @@ public class CourseOrderCreatVo {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return imageurl;
     }
 
     public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.imageurl = imageUrl;
     }
 
     public Object getOrderTerm() {

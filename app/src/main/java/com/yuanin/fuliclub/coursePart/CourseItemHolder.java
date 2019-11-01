@@ -67,7 +67,7 @@ public class CourseItemHolder extends AbsItemHolder<CourseInfoVo, CourseItemHold
         holder.ivItemCourseName.setText(courseListBean.getCourseName());
         holder.tvItemCourseSlogan.setText(courseListBean.getCourseTitle());
 
-        SpannableString span = new SpannableString(courseListBean.getBoughtNum() + " 已购买");
+        SpannableString span = new SpannableString(courseListBean.getBoughtNum() + " 人已买");
         span.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.login_text_color_9b)),span.length()-3, span.length(), Spanned.SPAN_INCLUSIVE_INCLUSIVE);
         holder.tvItemCourseBought.setMovementMethod(LinkMovementMethod.getInstance());
         holder.tvItemCourseBought.setHighlightColor(mContext.getResources().getColor(R.color.coursr_item_buyed_num));

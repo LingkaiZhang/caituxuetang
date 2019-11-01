@@ -52,6 +52,7 @@ public class SelectTimeDialogFragment extends BottomSheetDialogFragment {
     private OnSelectTimeListener onSelectTimeListener;
     //选中的时间
     private CourseStartTimeListVo selectTime;
+    private String courseName;
 
     @Nullable
     @Override
@@ -70,6 +71,9 @@ public class SelectTimeDialogFragment extends BottomSheetDialogFragment {
     }
 
     private void initData() {
+
+
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -87,17 +91,24 @@ public class SelectTimeDialogFragment extends BottomSheetDialogFragment {
 
             }
         });
+
+        tvCourseName.setText(courseName);
     }
 
-    public static void show(FragmentManager fragmentManager, List<CourseStartTimeListVo> data, OnSelectTimeListener onSelectTimeListener) {
-        SelectTimeDialogFragment.show(fragmentManager, data, false, onSelectTimeListener);
+    public static void show(FragmentManager fragmentManager, String courseName,List<CourseStartTimeListVo> data, OnSelectTimeListener onSelectTimeListener) {
+        SelectTimeDialogFragment.show(fragmentManager,courseName ,data, false, onSelectTimeListener);
     }
 
-    public static void show(FragmentManager fragmentManager, List data, boolean isShowDelete, OnSelectTimeListener onSelectTimeListener) {
+    public static void show(FragmentManager fragmentManager,String courseName, List data, boolean isShowDelete, OnSelectTimeListener onSelectTimeListener) {
         SelectTimeDialogFragment selectTimeDialogFragment = new SelectTimeDialogFragment();
         selectTimeDialogFragment.setData(data);
+        selectTimeDialogFragment.setData2(courseName);
         selectTimeDialogFragment.setListener(onSelectTimeListener);
         selectTimeDialogFragment.show(fragmentManager, "SortDialogFragment");
+    }
+
+    private void setData2(String courseName) {
+        this.courseName = courseName;
     }
 
     private void setListener(OnSelectTimeListener onSelectTimeListener) {

@@ -25,9 +25,10 @@ import com.yuanin.fuliclub.loginRegister.SmsMessageVerActivity;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.minePart.bean.UpdateFileCallbackEntity;
 import com.yuanin.fuliclub.util.AppUtils;
+import com.yuanin.fuliclub.util.PhoneNumUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.view.GeneralDialog;
-import com.yuanin.fuliclub.view.bamtoast.btoast.BToast;
+
 
 import java.lang.ref.WeakReference;
 
@@ -232,7 +233,7 @@ public class MyAccountActivity extends AbsLifecycleActivity<MyViewModel> {
     private void setUserInfo(PersonalInfoEntity entity) {
         setUserHeadImage(entity.getProfilePictureLink());
         tvNickName.setText(entity.getNickName());
-        tvPhoneNo.setText(entity.getMobile());
+        tvPhoneNo.setText(PhoneNumUtils.getProtectedMobile(entity.getMobile()));
         nickName = entity.getNickName();
 
         if (entity.getRelevance() == 0) {

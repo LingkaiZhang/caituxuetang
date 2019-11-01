@@ -237,7 +237,7 @@ public class CourseDetailsLoginActivity extends AbsLifecycleActivity<CourseViewM
                     List<CourseStartTimeListVo> startTimeList = (List<CourseStartTimeListVo>) returnResult.getData();
 
                     if (startTimeList.size() > 0) {
-                        SelectTimeDialogFragment.show(getSupportFragmentManager(), startTimeList, new SelectTimeDialogFragment.OnSelectTimeListener() {
+                        SelectTimeDialogFragment.show(getSupportFragmentManager(), courseDetails.getCourseName(),startTimeList, new SelectTimeDialogFragment.OnSelectTimeListener() {
                             @Override
                             public void selectTime(CourseStartTimeListVo time) {
                                 //TODO 跳转订单

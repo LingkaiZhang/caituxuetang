@@ -17,9 +17,10 @@ import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.config.ParamsKeys;
 import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.util.SharedPreferencesUtils;
+import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.view.CodeView;
 import com.yuanin.fuliclub.view.CountDownTextView;
-import com.yuanin.fuliclub.view.bamtoast.btoast.BToast;
+
 
 import java.lang.ref.WeakReference;
 
@@ -114,7 +115,7 @@ public class SmsMessageVerActivity extends AbsLifecycleActivity<LoginRegisterVie
 */
         registerSubscriber(LoginRegisterRepository.EVENT_KEY_LOGIN_MESSAGE, ReturnResult.class).observe(this, returnResult -> {
             if (returnResult != null) {
-                BToast.makeText(this, returnResult.getMessage(), true).show();
+                ToastUtils.showToast(returnResult.getMessage());
             }
         });
     }

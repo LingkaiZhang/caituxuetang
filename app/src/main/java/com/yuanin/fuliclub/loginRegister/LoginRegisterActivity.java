@@ -16,7 +16,7 @@ import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.util.PhoneNumUtils;
 import com.yuanin.fuliclub.util.PhoneWatcher;
 import com.yuanin.fuliclub.view.ClearEditText;
-import com.yuanin.fuliclub.view.bamtoast.btoast.BToast;
+
 
 import java.lang.ref.WeakReference;
 

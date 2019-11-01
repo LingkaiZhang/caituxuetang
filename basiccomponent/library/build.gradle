@@ -79,4 +79,6 @@ dependencies {
 
     //权限申请
     api 'com.github.tbruyelle:rxpermissions:0.10.2'
+
+    api 'com.github.Blincheng:EToast2:v2.1.1'
 }

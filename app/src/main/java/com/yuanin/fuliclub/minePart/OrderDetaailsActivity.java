@@ -99,9 +99,11 @@ public class OrderDetaailsActivity extends AbsLifecycleActivity<MyViewModel> {
         tvProductName.setText(orderDetails.getProductName());
         tvOrderNo.setText(orderDetails.getOrderNo());
 
-        if (orderDetails.getProductType() == 1) {
-            tvOrderType.setText("虚拟课程");
-        }
+//        if (orderDetails.getProductType() == 1) {
+//            tvOrderType.setText("虚拟课程");
+//        }
+
+        tvOrderType.setText(orderDetails.getProductTypeName());
         tvCreatTime.setText(DateUtil.timeStamp2Date(String.valueOf(orderDetails.getCreateTime()/1000), null));
         tvPayType.setText(orderDetails.getPayWay());
     }

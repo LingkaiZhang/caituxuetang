@@ -68,6 +68,16 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (mViewModel != null) {
+                onRefresh(true);
+            }
+        }
+    }
+
+    @Override
     protected void dataObserver() {
 
         registerSubscriber(HomeRepository.EVENT_KEY_HOME_BANNER_LIST, ReturnResult.class).observe(this, returnResult -> {
@@ -143,6 +153,8 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
         });
 
     }
+
+
 
 
     @Override

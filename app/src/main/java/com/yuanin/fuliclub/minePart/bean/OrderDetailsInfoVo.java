@@ -37,6 +37,7 @@ public class OrderDetailsInfoVo implements Serializable {
      * userName : vv还能还好吧
      * imageurl :
      * keywrod : null
+     * product_type_name
      */
 
     private int id;
@@ -64,6 +65,15 @@ public class OrderDetailsInfoVo implements Serializable {
     private String userName;
     private String imageurl;
     private Object keywrod;
+    private String productTypeName;
+
+    public String getProductTypeName() {
+        return productTypeName;
+    }
+
+    public void setProductTypeName(String productTypeName) {
+        this.productTypeName = productTypeName;
+    }
 
     public int getId() {
         return id;
