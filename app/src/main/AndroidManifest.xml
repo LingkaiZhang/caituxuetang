@@ -119,7 +119,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".homePart.WebViewActivity"
-            android:label="关于我们"
+            android:label="关于"
             android:screenOrientation="portrait" />
         <activity
             android:name=".minePart.OrderListActivity"
@@ -170,7 +170,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".coursePart.AdvanceCourseListActivity"
-            android:label="进阶课程"
+            android:label="进阶学习"
             android:screenOrientation="portrait" />
         <activity
             android:name=".coursePart.BuyedSuccessActivity"

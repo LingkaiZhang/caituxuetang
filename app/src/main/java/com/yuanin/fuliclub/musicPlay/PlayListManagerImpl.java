@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Random;
 
 import io.reactivex.schedulers.Schedulers;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 
 /**
@@ -472,7 +473,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     }
 
     @Override
-    public void onPrepared(MediaPlayer mediaPlayer, final KnobbleDetailsInfoVo data) {
+    public void onPrepared(IjkMediaPlayer mediaPlayer, final KnobbleDetailsInfoVo data) {
         data.setDuration(mediaPlayer.getDuration());
         orm.saveSong(data, sp.getUserId());
 
@@ -519,7 +520,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     }
 
     @Override
-    public void onCompletion(MediaPlayer mediaPlayer) {
+    public void onCompletion(IjkMediaPlayer mediaPlayer) {
         if (getLoopModel() == MODEL_LOOP_ONE) {
             //如果是单曲循环，就不会处理了
             //因为我们使用了MediaPlayer的循环模式
@@ -538,7 +539,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     }
 
     @Override
-    public void onError(MediaPlayer mp, int what, int extra) {
+    public void onError(IjkMediaPlayer mp, int what, int extra) {
 
     }
 

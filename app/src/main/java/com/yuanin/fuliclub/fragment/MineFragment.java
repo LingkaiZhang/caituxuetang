@@ -35,6 +35,7 @@ import com.yuanin.fuliclub.minePart.bean.KeFuInfoVo;
 import com.yuanin.fuliclub.minePart.bean.MyMessageListVo;
 import com.yuanin.fuliclub.network.RxSubscriber;
 import com.yuanin.fuliclub.minePart.bean.UserInfoEntity;
+import com.yuanin.fuliclub.util.AppUtils;
 import com.yuanin.fuliclub.util.PopupWindowUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 
@@ -159,6 +160,10 @@ public class MineFragment extends BaseFragment {
                     } else {
                         unReadMessage.setVisibility(View.VISIBLE);
                     }
+                } else {
+                    AppUtils.exitLogin(getActivity());
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(intent);
                 }
             }
 

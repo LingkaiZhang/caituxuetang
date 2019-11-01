@@ -17,7 +17,7 @@ import com.yuanin.fuliclub.util.StringUtil;
 import java.util.List;
 
 import io.reactivex.Flowable;
-import nl.qbusict.cupboard.annotation.Ignore;
+
 
 /**
  * description ： TODO:类的作用

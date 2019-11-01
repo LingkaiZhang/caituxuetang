@@ -50,6 +50,7 @@ import java.lang.ref.WeakReference;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseViewModel> implements OnMusicPlayerListener, PlayListListener, SeekBar.OnSeekBarChangeListener {
 
@@ -180,11 +181,11 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
                             setInitData(currentSong);
                         } else {
                             playListManager.play(detailsInfoVo);
-                            playOrPause();
+                            //playListManager.pause();
                         }
                     } else {
                         playListManager.play(detailsInfoVo);
-                        playOrPause();
+                        //playListManager.pause();
                     }
 
                     //setInitData(currentSong);
@@ -288,17 +289,18 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     }
 
     @Override
-    public void onPrepared(MediaPlayer mediaPlayer, KnobbleDetailsInfoVo data) {
+    public void onPrepared(IjkMediaPlayer mediaPlayer, KnobbleDetailsInfoVo data) {
         setInitData(data);
+        playOrPause();
     }
 
     @Override
-    public void onCompletion(MediaPlayer mediaPlayer) {
+    public void onCompletion(IjkMediaPlayer mediaPlayer) {
 
     }
 
     @Override
-    public void onError(MediaPlayer mp, int what, int extra) {
+    public void onError(IjkMediaPlayer mp, int what, int extra) {
 
     }
 

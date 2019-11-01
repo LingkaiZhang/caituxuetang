@@ -1,8 +1,9 @@
 package com.yuanin.fuliclub.musicPlay;
 
-import android.media.MediaPlayer;
 
 import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
+
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 /**
  * Created by smile on 2018/5/28.
@@ -30,13 +31,13 @@ public interface OnMusicPlayerListener {
      * 播放器初始化完毕
      * @param mediaPlayer
      */
-    void onPrepared(MediaPlayer mediaPlayer, KnobbleDetailsInfoVo data);
+    void onPrepared(IjkMediaPlayer mediaPlayer, KnobbleDetailsInfoVo data);
 
     /**
      * 当前这首歌播放完毕了
      * @param mediaPlayer
      */
-    void onCompletion(MediaPlayer mediaPlayer);
+    void onCompletion(IjkMediaPlayer mediaPlayer);
 
 
     /**
@@ -45,5 +46,5 @@ public interface OnMusicPlayerListener {
      * @param what
      * @param extra
      */
-    void onError(MediaPlayer mp, int what, int extra);
+    void onError(IjkMediaPlayer mp, int what, int extra);
 }

@@ -1,8 +1,6 @@
 package com.yuanin.fuliclub.musicPlay;
 
 import android.content.Context;
-import android.media.MediaPlayer;
-import android.media.PlaybackParams;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -17,11 +15,14 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import tv.danmaku.ijk.media.player.IMediaPlayer;
+import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+
 /**
  * Created by smile on 2018/5/28.
  */
 
-public class MusicPlayerManagerImpl implements MusicPlayerManager, MediaPlayer.OnCompletionListener {
+public class MusicPlayerManagerImpl implements MusicPlayerManager, IjkMediaPlayer.OnCompletionListener {
     /**
      * Handler通知事件类型常量
      */
@@ -39,7 +40,7 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager, MediaPlayer.O
     /**
      * 媒体播放器
      */
-    private MediaPlayer player;
+    private IjkMediaPlayer player;
 
     /**
      * 播放器状态监听器
@@ -67,7 +68,7 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager, MediaPlayer.O
             this.data = data;
             player.reset();
             player.setDataSource(uri);
-            player.prepare();
+            player.prepareAsync();
             player.start();
 
             handler.obtainMessage(MSG_PLAYING).sendToTarget();
@@ -146,14 +147,15 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager, MediaPlayer.O
     @Override
     public void setPlaySpeed(float speed) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            if (player.isPlaying()) {
-                player.setPlaybackParams(player.getPlaybackParams().setSpeed(speed));
-                handler.obtainMessage(MSG_PLAYING).sendToTarget();
-            } else {
-                player.setPlaybackParams(player.getPlaybackParams().setSpeed(speed));
-                handler.obtainMessage(MSG_PAUSE).sendToTarget();
-                player.pause();
-            }
+//            if (player.isPlaying()) {
+//                player.setPlaybackParams(player.getPlaybackParams().setSpeed(speed));
+//                handler.obtainMessage(MSG_PLAYING).sendToTarget();
+//            } else {
+//                player.setPlaybackParams(player.getPlaybackParams().setSpeed(speed));
+//                handler.obtainMessage(MSG_PAUSE).sendToTarget();
+//                player.pause();
+//            }
+            player.setSpeed(speed);
         } else {
             ToastUtils.showToast("您的设备不支持倍速播放。");
         }
@@ -161,23 +163,25 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager, MediaPlayer.O
 
     private MusicPlayerManagerImpl(Context context) {
         this.context = context;
-        player = new MediaPlayer();
+        player = new IjkMediaPlayer();
         initListener();
     }
 
     private void initListener() {
-        player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+        player.setOnPreparedListener(new IjkMediaPlayer.OnPreparedListener() {
             @Override
-            public void onPrepared(MediaPlayer mediaPlayer) {
+            public void onPrepared(IMediaPlayer iMediaPlayer) {
                 handler.obtainMessage(MSG_PREPARE).sendToTarget();
             }
+
         });
-        player.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+        player.setOnErrorListener(new IjkMediaPlayer.OnErrorListener() {
             @Override
-            public boolean onError(MediaPlayer mp, int what, int extra) {
-                handler.obtainMessage(MSG_ERROR, what, extra).sendToTarget();
+            public boolean onError(IMediaPlayer iMediaPlayer, int what, int extra) {
+                handler.obtainMessage(MSG_ERROR,what,extra).sendToTarget();
                 return false;
             }
+
         });
 
         player.setOnCompletionListener(this);
@@ -226,8 +230,8 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager, MediaPlayer.O
     };
 
     private void publishProgress() {
-        int currentPosition = player.getCurrentPosition();
-        int duration = player.getDuration();
+        long currentPosition = player.getCurrentPosition();
+        long duration = player.getDuration();
         for (OnMusicPlayerListener listener : listeners) {
             listener.onProgress(currentPosition, duration);
         }
@@ -265,8 +269,9 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager, MediaPlayer.O
 
     }
 
+
     @Override
-    public void onCompletion(MediaPlayer mp) {
+    public void onCompletion(IMediaPlayer iMediaPlayer) {
         handler.obtainMessage(MSG_COMPLETION).sendToTarget();
     }
 }
