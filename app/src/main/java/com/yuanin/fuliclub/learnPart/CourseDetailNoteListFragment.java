@@ -14,11 +14,17 @@ import com.yuanin.fuliclub.base.ReturnResult2;
 import com.yuanin.fuliclub.config.ParamsKeys;
 import com.yuanin.fuliclub.config.ParamsValues;
 import com.yuanin.fuliclub.config.StaticMembers;
+import com.yuanin.fuliclub.event.NoteSaveSuccess;
+import com.yuanin.fuliclub.event.PaySuccessEvent;
 import com.yuanin.fuliclub.homePart.WebViewActivity;
 import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.ToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -45,6 +51,9 @@ public class CourseDetailNoteListFragment extends BaseListFragment<CourseViewMod
     @Override
     public void initView(Bundle state) {
         super.initView(state);
+
+        EventBus.getDefault().register(this);
+
         refreshHelper.setEnableLoadMore(false);
         refreshHelper.setEnableRefresh(false);
         loadManager.showSuccess();
@@ -130,4 +139,25 @@ public class CourseDetailNoteListFragment extends BaseListFragment<CourseViewMod
         mViewModel.getCoursrKonbbleNoteList(courseId);
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (mViewModel != null) {
+                setQuestData();
+            }
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setNoteSaveSuccess(NoteSaveSuccess noteSaveSuccess){
+       setQuestData();
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 }

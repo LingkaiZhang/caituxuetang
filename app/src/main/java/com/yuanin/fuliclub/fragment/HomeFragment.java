@@ -17,6 +17,7 @@ import com.yuanin.fuliclub.coursePart.AdvanceCourseListActivity;
 import com.yuanin.fuliclub.coursePart.BuyedSuccessActivity;
 import com.yuanin.fuliclub.coursePart.CourseInfoVo;
 import com.yuanin.fuliclub.coursePart.RookieCourseListActivity;
+import com.yuanin.fuliclub.event.LoginSuccess;
 import com.yuanin.fuliclub.event.PaySuccessEvent;
 import com.yuanin.fuliclub.event.WechatPaySuccessEvent;
 import com.yuanin.fuliclub.homePart.HomeRepository;
@@ -35,6 +36,7 @@ import com.yuanin.fuliclub.minePart.bean.UpdateFileCallbackEntity;
 import com.yuanin.fuliclub.util.AdapterPool;
 import com.yuanin.fuliclub.util.ToastUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -65,6 +67,14 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
         super.initView(state);
         refreshHelper.setEnableLoadMore(false);
         loadManager.showSuccess();
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     @Override
@@ -76,6 +86,12 @@ public class HomeFragment extends BaseListFragment<HomeViewModel> implements OnI
             }
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setLoginSuccess(LoginSuccess loginSuccess){
+       getRemoteData();
+    }
+
 
     @Override
     protected void dataObserver() {

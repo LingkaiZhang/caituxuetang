@@ -62,4 +62,11 @@ public interface MusicPlayerManager {
     * */
 
     void setPlaySpeed(float speed);
+
+    /*
+     *获取播放速度
+     *
+     * */
+
+    float getPlaySpeed();
 }

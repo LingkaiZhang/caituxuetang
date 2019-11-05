@@ -26,6 +26,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.yuanin.fuliclub.MainActivity;
 import com.yuanin.fuliclub.R;
+import com.yuanin.fuliclub.config.ParamsValues;
 import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
 import com.yuanin.fuliclub.util.AppUtils;
 import com.yuanin.fuliclub.view.GeneralDialog;
@@ -74,11 +75,12 @@ public class NotificationUtil {
                 //设置标准通知，点击事件
                 PendingIntent playPendingIntent = PendingIntent.getBroadcast(context, Consts.ACTION_PLAY.hashCode(), new Intent(Consts.ACTION_PLAY), PendingIntent.FLAG_UPDATE_CURRENT);
                 contentView.setOnClickPendingIntent(R.id.iv_play, playPendingIntent);
-
+//
 //                Intent intent = new Intent(context, MainActivity.class);
 //                intent.setAction(Consts.ACTION_MUSIC_PLAYER);
 //                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                intent.putExtra("courseKnobbleId", knobbleDetailsInfoVo.getId());
+//                intent.putExtra(ParamsValues.COURSE_IS_BUYED, knobbleDetailsInfoVo.isBuyed());
 //                PendingIntent contentPendingIntent = PendingIntent.getActivity(context, Consts.ACTION_LYRIC.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 

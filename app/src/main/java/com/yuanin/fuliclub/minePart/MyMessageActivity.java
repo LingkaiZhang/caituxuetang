@@ -179,6 +179,14 @@ public class MyMessageActivity extends AbsLifecycleActivity<MyViewModel> impleme
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (mViewModel != null) {
+            mViewModel.getMessageList("1");
+        }
+    }
+
+    @Override
     public void onLoadMore(boolean isLoadMore, int pageIndex) {
         this.isLoadMore = isLoadMore;
         mViewModel.getMessageList(String.valueOf(pageIndex));

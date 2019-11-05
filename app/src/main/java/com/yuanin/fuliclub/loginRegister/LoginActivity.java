@@ -18,11 +18,14 @@ import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.config.ParamsKeys;
 import com.yuanin.fuliclub.config.StaticMembers;
+import com.yuanin.fuliclub.event.LoginSuccess;
 import com.yuanin.fuliclub.util.PhoneNumUtils;
 import com.yuanin.fuliclub.util.SharedPreferencesUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.view.ClearEditText;
 import com.yuanin.fuliclub.view.CountDownTextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
 
@@ -195,6 +198,9 @@ public class LoginActivity extends AbsLifecycleActivity<LoginRegisterViewModel> 
                     StaticMembers.USER_ID = String.valueOf(entity.getData().getUid());
                     StaticMembers.MOBILE = entity.getData().getMobile();
                     StaticMembers.TOKEN = entity.getData().getAccessToken();
+
+                    EventBus.getDefault().post(new LoginSuccess());
+
                     //登陆成功后，跳转主页面
                     if (entity.getData().getSceneCode().equals("LOGIN")) {
                         Intent intent = new Intent(context, MainActivity.class);

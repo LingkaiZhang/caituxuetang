@@ -18,6 +18,8 @@ import com.yuanin.fuliclub.base.BaseListFragment;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.bean.MyCourseListVo;
+import com.yuanin.fuliclub.event.LoginSuccess;
+import com.yuanin.fuliclub.event.NoteSaveSuccess;
 import com.yuanin.fuliclub.event.OnClickKefuEvent;
 import com.yuanin.fuliclub.homePart.HomeRepository;
 import com.yuanin.fuliclub.homePart.HomeViewModel;
@@ -25,6 +27,7 @@ import com.yuanin.fuliclub.homePart.banner.BottomBackgroundVo;
 import com.yuanin.fuliclub.homePart.banner.TypeVo;
 import com.yuanin.fuliclub.learnPart.CourseDetailsLoginActivity;
 import com.yuanin.fuliclub.learnPart.LastLearnVo;
+import com.yuanin.fuliclub.loginRegister.LoginActivity;
 import com.yuanin.fuliclub.minePart.MyViewModel;
 import com.yuanin.fuliclub.minePart.bean.KeFuInfoVo;
 import com.yuanin.fuliclub.minePart.bean.MyMessageListVo;
@@ -94,7 +97,9 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            onRefresh(true);
+            if (mViewModel != null) {
+                questDate();
+            }
         }
     }
 
@@ -191,6 +196,12 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
                 .build();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void setLoginSuccess(LoginSuccess loginSuccess){
+        questDate();
+    }
+
+
     @Override
     protected void getRemoteData() {
 
@@ -198,15 +209,34 @@ public class BuyedFragment extends BaseListFragment<HomeViewModel> implements On
 
         if (StaticMembers.IS_NEED_LOGIN) {
             addItems();
+            mItems.clear();
             mItems.add(0,new LastLearnVo());
             setData();
+//            Intent intent = new Intent(getActivity(), LoginActivity.class);
+//            startActivity(intent);
 
         } else {
             mViewModel.getMessageList("1");
             mViewModel.getLastLearnInfo();
         }
 
+    }
 
+    private void questDate(){
+        mViewModel.getKefuInfo();
+
+        if (StaticMembers.IS_NEED_LOGIN) {
+            addItems();
+            mItems.clear();
+            mItems.add(0,new LastLearnVo());
+            setData();
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
+
+        } else {
+            mViewModel.getMessageList("1");
+            mViewModel.getLastLearnInfo();
+        }
     }
 
     private void addItems() {

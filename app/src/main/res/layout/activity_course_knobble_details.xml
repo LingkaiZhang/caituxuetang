@@ -71,7 +71,7 @@
     </LinearLayout>
 
     <include
-        android:id="@+id/includeTop"
+        android:id="@+id/ll_Play_control"
         layout="@layout/music_paly_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

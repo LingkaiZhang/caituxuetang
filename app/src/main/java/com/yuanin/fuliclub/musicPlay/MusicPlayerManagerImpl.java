@@ -161,6 +161,12 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager, IjkMediaPlaye
         }
     }
 
+    @Override
+    public float getPlaySpeed() {
+        float speed = player.getSpeed(0);
+        return speed;
+    }
+
     private MusicPlayerManagerImpl(Context context) {
         this.context = context;
         player = new IjkMediaPlayer();

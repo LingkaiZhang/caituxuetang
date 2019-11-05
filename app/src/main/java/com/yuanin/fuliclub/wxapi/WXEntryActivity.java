@@ -28,6 +28,7 @@ import com.yuanin.fuliclub.config.ParamsKeys;
 import com.yuanin.fuliclub.config.ParamsValues;
 import com.yuanin.fuliclub.config.StaticMembers;
 
+import com.yuanin.fuliclub.event.LoginSuccess;
 import com.yuanin.fuliclub.loginRegister.BindPhoneActivity;
 import com.yuanin.fuliclub.loginRegister.LoginSuccessEntity;
 import com.yuanin.fuliclub.network.RxSubscriber;
@@ -36,6 +37,7 @@ import com.yuanin.fuliclub.util.LogUtils;
 import com.yuanin.fuliclub.util.SharedPreferencesUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
@@ -195,6 +197,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                                 StaticMembers.USER_ID = String.valueOf(loginSuccessEntityReturnResult.getData().getWxId());
                                 StaticMembers.MOBILE = loginSuccessEntityReturnResult.getData().getMobile();
                                 StaticMembers.TOKEN = loginSuccessEntityReturnResult.getData().getAccessToken();
+                                EventBus.getDefault().post(new LoginSuccess());
                                 //通知MainActivity跳到首页
                                 Intent intent = new Intent(context, MainActivity.class);
                                 startActivity(intent);

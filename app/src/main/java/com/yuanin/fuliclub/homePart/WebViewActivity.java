@@ -21,6 +21,7 @@ import com.yuanin.fuliclub.config.ParamsKeys;
 import com.yuanin.fuliclub.config.ParamsValues;
 import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.config.URL;
+import com.yuanin.fuliclub.event.NoteSaveSuccess;
 import com.yuanin.fuliclub.event.PaySuccessEvent;
 import com.yuanin.fuliclub.event.WorkCommitEvent;
 import com.yuanin.fuliclub.view.ObservableWebView;
@@ -203,6 +204,8 @@ public class WebViewActivity extends AbsLifecycleActivity<HomeViewModel> {
                 //Toast.makeText(WebViewActivity.this, "接受到调用 ", Toast.LENGTH_SHORT).show();
                 if (code.equals("2")) {
                     EventBus.getDefault().post(new WorkCommitEvent());
+                } else if (code.equals("1")){
+                    EventBus.getDefault().post(new NoteSaveSuccess());
                 }
 
                 finish();

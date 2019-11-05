@@ -112,7 +112,17 @@
                 android:text="1倍"
                 android:textSize="12sp"
                 android:textColor="#60ffffff"
-                android:background="@drawable/shape_music_play_speed"/>
+                android:background="@drawable/shape_music_play_speed"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/ivClose"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@mipmap/toast_n"
+                android:visibility="gone"
+                android:layout_marginRight="5dp"/>
 
         </LinearLayout>
 

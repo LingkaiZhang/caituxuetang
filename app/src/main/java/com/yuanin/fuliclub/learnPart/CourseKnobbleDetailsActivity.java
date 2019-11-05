@@ -68,6 +68,8 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     TextView tvEndTime;
     @BindView(R.id.iv_play_control)
     ImageView ivPlayControl;
+    @BindView(R.id.ivClose)
+    ImageView ivClose;
     @BindView(R.id.tvKnobbleName)
     TextView tvKnobbleName;
     @BindView(R.id.tvCourseName)
@@ -76,6 +78,8 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     TextView tvPlaySpeed;
     @BindView(R.id.courseIntro)
     RecyclerView courseIntro;
+    @BindView(R.id.ll_Play_control)
+    LinearLayout ll_Play_control;
 
 
     private KnobbleDetailsInfoVo detailsInfoVo;
@@ -170,6 +174,7 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
             if (returnResult != null) {
                 if (returnResult.isSuccess()) {
                     detailsInfoVo = (KnobbleDetailsInfoVo) returnResult.getData();
+                    detailsInfoVo.setBuyed(isBuy);
 
                     setKnobbleDetails(detailsInfoVo);
 
@@ -204,7 +209,7 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
         courseIntro.setLayoutManager(layoutManager);
     }
 
-    @OnClick({R.id.llWriteNote, R.id.llDoHomeWork, R.id.iv_play_control, R.id.tvPlaySpeed})
+    @OnClick({R.id.llWriteNote, R.id.llDoHomeWork, R.id.iv_play_control, R.id.tvPlaySpeed, R.id.ivClose})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llWriteNote:
@@ -219,11 +224,15 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
 
                 break;
             case R.id.llDoHomeWork:
-                Intent intent2 = new Intent(this, WebViewActivity.class);
-                intent2.putExtra(ParamsKeys.TYPE, ParamsValues.WORK);
-                intent2.putExtra(ParamsKeys.IS_WORK, String.valueOf(detailsInfoVo.getIsWork()));
-                intent2.putExtra(ParamsKeys.KNOBBLE_MLID, detailsInfoVo.getId());
-                startActivity(intent2);
+                if (isBuy) {
+                    Intent intent2 = new Intent(this, WebViewActivity.class);
+                    intent2.putExtra(ParamsKeys.TYPE, ParamsValues.WORK);
+                    intent2.putExtra(ParamsKeys.IS_WORK, String.valueOf(detailsInfoVo.getIsWork()));
+                    intent2.putExtra(ParamsKeys.KNOBBLE_MLID, detailsInfoVo.getId());
+                    startActivity(intent2);
+                }else {
+                    ToastUtils.showToast("请先购买该课程。");
+                }
 
                 break;
             case R.id.iv_play_control:
@@ -237,6 +246,9 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
                         musicPlayerManager.setPlaySpeed(Float.valueOf(speed.substring(0,speed.length() - 1)));
                     }
                 });
+                break;
+            case R.id.ivClose:
+                ll_Play_control.setVisibility(View.GONE);
                 break;
         }
     }
@@ -280,11 +292,16 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     @Override
     public void onPaused(KnobbleDetailsInfoVo data) {
         ivPlayControl.setImageResource(R.drawable.selector_music_play);
+        tvPlaySpeed.setVisibility(View.GONE);
+        ivClose.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onPlaying(KnobbleDetailsInfoVo data) {
         ivPlayControl.setImageResource(R.drawable.selector_music_pause);
+        tvPlaySpeed.setVisibility(View.VISIBLE);
+        ivClose.setVisibility(View.GONE);
+        tvPlaySpeed.setText(String.valueOf(musicPlayerManager.getPlaySpeed()) + "倍");
         currentSong = data;
     }
 

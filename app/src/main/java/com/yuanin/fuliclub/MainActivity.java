@@ -17,6 +17,8 @@ import com.hxb.easynavigition.constant.Anim;
 import com.hxb.easynavigition.view.EasyNavigitionBar;
 import com.mvvm.base.BaseActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.yuanin.fuliclub.base.App;
+import com.yuanin.fuliclub.config.ParamsValues;
 import com.yuanin.fuliclub.fragment.BuyedFragment;
 import com.yuanin.fuliclub.fragment.CourseFragment;
 import com.yuanin.fuliclub.fragment.HomeFragment;
@@ -84,16 +86,21 @@ public class MainActivity extends BaseActivity {
 //    @Override
 //    protected void onNewIntent(Intent intent) {
 //        super.onNewIntent(intent);
+//        App.initBooleanData(getApplicationContext());
 //        processIntent(intent);
 //
 //    }
 //
 //    private void processIntent(Intent intent) {
-//        if (intent.getAction().equals(Consts.ACTION_MUSIC_PLAYER)) {
-//            String courseKnobbleId = getIntent().getStringExtra("courseKnobbleId");
-//            Intent intent1 = new Intent(this, CourseKnobbleDetailsActivity.class);
-//            intent1.putExtra("courseKnobbleId", Integer.valueOf(courseKnobbleId));
-//            startActivity(intent1);
+//        if (intent != null) {
+//            if (intent.getAction().equals(Consts.ACTION_MUSIC_PLAYER)) {
+//                String courseKnobbleId = getIntent().getStringExtra("courseKnobbleId");
+//                boolean isBuy = getIntent().getBooleanExtra(ParamsValues.COURSE_IS_BUYED, false);
+//                Intent intent1 = new Intent(this, CourseKnobbleDetailsActivity.class);
+//                intent1.putExtra("courseKnobbleId", Integer.parseInt(courseKnobbleId));
+//                intent1.putExtra(ParamsValues.COURSE_IS_BUYED, isBuy);
+//                startActivity(intent1);
+//            }
 //        }
 //    }
 

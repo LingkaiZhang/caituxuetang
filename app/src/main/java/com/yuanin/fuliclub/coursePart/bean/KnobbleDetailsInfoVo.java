@@ -62,6 +62,15 @@ public class KnobbleDetailsInfoVo implements Serializable {
     private int isWork;
     private String courseName;
     private String thumbnail;
+    private boolean isBuyed;
+
+    public boolean isBuyed() {
+        return isBuyed;
+    }
+
+    public void setBuyed(boolean buyed) {
+        isBuyed = buyed;
+    }
 
     @Ignore
     private List<String> childDetailList;
