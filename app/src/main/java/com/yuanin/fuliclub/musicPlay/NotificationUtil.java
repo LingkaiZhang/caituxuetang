@@ -48,6 +48,16 @@ public class NotificationUtil {
 
 
     /**
+     * 如果歌词解锁了，需要清除解锁桌面歌词通知栏
+     *
+     * @param context
+     */
+    public static void clearMusicNotification(Context context) {
+        getNotificationManager(context);
+        notificationManager.cancel(NOTIFICATION_MUSIC_ID);
+    }
+
+    /**
      * 显示播放音乐通知栏
      *
      * @param context

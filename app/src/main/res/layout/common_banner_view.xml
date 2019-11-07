@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.yuanin.fuliclub.homePart.itemView.BannerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/banner"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:paddingTop="@dimen/left_margin"
-    android:paddingLeft="@dimen/left_margin"
-    android:paddingRight="15dp"
-    android:focusable="false"
-    android:layout_height="190dp"
-    android:background="@color/white"/>
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="15dp"
+    android:background="@color/white"
+    android:paddingRight="15dp">
+
+    <com.stx.xhb.xbanner.XBanner
+        android:id="@+id/banner"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_marginTop="10dp"
+        app:AutoPlayTime="5000"
+        app:bannerBottomMargin="35dp"
+        app:isAutoPlay="false"
+        app:isClipChildrenMode="true"
+        app:isHandLoop="true"
+        app:isShowIndicatorOnlyOne="false"
+        app:isShowNumberIndicator="false"
+        app:pageChangeDuration="800"
+        app:viewPagerClipChildren="true"
+        app:pointNormal="@drawable/shape_dots_default"
+        app:pointSelect="@drawable/shape_dots_select"
+        app:pointsContainerBackground="@color/transparent"
+        app:pointsPosition="CENTER"
+        />
+
+
+</android.support.constraint.ConstraintLayout>

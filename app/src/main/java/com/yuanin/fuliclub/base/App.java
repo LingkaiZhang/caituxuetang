@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mvvm.http.HttpHelper;
 import com.mvvm.stateview.ErrorState;
 import com.mvvm.stateview.LoadingState;
@@ -95,6 +96,9 @@ public class App extends Application implements ComponentCallbacks2 {
         super.onCreate();
 
         registToWX();
+
+        //Fresco初始化
+        Fresco.initialize(this);
 
         mInstance = this;
 

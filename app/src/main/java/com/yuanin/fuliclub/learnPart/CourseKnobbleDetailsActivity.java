@@ -21,9 +21,11 @@ import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.ReturnResult;
 import com.yuanin.fuliclub.config.ParamsKeys;
 import com.yuanin.fuliclub.config.ParamsValues;
+import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.KnobbleDetailsListAdapter;
 import com.yuanin.fuliclub.coursePart.SelectPlaySpeedDialogFragment;
 import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
+import com.yuanin.fuliclub.event.LoginOutEvent;
 import com.yuanin.fuliclub.event.WechatPayUnusualeEvent;
 import com.yuanin.fuliclub.event.WorkCommitEvent;
 import com.yuanin.fuliclub.homePart.WebViewActivity;
@@ -136,6 +138,7 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
 
     }
 
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void workCommit(WorkCommitEvent workCommitEvent){
         detailsInfoVo.setIsWork(1);
@@ -175,6 +178,7 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
                 if (returnResult.isSuccess()) {
                     detailsInfoVo = (KnobbleDetailsInfoVo) returnResult.getData();
                     detailsInfoVo.setBuyed(isBuy);
+                    detailsInfoVo.setUserId(StaticMembers.USER_ID);
 
                     setKnobbleDetails(detailsInfoVo);
 
@@ -182,7 +186,7 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
                    // detailsInfoVo.setMp3Url("https://fuliketang-test-pub2.oss-cn-shanghai.aliyuncs.com/a1e7d4d2df3b47cf8b219e1c236d313d.mp3");
                     currentSong = this.playListManager.getPlayData();
                     if (currentSong != null) {
-                        if (detailsInfoVo.getId().equals(currentSong.getId())) {
+                        if (detailsInfoVo.getId().equals(currentSong.getId() )) {
                             setInitData(currentSong);
                         } else {
                             playListManager.play(detailsInfoVo);

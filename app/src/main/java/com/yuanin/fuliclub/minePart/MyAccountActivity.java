@@ -19,16 +19,24 @@ import com.wildma.pictureselector.ImageUtils;
 import com.wildma.pictureselector.PictureSelector;
 import com.yuanin.fuliclub.R;
 import com.yuanin.fuliclub.base.ReturnResult;
+import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
+import com.yuanin.fuliclub.event.LoginOutEvent;
 import com.yuanin.fuliclub.loginRegister.BooleanTest;
 import com.yuanin.fuliclub.loginRegister.LoginRegisterRepository;
 import com.yuanin.fuliclub.loginRegister.SmsMessageVerActivity;
 import com.yuanin.fuliclub.minePart.bean.PersonalInfoEntity;
 import com.yuanin.fuliclub.minePart.bean.UpdateFileCallbackEntity;
+import com.yuanin.fuliclub.musicPlay.MusicPlayerManager;
+import com.yuanin.fuliclub.musicPlay.MusicPlayerService;
+import com.yuanin.fuliclub.musicPlay.NotificationUtil;
+import com.yuanin.fuliclub.musicPlay.PlayListManager;
 import com.yuanin.fuliclub.util.AppUtils;
 import com.yuanin.fuliclub.util.PhoneNumUtils;
 import com.yuanin.fuliclub.util.ToastUtils;
 import com.yuanin.fuliclub.view.GeneralDialog;
 
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.ref.WeakReference;
 
@@ -59,6 +67,9 @@ public class MyAccountActivity extends AbsLifecycleActivity<MyViewModel> {
     private boolean isBindWeChat = false;
     private String nickName;
 
+    private MusicPlayerManager musicPlayerManager;
+    private PlayListManager playListManager;
+
     @Override
     protected int getScreenMode() {
         return 0;
@@ -78,6 +89,10 @@ public class MyAccountActivity extends AbsLifecycleActivity<MyViewModel> {
         loadManager.showSuccess();
         titleBar.setBackImageRes(R.drawable.black);
         titleBar.getBackLayout().setOnClickListener(v -> finish());
+
+
+        musicPlayerManager = MusicPlayerService.getMusicPlayerManager(getApplicationContext());
+        playListManager = MusicPlayerService.getPlayListManager(getApplicationContext());
 
         mViewModel.getUserInfo();
     }
@@ -142,6 +157,13 @@ public class MyAccountActivity extends AbsLifecycleActivity<MyViewModel> {
                 }, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                       // EventBus.getDefault().post(new LoginOutEvent());
+                        musicPlayerManager.destroy();
+                      //  playListManager.destroy();
+                        KnobbleDetailsInfoVo playData = playListManager.getPlayData();
+                        playListManager.delete(playData);
+
+                        NotificationUtil.clearMusicNotification(getApplicationContext());
                         AppUtils.exitLogin(MyAccountActivity.this);
                         MyAccountActivity.this.finish();
                     }

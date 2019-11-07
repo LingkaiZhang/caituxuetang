@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.yuanin.fuliclub.config.StaticMembers;
 import com.yuanin.fuliclub.coursePart.bean.KnobbleDetailsInfoVo;
 
 import org.apache.commons.lang3.StringUtils;
@@ -167,7 +168,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
 
     private void init() {
         //初始化的时候从数据库中获取播放列表
-        List<KnobbleDetailsInfoVo> songs = orm.queryPlayList(sp.getUserId());
+        List<KnobbleDetailsInfoVo> songs = orm.queryPlayList(StaticMembers.USER_ID);
         this.datum.clear();
         this.datum.addAll(songs);
 
@@ -248,7 +249,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     private void saveAll(List<KnobbleDetailsInfoVo> datum) {
         //然后在保存当前所有数据
         for (KnobbleDetailsInfoVo song : datum) {
-            orm.saveSong(song, sp.getUserId());
+            orm.saveSong(song, StaticMembers.USER_ID);
         }
     }
 
@@ -302,15 +303,16 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
             //如果删除的是当前播放歌曲，应该停止当前播放，并播放下一首音乐
             pause();
 
-            KnobbleDetailsInfoVo next = next();
-            //只有获取的下一个条目不是自己才进行播放
-            //因为自己要删除
-            if (next.equals(currentSong)) {
-                //没有歌曲可以播放了
-                currentSong = null;
-            } else {
-                play(next);
-            }
+//            KnobbleDetailsInfoVo next = next();
+//            //只有获取的下一个条目不是自己才进行播放
+//            //因为自己要删除
+//            if (next.equals(currentSong)) {
+//                //没有歌曲可以播放了
+//                currentSong = null;
+//            } else {
+//                play(next);
+//            }
+            currentSong = null;
 
             datum.remove(song);
         } else {
@@ -475,7 +477,7 @@ public class PlayListManagerImpl implements PlayListManager, OnMusicPlayerListen
     @Override
     public void onPrepared(IjkMediaPlayer mediaPlayer, final KnobbleDetailsInfoVo data) {
         data.setDuration(mediaPlayer.getDuration());
-        orm.saveSong(data, sp.getUserId());
+        orm.saveSong(data, StaticMembers.USER_ID);
 
 //        //获取歌词
 //        Api.getInstance().songsDetail(data.getId())

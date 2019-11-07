@@ -1,9 +1,11 @@
 package com.yuanin.fuliclub.homePart.banner;
 
+import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
+
 /**
  * @author：tqzhang  on 18/5/8 15:40
  */
-public class BannerVo {
+public class BannerVo extends SimpleBannerInfo {
 
 
     /**
@@ -118,5 +120,16 @@ public class BannerVo {
 
     public void setCreateTime(long createTime) {
         this.createTime = createTime;
+    }
+
+
+    @Override
+    public String getXBannerUrl() {
+        return getPicture();
+    }
+
+    @Override
+    public String getXBannerTitle() {
+        return getTitle();
     }
 }
