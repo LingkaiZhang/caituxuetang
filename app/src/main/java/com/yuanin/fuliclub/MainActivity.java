@@ -83,26 +83,26 @@ public class MainActivity extends BaseActivity {
                 .build();
     }
 
-//    @Override
-//    protected void onNewIntent(Intent intent) {
-//        super.onNewIntent(intent);
-//        App.initBooleanData(getApplicationContext());
-//        processIntent(intent);
-//
-//    }
-//
-//    private void processIntent(Intent intent) {
-//        if (intent != null) {
-//            if (intent.getAction().equals(Consts.ACTION_MUSIC_PLAYER)) {
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        App.initBooleanData(getApplicationContext());
+        processIntent(intent);
+
+    }
+
+    private void processIntent(Intent intent) {
+        if (intent != null && intent.getAction() != null) {
+            if (intent.getAction().equals(Consts.ACTION_MUSIC_PLAYER)) {
 //                String courseKnobbleId = getIntent().getStringExtra("courseKnobbleId");
 //                boolean isBuy = getIntent().getBooleanExtra(ParamsValues.COURSE_IS_BUYED, false);
-//                Intent intent1 = new Intent(this, CourseKnobbleDetailsActivity.class);
+                Intent intent1 = new Intent(this, CourseKnobbleDetailsActivity.class);
 //                intent1.putExtra("courseKnobbleId", Integer.parseInt(courseKnobbleId));
 //                intent1.putExtra(ParamsValues.COURSE_IS_BUYED, isBuy);
-//                startActivity(intent1);
-//            }
-//        }
-//    }
+                startActivity(intent1);
+            }
+        }
+    }
 
 
     @Override

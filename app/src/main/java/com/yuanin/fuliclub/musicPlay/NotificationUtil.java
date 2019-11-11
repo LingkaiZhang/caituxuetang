@@ -85,13 +85,13 @@ public class NotificationUtil {
                 //设置标准通知，点击事件
                 PendingIntent playPendingIntent = PendingIntent.getBroadcast(context, Consts.ACTION_PLAY.hashCode(), new Intent(Consts.ACTION_PLAY), PendingIntent.FLAG_UPDATE_CURRENT);
                 contentView.setOnClickPendingIntent(R.id.iv_play, playPendingIntent);
-//
-//                Intent intent = new Intent(context, MainActivity.class);
-//                intent.setAction(Consts.ACTION_MUSIC_PLAYER);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intent.putExtra("courseKnobbleId", knobbleDetailsInfoVo.getId());
-//                intent.putExtra(ParamsValues.COURSE_IS_BUYED, knobbleDetailsInfoVo.isBuyed());
-//                PendingIntent contentPendingIntent = PendingIntent.getActivity(context, Consts.ACTION_LYRIC.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.setAction(Consts.ACTION_MUSIC_PLAYER);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("courseKnobbleId", knobbleDetailsInfoVo.getId());
+                intent.putExtra(ParamsValues.COURSE_IS_BUYED, knobbleDetailsInfoVo.isBuyed());
+                PendingIntent contentPendingIntent = PendingIntent.getActivity(context, Consts.ACTION_LYRIC.hashCode(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
                 getNotificationManager(context);
@@ -100,8 +100,8 @@ public class NotificationUtil {
                         .setAutoCancel(false)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setCustomContentView(contentView)
-                        .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher));
-//                        .setContentIntent(contentPendingIntent);
+                        .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher))
+                        .setContentIntent(contentPendingIntent);
 
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -110,6 +110,7 @@ public class NotificationUtil {
 //                    channel.setLightColor(Color.GREEN);//小红点颜色
 //                    channel.setShowBadge(false); //是否在久按桌面图标时显示此渠道的通知
                     notificationManager.createNotificationChannel(channel);
+                    builder.setOnlyAlertOnce(true);
                     builder.setChannelId("001");
                 }
 
