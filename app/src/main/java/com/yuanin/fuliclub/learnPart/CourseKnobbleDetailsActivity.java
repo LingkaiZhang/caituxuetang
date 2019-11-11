@@ -131,10 +131,10 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
 
         EventBus.getDefault().register(this);
 
-//        currentSong = this.playListManager.getPlayData();
-//        if (currentSong != null) {
-//            setInitData(currentSong);
-//        }
+        currentSong = this.playListManager.getPlayData();
+        if (currentSong != null) {
+            setInitData(currentSong);
+        }
 
     }
 
@@ -155,6 +155,8 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
         sbProgress.setProgress(sp.getLastSongProgress());
         tvStartTime.setText(TimeUtil.formatMSTime((int) sp.getLastSongProgress()));
         tvEndTime.setText(TimeUtil.formatMSTime((int) data.getDuration()));
+
+        setKnobbleDetails(data);
 
         //rv.setAlbumUri(data.getBanner());
         tvKnobbleName.setText(data.getClassHourName());
@@ -180,20 +182,19 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
                     detailsInfoVo.setBuyed(isBuy);
                     detailsInfoVo.setUserId(StaticMembers.USER_ID);
 
-                    setKnobbleDetails(detailsInfoVo);
-
                     //TODO 设置数据
                    // detailsInfoVo.setMp3Url("https://fuliketang-test-pub2.oss-cn-shanghai.aliyuncs.com/a1e7d4d2df3b47cf8b219e1c236d313d.mp3");
                     currentSong = this.playListManager.getPlayData();
-                    if (currentSong != null) {
+                    if (currentSong != null && detailsInfoVo.getId() != null) {
                         if (detailsInfoVo.getId().equals(currentSong.getId() )) {
                             setInitData(currentSong);
                         } else {
                             playListManager.play(detailsInfoVo);
                             //playListManager.pause();
                         }
-                    } else {
+                    } else if (detailsInfoVo.getId() != null){
                         playListManager.play(detailsInfoVo);
+                        setKnobbleDetails(detailsInfoVo);
                         //playListManager.pause();
                     }
 
@@ -217,7 +218,7 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llWriteNote:
-                if (isBuy) {
+                if (currentSong.isBuyed()) {
                     Intent intent = new Intent(this, WebViewActivity.class);
                     intent.putExtra(ParamsKeys.TYPE, ParamsValues.NOTE);
                     intent.putExtra(ParamsKeys.KNOBBLE_MLID, detailsInfoVo.getId());
@@ -228,7 +229,7 @@ public class CourseKnobbleDetailsActivity extends AbsLifecycleActivity<CourseVie
 
                 break;
             case R.id.llDoHomeWork:
-                if (isBuy) {
+                if (currentSong.isBuyed()) {
                     Intent intent2 = new Intent(this, WebViewActivity.class);
                     intent2.putExtra(ParamsKeys.TYPE, ParamsValues.WORK);
                     intent2.putExtra(ParamsKeys.IS_WORK, String.valueOf(detailsInfoVo.getIsWork()));

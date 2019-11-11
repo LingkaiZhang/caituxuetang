@@ -69,6 +69,7 @@ public class MusicPlayerManagerImpl implements MusicPlayerManager, IjkMediaPlaye
             player.reset();
             player.setDataSource(uri);
             player.prepareAsync();
+            player.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "soundtouch", 1);
             player.start();
 
             handler.obtainMessage(MSG_PLAYING).sendToTarget();
