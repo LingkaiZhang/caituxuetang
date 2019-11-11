@@ -161,8 +161,9 @@ public class MyAccountActivity extends AbsLifecycleActivity<MyViewModel> {
                         musicPlayerManager.destroy();
                       //  playListManager.destroy();
                         KnobbleDetailsInfoVo playData = playListManager.getPlayData();
-                        playListManager.delete(playData);
-
+                        if (playData != null) {
+                            playListManager.delete(playData);
+                        }
                         NotificationUtil.clearMusicNotification(getApplicationContext());
                         AppUtils.exitLogin(MyAccountActivity.this);
                         MyAccountActivity.this.finish();
